@@ -2,6 +2,11 @@
 
 apply from: "variables.gradle"
 
+// Fallbacks to avoid missing extra properties during evaluation
+if (!rootProject.ext.has('kotlinVersion')) { rootProject.ext.set('kotlinVersion', '1.9.25') }
+if (!rootProject.ext.has('kotlinBomVersion')) { rootProject.ext.set('kotlinBomVersion', '1.9.25') }
+if (!rootProject.ext.has('kotlinStdlibVersion')) { rootProject.ext.set('kotlinStdlibVersion', '1.9.25') }
+
 buildscript {
     
     repositories {
