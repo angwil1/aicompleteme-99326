@@ -1,0 +1,655 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* AI Dating - Modern neutral background */
+    --background: 240 8% 96%;
+    --foreground: 240 12% 15%;
+
+    /* Card colors - clean modern */
+    --card: 240 8% 98%;
+    --card-foreground: 240 12% 15%;
+
+    --popover: 240 8% 98%;
+    --popover-foreground: 240 12% 15%;
+
+    /* Primary: Deep purple-blue for AI tech sophistication */
+    --primary: 250 40% 35%;
+    --primary-foreground: 240 8% 96%;
+    --primary-glow: 250 40% 55%;
+
+    /* Secondary: Warm coral for romance/connection */
+    --secondary: 15 75% 80%;
+    --secondary-foreground: 240 12% 20%;
+
+    /* Muted: Neutral grays */
+    --muted: 240 8% 90%;
+    --muted-foreground: 240 6% 45%;
+
+    /* Accent: Vibrant purple for AI highlights */
+    --accent: 260 60% 60%;
+    --accent-foreground: 240 8% 96%;
+
+    /* Destructive: Modern red */
+    --destructive: 5 75% 60%;
+    --destructive-foreground: 240 8% 96%;
+
+    /* Borders and inputs */
+    --border: 240 8% 85%;
+    --input: 240 8% 90%;
+    --ring: 250 40% 45%;
+
+    --radius: 0.75rem;
+
+    /* Refined Quiet Start colors - exact specifications */
+    --soft-blush: 25 50% 97%;
+    --gold: 42 62% 57%;
+    --gold-light: 45 89% 70%;
+    --gold-dark: 42 55% 47%;
+    --deep-brown: 15 26% 24%;
+    --alt-offer-brown: 15 20% 24%; /* #3c2f2f equivalent in HSL */
+    --gold-gradient: linear-gradient(135deg, hsl(42 62% 57%) 0%, hsl(45 89% 70%) 100%);
+    --quiet-start-bg: 25 50% 97%;
+    
+    /* Soft gradient colors for elegant Quiet Start */
+    --hydrangea-mist: 264 20% 95%;
+    --sunflower-blush: 45 100% 96%;
+    
+    /* AI Dating gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(250 40% 35%), hsl(260 50% 50%));
+    --gradient-secondary: linear-gradient(135deg, hsl(15 75% 80%), hsl(25 70% 75%));
+    --gradient-hero: linear-gradient(135deg, hsl(250 40% 35%) 0%, hsl(260 50% 50%) 30%, hsl(15 75% 70%) 100%);
+    --gradient-launch: linear-gradient(135deg, hsl(250 40% 30%) 0%, hsl(260 60% 55%) 50%, hsl(15 75% 65%) 100%);
+    
+    /* Emotionally aligned gradients */
+    --gradient-sunflower-blush: linear-gradient(135deg, hsl(45 85% 92%) 0%, hsl(35 75% 88%) 50%, hsl(20 65% 90%) 100%);
+    --gradient-hydrangea-mist: linear-gradient(135deg, hsl(250 25% 95%) 0%, hsl(240 30% 92%) 50%, hsl(220 35% 94%) 100%);
+    
+    /* Modern shadows */
+    --shadow-primary: 0 10px 30px -10px hsl(250 40% 35% / 0.25);
+    --shadow-secondary: 0 4px 20px -4px hsl(240 8% 70% / 0.15);
+    --shadow-launch: 0 10px 30px -10px hsl(260 60% 60% / 0.3);
+
+    /* Sidebar colors */
+    --sidebar-background: 240 8% 96%;
+    --sidebar-foreground: 240 12% 15%;
+    --sidebar-primary: 250 40% 35%;
+    --sidebar-primary-foreground: 240 8% 96%;
+    --sidebar-accent: 15 75% 80%;
+    --sidebar-accent-foreground: 240 12% 20%;
+    --sidebar-border: 240 8% 85%;
+    --sidebar-ring: 250 40% 45%;
+}
+
+/* Mobile-specific styles */
+.keyboard-open {
+  padding-bottom: 0;
+}
+
+/* Safe area handling for mobile */
+body {
+  padding-top: env(safe-area-inset-top, 0);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  padding-left: env(safe-area-inset-left, 0);
+  padding-right: env(safe-area-inset-right, 0);
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
+}
+
+/* Android platform fixes */
+.android-platform {
+  background-color: hsl(var(--background)) !important;
+}
+
+.android-platform body {
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Android-specific optimizations */
+@media (max-width: 768px) {
+  /* Minimum touch target size for Android */
+  button, .button, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better mobile spacing */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Mobile-first text sizes */
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    line-height: 1.1;
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(1rem, 4vw, 1.25rem);
+  }
+  
+  /* Better mobile cards */
+  .mobile-card {
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Touch-friendly interactive elements */
+  .touch-target {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    transition: all 0.2s ease;
+  }
+  
+  .touch-target:active {
+    transform: scale(0.98);
+  }
+  
+  /* Universal image optimization for all mobile devices */
+  .hero-image {
+    object-position: center center !important;
+    object-fit: cover !important;
+  }
+  
+  /* Responsive profile images */
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    aspect-ratio: 3/4;
+  }
+}
+
+/* Responsive image utilities for all devices */
+.responsive-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.profile-image-container {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--secondary) / 0.1));
+}
+
+.hero-image-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-image-container img {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Consistent aspect ratios across breakpoints */
+@media (max-width: 640px) {
+  .carousel-image {
+    height: 12rem; /* h-48 */
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .carousel-image {
+    height: 16rem; /* h-64 */
+  }
+}
+
+@media (min-width: 769px) {
+  .carousel-image {
+    height: 20rem; /* h-80 */
+  }
+}
+
+/* iOS-specific optimizations */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari specific styles */
+  body {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  /* iOS safe area handling */
+  .ios-safe-area {
+    padding-top: max(env(safe-area-inset-top), 1rem);
+    padding-bottom: max(env(safe-area-inset-bottom), 1rem);
+  }
+  
+  /* Prevent iOS zoom on input focus */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+  .dark {
+    /* AI Dating Dark Mode */
+    --background: 240 12% 8%;
+    --foreground: 240 8% 95%;
+
+    --card: 240 12% 12%;
+    --card-foreground: 240 8% 95%;
+
+    --popover: 240 12% 12%;
+    --popover-foreground: 240 8% 95%;
+
+    /* Primary: Brighter purple for dark mode */
+    --primary: 250 50% 65%;
+    --primary-foreground: 240 12% 8%;
+    --primary-glow: 250 50% 75%;
+
+    /* Secondary: Muted coral for dark mode */
+    --secondary: 15 60% 30%;
+    --secondary-foreground: 240 8% 95%;
+
+    /* Muted: Dark grays */
+    --muted: 240 12% 18%;
+    --muted-foreground: 240 8% 70%;
+
+    /* Accent: Bright purple for dark mode */
+    --accent: 260 70% 70%;
+    --accent-foreground: 240 12% 8%;
+
+    /* Destructive: Bright red for dark mode */
+    --destructive: 5 70% 65%;
+    --destructive-foreground: 240 8% 95%;
+
+    /* Dark borders */
+    --border: 240 12% 18%;
+    --input: 240 12% 18%;
+    --ring: 250 50% 65%;
+
+    /* AI Dating dark gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(250 50% 65%), hsl(260 60% 70%));
+    --gradient-secondary: linear-gradient(135deg, hsl(240 12% 18%), hsl(15 40% 25%));
+    --gradient-hero: linear-gradient(135deg, hsl(250 50% 65%) 0%, hsl(260 60% 70%) 30%, hsl(15 60% 60%) 100%);
+
+    /* Dark sidebar colors */
+    --sidebar-background: 240 12% 8%;
+    --sidebar-foreground: 240 8% 95%;
+    --sidebar-primary: 250 50% 65%;
+    --sidebar-primary-foreground: 240 12% 8%;
+    --sidebar-accent: 240 12% 18%;
+    --sidebar-accent-foreground: 240 8% 95%;
+    --sidebar-border: 240 12% 18%;
+    --sidebar-ring: 250 50% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* Animation classes for mobile compatibility */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+  
+  .animate-fade-in-delayed {
+    animation: fadeInDelayed 0.8s ease-in-out;
+    animation-fill-mode: both;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes fadeInDelayed {
+    0%, 80% { 
+      opacity: 0; 
+      transform: translateY(20px); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+  
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  /* Heartbeat shimmer animation for Quiet Start button */
+  @keyframes heartbeat-shimmer {
+    0%, 100% {
+      box-shadow: 0 0 0 0 hsl(var(--gold) / 0.4);
+      border-color: hsl(var(--gold) / 0.7);
+    }
+    50% {
+      box-shadow: 0 0 0 8px hsl(var(--gold) / 0.1);
+      border-color: hsl(var(--gold) / 1);
+    }
+  }
+
+  .heartbeat-shimmer {
+    animation: heartbeat-shimmer 2.5s ease-in-out infinite;
+  }
+  
+              /* Quiet Start keepsake styles - refined visual treatment */
+              .quiet-start-card {
+                background: transparent;
+                border: none;
+                box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+              }
+              
+              .keepsake-heading {
+                font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+                letter-spacing: 0.02em;
+                color: hsl(var(--deep-brown));
+              }
+              
+              .keepsake-text {
+                color: hsl(15 26% 24% / 0.8);
+              }
+              
+              .keepsake-button {
+                background: hsl(var(--quiet-start-bg));
+                border: 2px solid hsl(var(--gold) / 0.7);
+                color: hsl(var(--deep-brown));
+                transition: all 0.3s ease;
+              }
+              
+              .keepsake-button:hover {
+                background: hsl(var(--gold) / 0.1);
+                border-color: hsl(var(--gold));
+                box-shadow: 0 0 20px hsl(var(--gold) / 0.3);
+              }
+              
+              .keepsake-heart {
+                color: hsl(var(--gold));
+              }
+              
+              .keepsake-progress {
+                background: hsl(var(--gold) / 0.2);
+              }
+              
+              .keepsake-counter {
+                animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+              }
+              
+              .keepsake-preview {
+                background: linear-gradient(145deg, hsl(var(--quiet-start-bg)) 0%, hsl(45 50% 93%) 100%);
+                border: 1px solid hsl(var(--gold) / 0.3);
+                border-radius: 12px;
+                padding: 1rem;
+                margin: 1.5rem 0;
+              }
+              
+              .offer-box {
+                background: hsl(var(--quiet-start-bg));
+                border: 2px solid hsl(var(--gold) / 0.4);
+                box-shadow: 0 8px 32px hsl(var(--gold) / 0.1);
+                border-radius: 16px;
+              }
+
+              /* Elegant Quiet Start styles */
+              .quiet-start-elegant {
+                background: linear-gradient(135deg, 
+                  hsl(var(--hydrangea-mist)) 0%, 
+                  hsl(var(--sunflower-blush)) 50%,
+                  hsl(var(--background)) 100%);
+                border: 1px solid hsl(var(--border) / 0.3);
+                box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.1);
+              }
+
+              /* Floating overlay styles - less intrusive */
+              .quiet-start-floating {
+                background: linear-gradient(135deg, 
+                  hsl(var(--background) / 0.95) 0%, 
+                  hsl(var(--muted) / 0.9) 100%);
+                border: 1px solid hsl(var(--border) / 0.4);
+                box-shadow: 0 15px 40px -5px rgba(0, 0, 0, 0.15);
+                backdrop-filter: blur(12px);
+              }
+
+              .quiet-start-offer-compact {
+                background: linear-gradient(145deg, 
+                  hsl(var(--background) / 0.6) 0%, 
+                  hsl(var(--muted) / 0.2) 100%);
+                border: 1px solid hsl(var(--border) / 0.2);
+                border-radius: 16px;
+                padding: 1.25rem;
+                backdrop-filter: blur(8px);
+              }
+
+              .quiet-start-button-subtle {
+                background: linear-gradient(135deg, 
+                  hsl(var(--primary) / 0.8) 0%, 
+                  hsl(var(--primary) / 0.6) 100%);
+                border: 1px solid hsl(var(--primary) / 0.3);
+                color: hsl(var(--primary-foreground));
+                border-radius: 10px;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              }
+
+              .quiet-start-button-subtle:hover {
+                background: linear-gradient(135deg, 
+                  hsl(var(--primary) / 0.9) 0%, 
+                  hsl(var(--primary) / 0.7) 100%);
+                box-shadow: 0 6px 20px -3px hsl(var(--primary) / 0.3);
+                transform: translateY(-1px);
+              }
+
+              .quiet-start-progress-minimal {
+                background: hsl(var(--muted) / 0.4);
+                border-radius: 8px;
+              }
+
+              .quiet-start-progress-minimal > div {
+                background: linear-gradient(90deg, 
+                  hsl(var(--primary) / 0.6) 0%, 
+                  hsl(var(--primary) / 0.8) 100%);
+                border-radius: 8px;
+              }
+
+              /* Hero section styles for split layout */
+              .hero-quiet-start-card {
+                background: linear-gradient(145deg, 
+                  hsl(var(--muted) / 0.3) 0%, 
+                  hsl(var(--background) / 0.8) 100%);
+                border: 1px solid hsl(var(--border) / 0.3);
+                border-radius: 20px;
+                padding: 2rem;
+                backdrop-filter: blur(8px);
+              }
+
+              /* Mobile-specific hero adjustments */
+              @media (max-width: 768px) {
+                .hero-quiet-start-card {
+                  border-radius: 16px;
+                  padding: 1.5rem;
+                  margin: 1rem;
+                }
+              }
+
+              @media (max-width: 640px) {
+                .hero-quiet-start-card {
+                  border-radius: 12px;
+                  padding: 1.25rem;
+                  margin: 0.75rem;
+                }
+              }
+
+              .hero-progress {
+                background: hsl(var(--muted) / 0.4);
+                border-radius: 10px;
+              }
+
+              .hero-progress > div {
+                background: linear-gradient(90deg, 
+                  hsl(var(--primary) / 0.7) 0%, 
+                  hsl(var(--primary)) 100%);
+                border-radius: 10px;
+              }
+
+              .hero-cta-button {
+                background: linear-gradient(135deg, 
+                  hsl(var(--primary)) 0%, 
+                  hsl(var(--primary) / 0.9) 100%);
+                border: 1px solid hsl(var(--primary) / 0.3);
+                color: hsl(var(--primary-foreground));
+                border-radius: 12px;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              }
+
+              .hero-cta-button:hover {
+                background: linear-gradient(135deg, 
+                  hsl(var(--primary) / 1.1) 0%, 
+                  hsl(var(--primary)) 100%);
+                box-shadow: 0 10px 30px -5px hsl(var(--primary) / 0.4);
+                transform: translateY(-2px);
+              }
+              
+              /* Mobile hero responsive styles */
+              @media (max-width: 1024px) {
+                .hero-cta-button:hover {
+                  transform: translateY(-1px);
+                  box-shadow: 0 6px 20px -3px hsl(var(--primary) / 0.3);
+                }
+              }
+              
+              @media (max-width: 640px) {
+                .hero-cta-button {
+                  font-size: 0.875rem;
+                  padding: 0.75rem 1.5rem;
+                }
+                
+                .hero-cta-button:hover {
+                  transform: none;
+                  box-shadow: 0 4px 15px -2px hsl(var(--primary) / 0.25);
+                }
+              }
+
+              .quiet-start-offer-gentle {
+                background: linear-gradient(145deg, 
+                  hsl(var(--background) / 0.8) 0%, 
+                  hsl(var(--muted) / 0.3) 100%);
+                border: 1px solid hsl(var(--border) / 0.2);
+                border-radius: 20px;
+                padding: 2rem;
+                backdrop-filter: blur(10px);
+              }
+
+              .quiet-start-button-gentle {
+                background: linear-gradient(135deg, 
+                  hsl(var(--primary) / 0.9) 0%, 
+                  hsl(var(--primary) / 0.7) 100%);
+                border: 1px solid hsl(var(--primary) / 0.3);
+                color: hsl(var(--primary-foreground));
+                border-radius: 12px;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              }
+
+              .quiet-start-button-gentle:hover {
+                background: linear-gradient(135deg, 
+                  hsl(var(--primary)) 0%, 
+                  hsl(var(--primary) / 0.9) 100%);
+                box-shadow: 0 8px 25px -5px hsl(var(--primary) / 0.3);
+                transform: translateY(-1px);
+              }
+
+              .quiet-start-progress-gentle {
+                background: hsl(var(--muted) / 0.5);
+                border-radius: 10px;
+              }
+
+              .quiet-start-progress-gentle > div {
+                background: linear-gradient(90deg, 
+                  hsl(var(--primary) / 0.7) 0%, 
+                  hsl(var(--primary)) 100%);
+                border-radius: 10px;
+              }
+              
+              /* Responsive Typography */
+              @media (min-width: 768px) {
+                .keepsake-heading {
+                  line-height: 1.2;
+                  letter-spacing: 0.03em;
+                }
+                
+                .keepsake-tagline {
+                  font-size: 1.375rem;
+                  line-height: 1.3;
+                }
+              }
+              
+              @media (min-width: 1024px) {
+                .keepsake-heading {
+                  line-height: 1.1;
+                  letter-spacing: 0.04em;
+                }
+                
+                .keepsake-tagline {
+                  font-size: 1.5rem;
+                  line-height: 1.25;
+                }
+              }
+              
+              .heart-accent {
+                color: hsl(var(--gold-dark));
+                filter: drop-shadow(0 2px 4px hsl(var(--gold) / 0.2));
+              }
+              
+              .shimmer-button {
+                position: relative;
+                overflow: hidden;
+              }
+              
+              .shimmer-button::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, hsl(var(--gold-light) / 0.3), transparent);
+                transition: left 0.6s ease;
+              }
+              
+              .shimmer-button:hover::before {
+                left: 100%;
+              }
+              
+              /* Button hover gold accent */
+              .btn-gold-hover:hover {
+                background: var(--gold-gradient);
+                border-color: hsl(var(--gold-light));
+                color: hsl(var(--primary-foreground));
+              }
+              
+              /* Gold badge styles */
+              .gold-badge {
+                background: var(--gold-gradient);
+                color: hsl(var(--primary-foreground));
+              }
+}
