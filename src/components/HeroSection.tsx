@@ -36,7 +36,7 @@ const heroPositionsDesktop = [
   'center 40%', // young romantic 2
   'center 35%', // young romantic 3
   'center 35%', // young romantic 4
-  'center 30%', // young black beach couple
+  'center 25%', // young black beach couple - optimized for desktop
   'center 6%',  // hero mobile lgbtq 1 - optimal head visibility
   'center 10%',  // hispanic romantic - adjusted for composition
 ];
@@ -46,7 +46,7 @@ const heroPositionsMobile = [
   'center 40%', // young romantic 2
   'center 35%', // young romantic 3
   'center 35%', // young romantic 4
-  'center 30%', // young black beach couple
+  'center 28%', // young black beach couple - optimized for mobile
   'center 12%', // hero mobile lgbtq 1 - mobile optimized
   'center 18%', // hispanic romantic - mobile adjusted
 ];
