@@ -13,29 +13,32 @@ import coupleHeroOptimized from '@/assets/couple-hero-optimized.jpg';
 import coupleAmbientClear from '@/assets/couple-ambient-clear.jpg';
 import coupleHeroMobileLgbtq1 from '@/assets/couple-hero-mobile-lgbtq-1.jpg';
 import coupleLgbtqHispanicRomantic from '@/assets/couple-hero-mobile-lgbtq-hispanic-romantic.jpg';
+import coupleYoungRomantic1 from '@/assets/couple-young-romantic-1.jpg';
+import coupleYoungRomantic2 from '@/assets/couple-young-romantic-2.jpg';
+import coupleYoungRomantic3 from '@/assets/couple-young-romantic-3.jpg';
 
 // Original rotating background images
 const heroImages = [
-  coupleHeroCoolTones,
-  coupleHeroOptimized, 
-  coupleAmbientClear,
+  coupleYoungRomantic1,
+  coupleYoungRomantic2,
+  coupleYoungRomantic3,
   coupleHeroMobileLgbtq1,
   coupleLgbtqHispanicRomantic
 ];
 
 // Per-image focal points optimized for both desktop and mobile
 const heroPositionsDesktop = [
-  'center 8%', // hero cool tones - adjusted for better head positioning
-  'center 0%',  // optimized (nose-touching) - keep at top
-  'center 5%', // ambient clear couple - centered positioning
+  'center 35%', // young romantic 1
+  'center 40%', // young romantic 2
+  'center 35%', // young romantic 3
   'center 6%',  // hero mobile lgbtq 1 - optimal head visibility
   'center 10%',  // hispanic romantic - adjusted for composition
 ];
 
 const heroPositionsMobile = [
-  'center 15%', // hero cool tones - better mobile framing
-  'center 0%', // optimized – keep at absolute top
-  'center 20%', // ambient clear couple - better mobile crop
+  'center 35%', // young romantic 1
+  'center 40%', // young romantic 2
+  'center 35%', // young romantic 3
   'center 12%', // hero mobile lgbtq 1 - mobile optimized
   'center 18%', // hispanic romantic - mobile adjusted
 ];
