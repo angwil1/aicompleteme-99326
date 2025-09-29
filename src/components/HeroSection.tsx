@@ -16,12 +16,14 @@ import coupleLgbtqHispanicRomantic from '@/assets/couple-hero-mobile-lgbtq-hispa
 import coupleYoungRomantic1 from '@/assets/couple-young-romantic-1.jpg';
 import coupleYoungRomantic2 from '@/assets/couple-young-romantic-2.jpg';
 import coupleYoungRomantic3 from '@/assets/couple-young-romantic-3.jpg';
+import coupleYoungRomantic4 from '@/assets/couple-young-romantic-4.jpg';
 
 // Original rotating background images
 const heroImages = [
   coupleYoungRomantic1,
   coupleYoungRomantic2,
   coupleYoungRomantic3,
+  coupleYoungRomantic4,
   coupleHeroMobileLgbtq1,
   coupleLgbtqHispanicRomantic
 ];
@@ -31,6 +33,7 @@ const heroPositionsDesktop = [
   'center 35%', // young romantic 1
   'center 40%', // young romantic 2
   'center 35%', // young romantic 3
+  'center 35%', // young romantic 4
   'center 6%',  // hero mobile lgbtq 1 - optimal head visibility
   'center 10%',  // hispanic romantic - adjusted for composition
 ];
@@ -39,6 +42,7 @@ const heroPositionsMobile = [
   'center 35%', // young romantic 1
   'center 40%', // young romantic 2
   'center 35%', // young romantic 3
+  'center 35%', // young romantic 4
   'center 12%', // hero mobile lgbtq 1 - mobile optimized
   'center 18%', // hispanic romantic - mobile adjusted
 ];
