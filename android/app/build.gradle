@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+// Ensure Kotlin version fallbacks exist even if root ext not populated yet
+if (!rootProject.ext.has('kotlinVersion')) { rootProject.ext.set('kotlinVersion', '1.9.25') }
+if (!rootProject.ext.has('kotlinBomVersion')) { rootProject.ext.set('kotlinBomVersion', '1.9.25') }
+if (!rootProject.ext.has('kotlinStdlibVersion')) { rootProject.ext.set('kotlinStdlibVersion', '1.9.25') }
+
+
 android {
     namespace "com.aicompleteme.app"
     compileSdkVersion rootProject.ext.compileSdkVersion
