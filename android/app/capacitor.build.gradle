@@ -1,0 +1,5 @@
+apply from: 'capacitor.build.gradle'
+
+dependencies {
+    implementation project(':capacitor-android')
+}
