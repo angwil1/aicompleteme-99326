@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.aicompleteme.app',
+  appId: 'com.aicompleteme.dating',
   appName: 'AI Complete Me',
   webDir: 'dist',
   // No server config - forces local bundle loading

@@ -1,4 +1,4 @@
-package com.aicompleteme.app;
+package com.aicompleteme.dating;
 
 import com.getcapacitor.BridgeActivity;
 

@@ -13,7 +13,7 @@ if (!rootProject.ext.has('kotlinStdlibVersion')) { rootProject.ext.set('kotlinSt
 
 
 android {
-    namespace "com.aicompleteme.app"
+    namespace "com.aicompleteme.dating"
     compileSdkVersion rootProject.ext.compileSdkVersion
     
     signingConfigs {
@@ -28,7 +28,7 @@ android {
     }
     
     defaultConfig {
-        applicationId "com.aicompleteme.app"
+        applicationId "com.aicompleteme.dating"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 3
