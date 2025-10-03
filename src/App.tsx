@@ -41,6 +41,7 @@ import CookieStatement from "./pages/CookieStatement";
 import AccessibilityStatement from "./pages/AccessibilityStatement";
 import FeatureTest from "./pages/FeatureTest";
 import SafetyCenter from "./pages/SafetyCenter";
+import DeleteAccount from "./pages/DeleteAccount";
 import SampleUserProfile from "./pages/SampleUserProfile";
 import TestQuietStart from "./pages/TestQuietStart";
 import TestSubscriptionFeatures from "./pages/TestSubscriptionFeatures";
@@ -253,6 +254,7 @@ const App = () => {
               <Route path="/test-subscription-features" element={<TestSubscriptionFeatures />} />
               <Route path="/dating-tips" element={<DatingTips />} />
               <Route path="/safety" element={<SafetyCenter />} />
+              <Route path="/delete-account" element={<DeleteAccount />} />
               <Route path="/sample-user-profile/:profileId" element={<SampleUserProfile />} />
               <Route path="/." element={<Navigate to="/" replace />} />
               <Route path="*" element={<NotFound />} />
