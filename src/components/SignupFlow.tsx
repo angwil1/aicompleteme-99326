@@ -652,7 +652,7 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
                     <SelectItem value="women">Women</SelectItem>
                     <SelectItem value="men">Men</SelectItem>
                     <SelectItem value="nonbinary">Nonbinary people</SelectItem>
-                    <SelectItem value="trans">Trans folks</SelectItem>
+                    <SelectItem value="trans">Trans gender</SelectItem>
                     <SelectItem value="all-genders">All genders / Anyone</SelectItem>
                     <SelectItem value="self-describe">I'd like to self-describe</SelectItem>
                     <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
