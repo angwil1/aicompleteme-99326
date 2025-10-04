@@ -1,7 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Shield, AlertTriangle } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Shield, AlertTriangle, Calendar } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { PrivacyNote } from '@/components/PrivacyNote';
 
 interface AgeGateProps {
   onAgeConfirmed: () => void;
@@ -9,29 +13,70 @@ interface AgeGateProps {
 
 export const AgeGate = ({ onAgeConfirmed }: AgeGateProps) => {
   const [showExitWarning, setShowExitWarning] = useState(false);
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [isVerifying, setIsVerifying] = useState(false);
+  const { toast } = useToast();
 
-  const handleConfirmAge = () => {
-    console.log('🔞 Age confirmed - storing in localStorage and sessionStorage');
-    try {
-      // Store age confirmation in both localStorage and sessionStorage
-      localStorage.setItem('ageConfirmed', 'true');
-      localStorage.setItem('ageConfirmedDate', new Date().toISOString());
-      sessionStorage.setItem('signupAgeVerified', 'true');
-      console.log('✅ Age confirmation stored successfully');
-      onAgeConfirmed();
-    } catch (error) {
-      console.error('❌ Failed to store age confirmation:', error);
-      // Still proceed - don't block user
-      onAgeConfirmed();
+  const calculateAge = (birthDate: string): number => {
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
     }
+    
+    return age;
   };
 
-  const handleUnderage = () => {
-    setShowExitWarning(true);
-    // Redirect away from the site after showing warning
-    setTimeout(() => {
-      window.location.href = 'https://www.google.com';
-    }, 3000);
+  const handleVerifyAge = () => {
+    if (!dateOfBirth) {
+      toast({
+        title: "Date of birth required",
+        description: "Please enter your date of birth to continue.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsVerifying(true);
+    const age = calculateAge(dateOfBirth);
+
+    if (age < 18) {
+      setIsVerifying(false);
+      setShowExitWarning(true);
+      setTimeout(() => {
+        window.location.href = 'https://www.google.com';
+      }, 3000);
+      return;
+    }
+
+    console.log('🔞 Age verified - storing in localStorage and sessionStorage');
+    try {
+      localStorage.setItem('ageConfirmed', 'true');
+      localStorage.setItem('ageConfirmedDate', new Date().toISOString());
+      localStorage.setItem('userDateOfBirth', dateOfBirth);
+      sessionStorage.setItem('signupAgeVerified', 'true');
+      console.log('✅ Age verification stored successfully');
+      
+      toast({
+        title: "Age verified",
+        description: "Welcome! You can now access the platform.",
+      });
+
+      setTimeout(() => {
+        onAgeConfirmed();
+      }, 500);
+    } catch (error) {
+      console.error('❌ Failed to store age verification:', error);
+      setIsVerifying(false);
+      toast({
+        title: "Verification error",
+        description: "There was an issue verifying your age. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   if (showExitWarning) {
@@ -76,33 +121,36 @@ export const AgeGate = ({ onAgeConfirmed }: AgeGateProps) => {
             </p>
           </div>
 
-          <div className="text-center space-y-3 sm:space-y-4">
-            <p className="text-base sm:text-lg font-semibold text-foreground leading-tight">
-              Are you 18 years of age or older?
-            </p>
-            
-            <div className="flex flex-col gap-2 w-full">
-              <Button 
-                onClick={handleConfirmAge}
-                size="sm"
-                className="w-full bg-green-600 hover:bg-green-700 text-white h-8 px-2 text-xs leading-snug whitespace-normal break-words hover:scale-100 active:scale-100"
-              >
-                I'm 18+
-              </Button>
-              <Button 
-                onClick={handleUnderage}
-                variant="destructive"
-                size="sm"
-                className="w-full h-8 px-2 text-xs leading-snug whitespace-normal break-words hover:scale-100 active:scale-100"
-              >
-                Under 18
-              </Button>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="dob" className="text-sm font-medium flex items-center gap-2">
+                <Calendar className="h-4 w-4" />
+                Enter Your Date of Birth
+              </Label>
+              <Input
+                id="dob"
+                type="date"
+                value={dateOfBirth}
+                onChange={(e) => setDateOfBirth(e.target.value)}
+                max={new Date().toISOString().split('T')[0]}
+                className="w-full"
+                placeholder="MM/DD/YYYY"
+              />
+              <PrivacyNote type="age" className="text-xs mt-1" />
             </div>
+
+            <Button 
+              onClick={handleVerifyAge}
+              disabled={isVerifying || !dateOfBirth}
+              className="w-full"
+            >
+              {isVerifying ? 'Verifying...' : 'Verify Age & Continue'}
+            </Button>
           </div>
 
           <div className="text-center space-y-3">
             <p className="text-xs text-muted-foreground leading-relaxed px-2">
-              By clicking "Yes", you confirm that you are at least 18 years old and legally permitted to view adult content in your jurisdiction.
+              By continuing, you confirm that you are at least 18 years old and legally permitted to view adult content in your jurisdiction.
             </p>
             <div className="flex flex-wrap justify-center gap-3 sm:gap-4 text-xs">
               <a href="/privacy" className="text-primary hover:underline transition-colors">
