@@ -26,6 +26,7 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [lookingFor, setLookingFor] = useState('');
+  const [genderIdentity, setGenderIdentity] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
@@ -594,6 +595,33 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
                   This helps us show you better matches
                 </p>
               </div>
+
+              {lookingFor === 'lgbtq' && (
+                <div className="space-y-2">
+                  <Label htmlFor="genderIdentity">Your Gender Identity</Label>
+                  <Select value={genderIdentity} onValueChange={setGenderIdentity} required>
+                    <SelectTrigger id="genderIdentity">
+                      <SelectValue placeholder="Select your gender identity" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="cisgender-man">Cisgender man</SelectItem>
+                      <SelectItem value="cisgender-woman">Cisgender woman</SelectItem>
+                      <SelectItem value="transgender-man">Transgender man</SelectItem>
+                      <SelectItem value="transgender-woman">Transgender woman</SelectItem>
+                      <SelectItem value="non-binary">Non-binary</SelectItem>
+                      <SelectItem value="genderqueer">Genderqueer</SelectItem>
+                      <SelectItem value="genderfluid">Genderfluid</SelectItem>
+                      <SelectItem value="agender">Agender</SelectItem>
+                      <SelectItem value="two-spirit">Two-Spirit</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-muted-foreground">
+                    We celebrate all gender identities
+                  </p>
+                </div>
+              )}
               
               <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 space-y-2">
                 <h4 className="text-sm font-semibold text-emerald-800 flex items-center gap-2">
