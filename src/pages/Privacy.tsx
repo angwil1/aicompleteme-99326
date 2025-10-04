@@ -149,7 +149,7 @@ const Privacy = () => {
               </ul>
               
               <p className="mt-4">
-                <strong>How to exercise your rights:</strong> Email us at support@aicompleteme.com with your request. We'll respond within 30 days.
+                <strong>How to exercise your rights:</strong> Contact us at aicompleteme@aicompleteme.com with your request. We'll respond within 30 days.
               </p>
             </section>
 
@@ -188,7 +188,7 @@ const Privacy = () => {
               <h2 className="text-xl font-semibold mb-3">9. Contact Us</h2>
               <p>
                 For questions or privacy requests:<br />
-                📧 support@aicompleteme.com<br />
+                📧 aicompleteme@aicompleteme.com<br />
                 🌐 www.aicompleteme.com/privacy
               </p>
             </section>
