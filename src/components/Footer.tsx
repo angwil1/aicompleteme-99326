@@ -39,10 +39,6 @@ export const Footer = () => {
         const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
         window.open(linkedinUrl, '_blank');
         break;
-      case "whatsapp":
-        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`${shareText} ${currentUrl}`)}`;
-        window.open(whatsappUrl, '_blank');
-        break;
       case "copy":
         navigator.clipboard.writeText(`${shareText} ${currentUrl}`);
         toast({
@@ -154,16 +150,6 @@ export const Footer = () => {
                   >
                     <Copy className="w-4 h-4 mr-1" />
                     Copy Link
-                  </Button>
-                  
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => shareWebpage('whatsapp')}
-                    className="text-xs hover:bg-green-50 hover:border-green-200"
-                  >
-                    <MessageCircle className="w-4 h-4 mr-1" />
-                    WhatsApp
                   </Button>
                   
                   <Button
