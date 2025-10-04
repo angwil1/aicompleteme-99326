@@ -31,12 +31,9 @@ const Auth = () => {
     const isPasswordReset = urlParams.get('type') === 'recovery';
     const redirectPath = urlParams.get('redirect');
     
-    console.log('Auth page - user exists:', !!user, 'showSignupFlow:', showSignupFlow, 'isPasswordReset:', isPasswordReset, 'redirectPath:', redirectPath);
-    
     if (user && !showSignupFlow && !isPasswordReset) {
       // If there's a redirect parameter, go there, otherwise go to home
       const targetPath = redirectPath === 'browse' ? '/browse' : '/';
-      console.log('User authenticated, redirecting to:', targetPath);
       navigate(targetPath);
     }
   }, [user, navigate, showSignupFlow]);
@@ -78,14 +75,12 @@ const Auth = () => {
     
     // Use the exact current domain with the reset path
     const resetUrl = `${window.location.protocol}//${window.location.host}/reset-password`;
-    console.log('Sending reset email with redirectTo:', resetUrl);
     
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: resetUrl
     });
 
     if (error) {
-      console.error('Reset password error:', error);
       toast({
         title: "Reset Failed",
         description: error.message,

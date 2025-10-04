@@ -10,10 +10,6 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { user, loading } = useAuth();
   const location = useLocation();
 
-  useEffect(() => {
-    console.log('ProtectedRoute: Auth check - loading:', loading, 'user:', !!user, 'pathname:', location.pathname);
-  }, [loading, user, location.pathname]);
-
   // Show loading while checking auth
   if (loading) {
     return (
@@ -28,7 +24,6 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
   // Redirect to auth if not authenticated
   if (!user) {
-    console.log('ProtectedRoute: User not authenticated, redirecting to auth');
     return <Navigate to="/auth" replace />;
   }
 

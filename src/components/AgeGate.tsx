@@ -52,13 +52,11 @@ export const AgeGate = ({ onAgeConfirmed }: AgeGateProps) => {
       return;
     }
 
-    console.log('🔞 Age verified - storing in localStorage and sessionStorage');
     try {
       localStorage.setItem('ageConfirmed', 'true');
       localStorage.setItem('ageConfirmedDate', new Date().toISOString());
       localStorage.setItem('userDateOfBirth', dateOfBirth);
       sessionStorage.setItem('signupAgeVerified', 'true');
-      console.log('✅ Age verification stored successfully');
       
       toast({
         title: "Age verified",
@@ -69,7 +67,6 @@ export const AgeGate = ({ onAgeConfirmed }: AgeGateProps) => {
         onAgeConfirmed();
       }, 500);
     } catch (error) {
-      console.error('❌ Failed to store age verification:', error);
       setIsVerifying(false);
       toast({
         title: "Verification error",

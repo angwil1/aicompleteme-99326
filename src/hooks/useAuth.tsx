@@ -12,19 +12,9 @@ export const useAuth = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    console.log('useAuth - Setting up auth state listener');
-    
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        console.log('useAuth - Auth state change:', { event, hasSession: !!session, hasUser: !!session?.user });
-        
-        // Check if this is a password recovery session
-        const urlParams = new URLSearchParams(window.location.search);
-        const isRecovery = urlParams.get('type') === 'recovery' || event === 'PASSWORD_RECOVERY';
-        
-        console.log('useAuth - Is recovery session?', isRecovery);
-        
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
@@ -33,7 +23,6 @@ export const useAuth = () => {
 
     // THEN check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log('useAuth - Initial session check:', { hasSession: !!session, hasUser: !!session?.user });
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);

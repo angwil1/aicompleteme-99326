@@ -59,22 +59,13 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log('🔞 Checking age verification status...');
-    
     try {
       const ageConfirmed = localStorage.getItem('ageConfirmed');
       const ageConfirmedDate = localStorage.getItem('ageConfirmedDate');
       const signupSession = sessionStorage.getItem('signupAgeVerified');
       
-      console.log('🔞 Age verification data:', { 
-        ageConfirmed, 
-        ageConfirmedDate, 
-        signupSession 
-      });
-      
       // Check session-based verification first (for active signup sessions)
       if (signupSession === 'true') {
-        console.log('✅ Age verified in current session - proceeding to app');
         setAgeVerified(true);
         setLoading(false);
         return;
@@ -85,30 +76,23 @@ const App = () => {
         const confirmationDate = new Date(ageConfirmedDate);
         const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
         
-        console.log('🔞 Age confirmation dates:', { confirmationDate, thirtyDaysAgo, isValid: confirmationDate > thirtyDaysAgo });
-        
         if (confirmationDate > thirtyDaysAgo) {
-          console.log('✅ Age verification valid - proceeding to app');
           setAgeVerified(true);
           // Also set session storage for this session
           sessionStorage.setItem('signupAgeVerified', 'true');
         } else {
-          console.log('⚠️ Age verification expired - clearing storage');
           localStorage.removeItem('ageConfirmed');
           localStorage.removeItem('ageConfirmedDate');
         }
-      } else {
-        console.log('❌ No valid age verification found');
       }
     } catch (error) {
-      console.error('❌ Error checking age verification:', error);
+      // Silent fail - will show age gate
     }
     
     setLoading(false);
   }, []);
 
   const handleAgeConfirmed = () => {
-    console.log('✅ Age confirmed callback triggered');
     try {
       // Set both localStorage and sessionStorage
       localStorage.setItem('ageConfirmed', 'true');
@@ -116,7 +100,6 @@ const App = () => {
       sessionStorage.setItem('signupAgeVerified', 'true');
       setAgeVerified(true);
     } catch (error) {
-      console.error('❌ Failed to store age verification:', error);
       setAgeVerified(true); // Still proceed
     }
   };
@@ -133,14 +116,8 @@ const App = () => {
   }
 
   if (!ageVerified) {
-    console.log('🔞 Rendering AgeGate component');
     return <AgeGate onAgeConfirmed={handleAgeConfirmed} />;
   }
-
-  console.log('🚀 Rendering main app');
-  console.log('🔍 Current URL:', window.location.href);
-  console.log('🔍 Current pathname:', window.location.pathname);
-  console.log('🔍 Current hash:', window.location.hash);
 
   return (
     <QueryClientProvider client={queryClient}>
