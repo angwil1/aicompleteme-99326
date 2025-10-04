@@ -25,7 +25,6 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [dateOfBirth, setDateOfBirth] = useState('');
   const [lookingFor, setLookingFor] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
@@ -58,6 +57,9 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
   // Store age verification when user is confirmed
   useEffect(() => {
     const storeAgeVerification = async () => {
+      // Get date of birth from localStorage (stored by AgeGate)
+      const dateOfBirth = localStorage.getItem('userDateOfBirth');
+      
       // Store date of birth in profiles table with calculated age
       if (user && dateOfBirth && !isEmailConfirmed) {
         try {
@@ -137,7 +139,7 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
         checkProfileCompletion();
       });
     }
-  }, [user, session, dateOfBirth, isEmailConfirmed, email]);
+  }, [user, session, isEmailConfirmed, email]);
 
   const checkProfileCompletion = async () => {
     if (!user) return;
@@ -225,17 +227,6 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
         return;
       }
 
-      // Validate date of birth
-      if (!dateOfBirth) {
-        toast({
-          title: "Date of birth required",
-          description: "Please enter your date of birth to continue.",
-          variant: "destructive"
-        });
-        setIsLoading(false);
-        return;
-      }
-
       // Validate looking for selection
       if (!lookingFor) {
         toast({
@@ -247,11 +238,12 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
         return;
       }
 
-      const age = calculateAge(dateOfBirth);
-      if (age < 18) {
+      // Get date of birth from localStorage (entered at AgeGate)
+      const dateOfBirth = localStorage.getItem('userDateOfBirth');
+      if (!dateOfBirth) {
         toast({
-          title: "Age requirement not met",
-          description: "You must be 18 or older to use this platform.",
+          title: "Age verification required",
+          description: "Please refresh and verify your age.",
           variant: "destructive"
         });
         setIsLoading(false);
@@ -578,20 +570,6 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Must be at least 8 characters
-                </p>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="dateOfBirth">Date of Birth</Label>
-                <Input
-                  id="dateOfBirth"
-                  type="date"
-                  value={dateOfBirth}
-                  onChange={(e) => setDateOfBirth(e.target.value)}
-                  max={new Date(Date.now() - 567648000000).toISOString().split('T')[0]} // 18 years ago
-                  required
-                />
-                <p className="text-xs text-muted-foreground">
-                  Must be 18 or older. Your age will be calculated from this date.
                 </p>
               </div>
               
