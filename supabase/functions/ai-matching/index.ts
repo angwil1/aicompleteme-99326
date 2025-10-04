@@ -111,15 +111,20 @@ serve(async (req) => {
       else if (genderPref === 'nonbinary') {
         profileQuery = profileQuery.eq('gender', 'non-binary');
       }
-      else if (genderPref === 'trans') {
-        // Show trans folks - could filter by trans-specific identities
-        console.log('User interested in trans folks - showing diverse profiles');
+      else if (genderPref === 'trans-women') {
+        profileQuery = profileQuery.eq('gender', 'transgender-female');
+      }
+      else if (genderPref === 'trans-men') {
+        profileQuery = profileQuery.eq('gender', 'transgender-male');
       }
       else if (genderPref === 'all-genders') {
         // No gender filter - show everyone
         console.log('User interested in all genders - showing all profiles');
       }
-      // 'prefer-not-to-say' and custom preferences - no filtering
+      else if (genderPref === 'self-describe' || genderPref === 'prefer-not-to-say') {
+        // No filtering for custom or prefer-not-to-say preferences
+        console.log('Custom or unspecified gender preference - showing all profiles');
+      }
     }
 
     const { data: allProfiles, error: allProfilesError } = await profileQuery.limit(50);
@@ -142,6 +147,10 @@ serve(async (req) => {
           basicQuery = basicQuery.eq('gender', 'male');
         } else if (genderPref === 'nonbinary') {
           basicQuery = basicQuery.eq('gender', 'non-binary');
+        } else if (genderPref === 'trans-women') {
+          basicQuery = basicQuery.eq('gender', 'transgender-female');
+        } else if (genderPref === 'trans-men') {
+          basicQuery = basicQuery.eq('gender', 'transgender-male');
         }
       }
 
