@@ -581,12 +581,12 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
                     <SelectValue placeholder="Select what you're looking for" />
                   </SelectTrigger>
                   <SelectContent className="max-h-[250px] overflow-y-auto">
-                    <SelectItem value="marriage">Marriage</SelectItem>
                     <SelectItem value="long-term">Long-term relationship</SelectItem>
                     <SelectItem value="casual-dating">Casual dating</SelectItem>
                     <SelectItem value="men">Men</SelectItem>
                     <SelectItem value="women">Women</SelectItem>
                     <SelectItem value="anyone">Anyone</SelectItem>
+                    <SelectItem value="marriage">Marriage</SelectItem>
                     <SelectItem value="non-binary">Non-binary people</SelectItem>
                     <SelectItem value="lgbtq">LGBTQ+ inclusive</SelectItem>
                     <SelectItem value="casual-friends">Casual friends</SelectItem>
