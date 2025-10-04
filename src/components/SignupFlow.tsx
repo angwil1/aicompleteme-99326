@@ -580,7 +580,9 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
                   <SelectTrigger id="lookingFor">
                     <SelectValue placeholder="Select what you're looking for" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="max-h-[250px] overflow-y-auto">
+                    <SelectItem value="marriage">Marriage</SelectItem>
+                    <SelectItem value="long-term">Long-term relationship</SelectItem>
                     <SelectItem value="men">Men</SelectItem>
                     <SelectItem value="women">Women</SelectItem>
                     <SelectItem value="anyone">Anyone</SelectItem>
