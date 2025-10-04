@@ -584,9 +584,9 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
                     <SelectItem value="women">Women</SelectItem>
                     <SelectItem value="anyone">Anyone</SelectItem>
                     <SelectItem value="non-binary">Non-binary people</SelectItem>
+                    <SelectItem value="lgbtq">LGBTQ+ inclusive</SelectItem>
                     <SelectItem value="casual-friends">Casual friends</SelectItem>
                     <SelectItem value="activity-partners">Activity partners</SelectItem>
-                    <SelectItem value="travel-buddies">Travel buddies</SelectItem>
                   </SelectContent>
                 </Select>
                 <p className="text-xs text-muted-foreground">
