@@ -82,7 +82,7 @@ serve(async (req) => {
       .single();
 
     // Get all other profiles with their quiz results
-    // Filter by user's gender preference (looking_for)
+    // Filter by user's preference (looking_for)
     let profileQuery = supabaseClient
       .from('profiles')
       .select(`
@@ -98,35 +98,63 @@ serve(async (req) => {
       `)
       .neq('id', user.id);
 
-    // Apply gender preference filter if set
+    // Apply comprehensive preference filtering
     if (userProfile.looking_for) {
-      // If looking for "men", filter to profiles with gender "male"
-      // If looking for "women", filter to profiles with gender "female"  
-      const genderFilter = userProfile.looking_for === 'men' ? 'male' : 
-                           userProfile.looking_for === 'women' ? 'female' : null;
+      const lookingFor = userProfile.looking_for;
       
-      if (genderFilter) {
-        profileQuery = profileQuery.eq('gender', genderFilter);
+      // Relationship type preferences - these don't filter by gender
+      const relationshipTypes = ['marriage', 'long-term', 'casual-dating', 'casual-friends', 'activity-partners'];
+      
+      if (relationshipTypes.includes(lookingFor)) {
+        // For relationship types, we can optionally filter by matching relationship goals
+        // but don't restrict by gender - let all genders show up
+        console.log(`User looking for: ${lookingFor} - showing all genders`);
       }
+      // Gender-based preferences
+      else if (lookingFor === 'men') {
+        profileQuery = profileQuery.eq('gender', 'male');
+      }
+      else if (lookingFor === 'women') {
+        profileQuery = profileQuery.eq('gender', 'female');
+      }
+      else if (lookingFor === 'non-binary') {
+        profileQuery = profileQuery.eq('gender', 'non-binary');
+      }
+      else if (lookingFor === 'lgbtq') {
+        // Show all gender identities when LGBTQ+ inclusive is selected
+        // Optionally could filter to show diverse gender identities
+        console.log('User selected LGBTQ+ inclusive - showing all profiles');
+      }
+      else if (lookingFor === 'anyone') {
+        // No gender filter - show everyone
+        console.log('User looking for anyone - showing all profiles');
+      }
+      // 'prefer-not-to-say' - no filtering
     }
 
     const { data: allProfiles, error: allProfilesError } = await profileQuery.limit(50);
 
     if (allProfilesError) {
       console.log('Error with quiz results join, falling back to basic profiles');
-      // Fallback to profiles without quiz data, still respecting gender preference
+      // Fallback to profiles without quiz data, still respecting preferences
       let basicQuery = supabaseClient
         .from('profiles')
         .select('*')
         .neq('id', user.id);
       
-      // Apply gender preference filter in fallback as well
+      // Apply same preference filter in fallback
       if (userProfile.looking_for) {
-        const genderFilter = userProfile.looking_for === 'men' ? 'male' : 
-                             userProfile.looking_for === 'women' ? 'female' : null;
+        const lookingFor = userProfile.looking_for;
+        const relationshipTypes = ['marriage', 'long-term', 'casual-dating', 'casual-friends', 'activity-partners'];
         
-        if (genderFilter) {
-          basicQuery = basicQuery.eq('gender', genderFilter);
+        if (!relationshipTypes.includes(lookingFor)) {
+          if (lookingFor === 'men') {
+            basicQuery = basicQuery.eq('gender', 'male');
+          } else if (lookingFor === 'women') {
+            basicQuery = basicQuery.eq('gender', 'female');
+          } else if (lookingFor === 'non-binary') {
+            basicQuery = basicQuery.eq('gender', 'non-binary');
+          }
         }
       }
 
