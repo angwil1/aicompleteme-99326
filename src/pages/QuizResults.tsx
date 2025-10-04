@@ -203,7 +203,7 @@ const QuizResults = () => {
     }
 
     // Navigate to view the match's profile
-    navigate(`/profile/${match.id}`, { 
+    navigate(`/sample-user-profile/${match.id}`, { 
       state: { 
         profileData: match,
         fromQuizResults: true 
