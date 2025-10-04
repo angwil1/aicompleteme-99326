@@ -46,26 +46,68 @@ const Privacy = () => {
 
             <section>
               <h2 className="text-xl font-semibold mb-3">1. Information We Collect</h2>
-              <p>We collect only the information you choose to share with us.</p>
+              <p className="font-semibold mb-2">We are transparent about every piece of data we collect:</p>
+              
+              <h3 className="font-semibold mt-4 mb-2">Data You Provide Directly:</h3>
               <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Basic Profile Info:</strong> Interests, personality quiz answers, subscription level.</li>
-                <li><strong>Usage Data:</strong> Feature engagement, interaction history, mood check-ins.</li>
-                <li><strong>Optional Inputs:</strong> Video intros, emotional reflections, feedback submissions.</li>
+                <li><strong>Account Information:</strong> Email address (for login and communication), password (encrypted)</li>
+                <li><strong>Profile Information:</strong> Name, age (calculated from date of birth), location (city/zip code), gender, sexual orientation, interests, bio</li>
+                <li><strong>Photos:</strong> Profile pictures you choose to upload</li>
+                <li><strong>Personality Quiz:</strong> Your answers to compatibility questions (optional)</li>
+                <li><strong>Messages:</strong> Conversations with matches</li>
+                <li><strong>Preferences:</strong> Search filters, notification settings, privacy settings</li>
               </ul>
-              <p>
-                We do not require email, phone number, or real-world identity to use core features. Authentication is handled securely via Supabase Edge Functions and RLS.
-              </p>
+              
+              <h3 className="font-semibold mt-4 mb-2">Data Collected Automatically:</h3>
+              <ul className="list-disc pl-6 space-y-2">
+                <li><strong>Usage Data:</strong> Features you use, time spent on app, interactions with profiles</li>
+                <li><strong>Device Information:</strong> Device type, operating system, unique device identifiers</li>
+                <li><strong>Location Data:</strong> Approximate location for matching (with your permission)</li>
+                <li><strong>Technical Data:</strong> IP address, browser type, crash reports for debugging</li>
+              </ul>
+              
+              <h3 className="font-semibold mt-4 mb-2">We Do NOT Collect:</h3>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>❌ Social Security Numbers or government IDs</li>
+                <li>❌ Financial information (handled securely by payment processor)</li>
+                <li>❌ Health information beyond what you choose to share</li>
+                <li>❌ Precise location without explicit permission</li>
+                <li>❌ Contacts from your phone</li>
+              </ul>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold mb-3">2. How We Use Information</h2>
+              <h2 className="text-xl font-semibold mb-3">2. How We Use Your Information</h2>
+              <p className="mb-3">We only use your data for these specific purposes:</p>
+              
+              <h3 className="font-semibold mt-4 mb-2">Core Service Functionality:</h3>
               <ul className="list-disc pl-6 space-y-2">
-                <li>To personalize your experience and generate matches using AI</li>
-                <li>To improve platform performance, emotional resonance, and user experience</li>
-                <li>To manage subscriptions, billing, and feature access via Stripe</li>
-                <li>To protect community safety and enforce platform integrity</li>
+                <li>To create and manage your account</li>
+                <li>To generate AI-powered matches based on compatibility</li>
+                <li>To facilitate communication with your matches</li>
+                <li>To display your profile to potential matches (based on your privacy settings)</li>
               </ul>
-              <p>We do not sell or share your data with third-party advertisers.</p>
+              
+              <h3 className="font-semibold mt-4 mb-2">Service Improvement:</h3>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>To improve matching algorithms and user experience</li>
+                <li>To detect and prevent fraud, abuse, and spam</li>
+                <li>To provide customer support and respond to your inquiries</li>
+                <li>To analyze usage patterns and app performance</li>
+              </ul>
+              
+              <h3 className="font-semibold mt-4 mb-2">Legal & Safety:</h3>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>To enforce our Terms of Service and Community Guidelines</li>
+                <li>To comply with legal obligations and law enforcement requests</li>
+                <li>To protect the rights, property, and safety of our users</li>
+              </ul>
+              
+              <p className="mt-4 font-semibold text-primary">
+                ✓ We do NOT sell your data to third parties<br/>
+                ✓ We do NOT use your data for advertising outside our app<br/>
+                ✓ We do NOT share your personal information without your consent (except as required by law)
+              </p>
             </section>
 
             <section>
@@ -79,15 +121,35 @@ const Privacy = () => {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold mb-3">4. Your Controls and Choices</h2>
+              <h2 className="text-xl font-semibold mb-3">4. Your Privacy Rights & Controls</h2>
+              <p className="mb-3">You have complete control over your data:</p>
+              
+              <h3 className="font-semibold mt-4 mb-2">Access & Control:</h3>
               <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Blur Toggle:</strong> Control visual comfort in video chat</li>
-                <li><strong>Data Visibility:</strong> No default public profile, anonymized matches</li>
-                <li><strong>Subscription Opt-In:</strong> Premium features are gated but optional</li>
-                <li><strong>Feedback Submission:</strong> Journaling and polls can be anonymous</li>
+                <li><strong>View Your Data:</strong> Access all information we have about you</li>
+                <li><strong>Update Profile:</strong> Edit or delete your profile information anytime</li>
+                <li><strong>Privacy Settings:</strong> Control who can see your profile and contact you</li>
+                <li><strong>Block Users:</strong> Prevent specific users from contacting you or seeing your profile</li>
+                <li><strong>Report Concerns:</strong> Flag inappropriate behavior or content</li>
               </ul>
-              <p>
-                You may request data deletion or export by contacting us at: support@aicompleteme.com
+              
+              <h3 className="font-semibold mt-4 mb-2">Data Rights:</h3>
+              <ul className="list-disc pl-6 space-y-2">
+                <li><strong>Export Data:</strong> Download a copy of all your data (email support@aicompleteme.com)</li>
+                <li><strong>Delete Account:</strong> Permanently delete your account and all associated data</li>
+                <li><strong>Opt-Out:</strong> Unsubscribe from marketing emails (premium features only)</li>
+                <li><strong>Withdraw Consent:</strong> Change permission for location or other data collection</li>
+              </ul>
+              
+              <h3 className="font-semibold mt-4 mb-2">Communication Preferences:</h3>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Control push notifications (matches, messages, likes)</li>
+                <li>Manage email preferences (important updates vs. optional newsletters)</li>
+                <li>Choose privacy level (public, private, or incognito mode)</li>
+              </ul>
+              
+              <p className="mt-4">
+                <strong>How to exercise your rights:</strong> Email us at support@aicompleteme.com with your request. We'll respond within 30 days.
               </p>
             </section>
 
