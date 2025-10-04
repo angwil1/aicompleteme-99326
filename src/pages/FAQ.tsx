@@ -201,7 +201,7 @@ const FAQ = () => {
               <Button 
                 variant="outline" 
                 size="sm"
-                onClick={() => window.location.href = 'mailto:support@aicompleteme.com'}
+                onClick={() => window.location.href = 'mailto:aicompleteme@aicompleteme.com'}
                 className="flex items-center gap-2 focus:ring-2 focus:ring-primary focus:ring-offset-2 w-full xs:w-auto justify-center"
                 aria-label="Contact support for additional help"
               >
