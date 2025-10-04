@@ -603,7 +603,7 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
                     <SelectTrigger id="genderIdentity">
                       <SelectValue placeholder="Select your gender identity" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="max-h-[200px] overflow-y-auto">
                       <SelectItem value="cisgender-man">Cisgender man</SelectItem>
                       <SelectItem value="cisgender-woman">Cisgender woman</SelectItem>
                       <SelectItem value="transgender-man">Transgender man</SelectItem>
