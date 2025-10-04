@@ -271,16 +271,8 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
       }
 
       // Get date of birth from localStorage (entered at AgeGate)
+      // Age verification is handled at app level by AgeGate component
       const dateOfBirth = localStorage.getItem('userDateOfBirth');
-      if (!dateOfBirth) {
-        toast({
-          title: "Age verification required",
-          description: "Please refresh and verify your age.",
-          variant: "destructive"
-        });
-        setIsLoading(false);
-        return;
-      }
 
       const result = await signUp(email, password);
       
