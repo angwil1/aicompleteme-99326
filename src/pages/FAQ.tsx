@@ -364,7 +364,7 @@ const FAQ = () => {
               <Button 
                 variant="outline"
                 size="lg"
-                onClick={() => window.location.href = 'mailto:support@aicompleteme.com'}
+                onClick={() => window.location.href = 'mailto:aicompleteme@aicompleteme.com'}
                 className="focus:ring-2 focus:ring-primary focus:ring-offset-2 px-8 sm:px-12 py-3 sm:py-4 text-base sm:text-lg"
                 aria-label="Contact our support team for help with questions not covered in the FAQ"
               >
@@ -535,7 +535,7 @@ const FAQ = () => {
                     <div className="max-w-2xl mx-auto mb-6">
                       <p className="text-muted-foreground">
                         Contact our accessibility team at{' '}
-                        <span className="font-semibold text-foreground">accessibility@aicomplete.me</span>{' '}
+                        <span className="font-semibold text-foreground">aicompleteme@aicompleteme.com</span>{' '}
                         or through our accessible contact form. We're committed to resolving accessibility barriers and providing accommodations.
                       </p>
                     </div>
