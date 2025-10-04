@@ -24,9 +24,7 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
   const [currentStep, setCurrentStep] = useState<SignupStep>('details');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [lookingFor, setLookingFor] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -216,17 +214,6 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
     setIsLoading(true);
     
     try {
-      // Validate password match
-      if (password !== confirmPassword) {
-        toast({
-          title: "Passwords don't match",
-          description: "Please ensure both passwords are identical.",
-          variant: "destructive"
-        });
-        setIsLoading(false);
-        return;
-      }
-
       // Validate password strength
       if (password.length < 8) {
         toast({
@@ -591,39 +578,6 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Must be at least 8 characters
-                </p>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <div className="relative">
-                  <Input
-                    id="confirmPassword"
-                    type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Re-enter your password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                    minLength={8}
-                    className="pr-10"
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    aria-label={showConfirmPassword ? "Hide password" : "Show password"}
-                  >
-                    {showConfirmPassword ? (
-                      <EyeOff className="h-4 w-4 text-muted-foreground" />
-                    ) : (
-                      <Eye className="h-4 w-4 text-muted-foreground" />
-                    )}
-                  </Button>
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Passwords must match
                 </p>
               </div>
               <div className="space-y-2">
