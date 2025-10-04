@@ -82,7 +82,8 @@ serve(async (req) => {
       .single();
 
     // Get all other profiles with their quiz results
-    const { data: allProfiles, error: allProfilesError } = await supabaseClient
+    // Filter by user's gender preference (looking_for)
+    let profileQuery = supabaseClient
       .from('profiles')
       .select(`
         *,
@@ -95,20 +96,44 @@ serve(async (req) => {
           communication_style
         )
       `)
-      .neq('id', user.id)
-      .limit(50);
+      .neq('id', user.id);
+
+    // Apply gender preference filter if set
+    if (userProfile.looking_for) {
+      // If looking for "men", filter to profiles with gender "male"
+      // If looking for "women", filter to profiles with gender "female"  
+      const genderFilter = userProfile.looking_for === 'men' ? 'male' : 
+                           userProfile.looking_for === 'women' ? 'female' : null;
+      
+      if (genderFilter) {
+        profileQuery = profileQuery.eq('gender', genderFilter);
+      }
+    }
+
+    const { data: allProfiles, error: allProfilesError } = await profileQuery.limit(50);
 
     if (allProfilesError) {
       console.log('Error with quiz results join, falling back to basic profiles');
-      // Fallback to profiles without quiz data
-      const { data: basicProfiles } = await supabaseClient
+      // Fallback to profiles without quiz data, still respecting gender preference
+      let basicQuery = supabaseClient
         .from('profiles')
         .select('*')
-        .neq('id', user.id)
-        .limit(50);
+        .neq('id', user.id);
+      
+      // Apply gender preference filter in fallback as well
+      if (userProfile.looking_for) {
+        const genderFilter = userProfile.looking_for === 'men' ? 'male' : 
+                             userProfile.looking_for === 'women' ? 'female' : null;
+        
+        if (genderFilter) {
+          basicQuery = basicQuery.eq('gender', genderFilter);
+        }
+      }
+
+      const { data: basicProfiles } = await basicQuery.limit(50);
       
       if (!basicProfiles || basicProfiles.length === 0) {
-        return new Response(JSON.stringify({ error: 'No profiles found' }), {
+        return new Response(JSON.stringify({ error: 'No profiles found matching your preferences' }), {
           status: 404,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         });

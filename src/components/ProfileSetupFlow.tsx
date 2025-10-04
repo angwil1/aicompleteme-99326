@@ -17,6 +17,7 @@ import { CameraCapture } from '@/components/CameraCapture';
 interface ProfileData {
   name: string;
   age: string;
+  gender: string;
   location: string;
   occupation: string;
   education: string;
@@ -34,6 +35,7 @@ export const ProfileSetupFlow: React.FC = () => {
   const [profileData, setProfileData] = useState<ProfileData>({
     name: '',
     age: '',
+    gender: '',
     location: '',
     occupation: '',
     education: '',
@@ -330,6 +332,7 @@ export const ProfileSetupFlow: React.FC = () => {
     return (
       profileData.name && 
       profileData.age && 
+      profileData.gender &&
       profileData.location && 
       profileData.occupation && 
       profileData.education &&
@@ -362,6 +365,7 @@ export const ProfileSetupFlow: React.FC = () => {
           id: user.id,
           name: profileData.name,
           age: parseInt(profileData.age),
+          gender: profileData.gender,
           location: profileData.location,
           occupation: profileData.occupation,
           education: profileData.education,
@@ -502,6 +506,21 @@ export const ProfileSetupFlow: React.FC = () => {
                       Auto-filled from your date of birth
                     </p>
                   )}
+                </div>
+
+                <div>
+                  <Label htmlFor="gender">Your Gender *</Label>
+                  <Select value={profileData.gender} onValueChange={(value) => setProfileData(prev => ({ ...prev, gender: value }))}>
+                    <SelectTrigger className="mt-1">
+                      <SelectValue placeholder="Select your gender" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
+                      <SelectItem value="non-binary">Non-binary</SelectItem>
+                      <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div>
