@@ -158,7 +158,7 @@ const FAQ = () => {
     },
     {
       question: "How do I report accessibility issues or request accommodations?",
-      answer: "If you encounter any accessibility barriers or need specific accommodations, please contact our accessibility team at accessibility@aicomplete.me or use our accessible contact form. We are committed to resolving accessibility issues promptly and providing alternative access methods when needed. Your feedback helps us improve the experience for all users with disabilities."
+      answer: "If you encounter any accessibility barriers or need specific accommodations, please contact our accessibility team at aicompleteme@aicompleteme.com or use our accessible contact form. We are committed to resolving accessibility issues promptly and providing alternative access methods when needed. Your feedback helps us improve the experience for all users with disabilities."
     },
     {
       question: "Are there keyboard shortcuts for navigating AI Complete Me?",
