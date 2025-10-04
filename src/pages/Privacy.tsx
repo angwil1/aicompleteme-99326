@@ -188,7 +188,7 @@ const Privacy = () => {
               <h2 className="text-xl font-semibold mb-3">9. Contact Us</h2>
               <p>
                 For questions or privacy requests:<br />
-                📧 aicompleteme@aicompleteme.com<br />
+                Email: aicompleteme@aicompleteme.com<br />
                 🌐 www.aicompleteme.com/privacy
               </p>
             </section>
