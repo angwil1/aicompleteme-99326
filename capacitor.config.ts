@@ -4,7 +4,11 @@ const config: CapacitorConfig = {
   appId: 'com.aicompleteme.dating',
   appName: 'AI Complete Me',
   webDir: 'dist',
-  // No server config - forces local bundle loading
+  // Development live-reload: load from Lovable preview server
+  server: {
+    url: 'https://13536aaa-6bc6-47a3-9016-0088ccdcef90.lovableproject.com?forceHideBadge=true',
+    cleartext: true
+  },
   plugins: {
     SplashScreen: {
       launchShowDuration: 2000,
