@@ -82,7 +82,7 @@ serve(async (req) => {
       .single();
 
     // Get all other profiles with their quiz results
-    // Filter by user's preference (looking_for)
+    // Filter by user's gender preference
     let profileQuery = supabaseClient
       .from('profiles')
       .select(`
@@ -98,63 +98,50 @@ serve(async (req) => {
       `)
       .neq('id', user.id);
 
-    // Apply comprehensive preference filtering
-    if (userProfile.looking_for) {
-      const lookingFor = userProfile.looking_for;
+    // Apply gender preference filtering
+    if (userProfile.gender_preference) {
+      const genderPref = userProfile.gender_preference;
       
-      // Relationship type preferences - these don't filter by gender
-      const relationshipTypes = ['marriage', 'long-term', 'casual-dating', 'casual-friends', 'activity-partners'];
-      
-      if (relationshipTypes.includes(lookingFor)) {
-        // For relationship types, we can optionally filter by matching relationship goals
-        // but don't restrict by gender - let all genders show up
-        console.log(`User looking for: ${lookingFor} - showing all genders`);
-      }
-      // Gender-based preferences
-      else if (lookingFor === 'men') {
-        profileQuery = profileQuery.eq('gender', 'male');
-      }
-      else if (lookingFor === 'women') {
+      if (genderPref === 'women') {
         profileQuery = profileQuery.eq('gender', 'female');
       }
-      else if (lookingFor === 'non-binary') {
+      else if (genderPref === 'men') {
+        profileQuery = profileQuery.eq('gender', 'male');
+      }
+      else if (genderPref === 'nonbinary') {
         profileQuery = profileQuery.eq('gender', 'non-binary');
       }
-      else if (lookingFor === 'lgbtq') {
-        // Show all gender identities when LGBTQ+ inclusive is selected
-        // Optionally could filter to show diverse gender identities
-        console.log('User selected LGBTQ+ inclusive - showing all profiles');
+      else if (genderPref === 'trans') {
+        // Show trans folks - could filter by trans-specific identities
+        console.log('User interested in trans folks - showing diverse profiles');
       }
-      else if (lookingFor === 'anyone') {
+      else if (genderPref === 'all-genders') {
         // No gender filter - show everyone
-        console.log('User looking for anyone - showing all profiles');
+        console.log('User interested in all genders - showing all profiles');
       }
-      // 'prefer-not-to-say' - no filtering
+      // 'prefer-not-to-say' and custom preferences - no filtering
     }
 
     const { data: allProfiles, error: allProfilesError } = await profileQuery.limit(50);
 
     if (allProfilesError) {
       console.log('Error with quiz results join, falling back to basic profiles');
-      // Fallback to profiles without quiz data, still respecting preferences
+      // Fallback to profiles without quiz data, still respecting gender preferences
       let basicQuery = supabaseClient
         .from('profiles')
         .select('*')
         .neq('id', user.id);
       
-      // Apply same preference filter in fallback
-      if (userProfile.looking_for) {
-        const lookingFor = userProfile.looking_for;
-        const relationshipTypes = ['marriage', 'long-term', 'casual-dating', 'casual-friends', 'activity-partners'];
+      // Apply same gender preference filter in fallback
+      if (userProfile.gender_preference) {
+        const genderPref = userProfile.gender_preference;
         
-        if (!relationshipTypes.includes(lookingFor)) {
-          if (lookingFor === 'men') {
-            basicQuery = basicQuery.eq('gender', 'male');
-          } else if (lookingFor === 'women') {
-            basicQuery = basicQuery.eq('gender', 'female');
-          } else if (lookingFor === 'non-binary') {
-            basicQuery = basicQuery.eq('gender', 'non-binary');
-          }
+        if (genderPref === 'women') {
+          basicQuery = basicQuery.eq('gender', 'female');
+        } else if (genderPref === 'men') {
+          basicQuery = basicQuery.eq('gender', 'male');
+        } else if (genderPref === 'nonbinary') {
+          basicQuery = basicQuery.eq('gender', 'non-binary');
         }
       }
 

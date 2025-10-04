@@ -25,8 +25,10 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [lookingFor, setLookingFor] = useState('');
-  const [genderIdentity, setGenderIdentity] = useState('');
+  const [relationshipIntent, setRelationshipIntent] = useState('');
+  const [customIntent, setCustomIntent] = useState('');
+  const [genderPreference, setGenderPreference] = useState('');
+  const [customGenderPreference, setCustomGenderPreference] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
@@ -228,11 +230,40 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
         return;
       }
 
-      // Validate looking for selection
-      if (!lookingFor) {
+      // Validate selections
+      if (!relationshipIntent) {
         toast({
           title: "Please select what you're looking for",
           description: "This helps us show you better matches.",
+          variant: "destructive"
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      if (!genderPreference) {
+        toast({
+          title: "Please select your gender preference",
+          description: "This helps us show you better matches.",
+          variant: "destructive"
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      // Validate custom fields if selected
+      if (relationshipIntent === 'self-describe' && !customIntent.trim()) {
+        toast({
+          title: "Please describe what you're looking for",
+          variant: "destructive"
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      if (genderPreference === 'self-describe' && !customGenderPreference.trim()) {
+        toast({
+          title: "Please describe your gender preference",
           variant: "destructive"
         });
         setIsLoading(false);
@@ -254,11 +285,15 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
       const result = await signUp(email, password);
       
       if (!result?.error) {
-        // Also store date_of_birth in user metadata and calculate age
+        // Store relationship intent and gender preference in user metadata
         try {
+          const finalIntent = relationshipIntent === 'self-describe' ? customIntent : relationshipIntent;
+          const finalGenderPref = genderPreference === 'self-describe' ? customGenderPreference : genderPreference;
+          
           const { error: updateError } = await supabase.auth.updateUser({
             data: { 
-              looking_for: lookingFor,
+              relationship_intent: finalIntent,
+              gender_preference: finalGenderPref,
               date_of_birth: dateOfBirth,
               age: calculateAge(dateOfBirth)
             }
@@ -575,22 +610,16 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="lookingFor">What are you hoping to find?</Label>
-                <Select value={lookingFor} onValueChange={setLookingFor} required>
-                  <SelectTrigger id="lookingFor">
+                <Label htmlFor="relationshipIntent">What are you hoping to find?</Label>
+                <Select value={relationshipIntent} onValueChange={setRelationshipIntent} required>
+                  <SelectTrigger id="relationshipIntent">
                     <SelectValue placeholder="Select what you're looking for" />
                   </SelectTrigger>
                   <SelectContent className="max-h-[250px] overflow-y-auto">
-                    <SelectItem value="long-term">Long-term relationship</SelectItem>
+                    <SelectItem value="long-term-marriage">Long-term partnership / marriage</SelectItem>
                     <SelectItem value="casual-dating">Casual dating</SelectItem>
-                    <SelectItem value="men">Men</SelectItem>
-                    <SelectItem value="women">Women</SelectItem>
-                    <SelectItem value="anyone">Anyone</SelectItem>
-                    <SelectItem value="marriage">Marriage</SelectItem>
-                    <SelectItem value="non-binary">Non-binary people</SelectItem>
-                    <SelectItem value="lgbtq">LGBTQ+ inclusive</SelectItem>
-                    <SelectItem value="casual-friends">Casual friends</SelectItem>
-                    <SelectItem value="activity-partners">Activity partners</SelectItem>
+                    <SelectItem value="friendship-activity">Friendship or activity partners</SelectItem>
+                    <SelectItem value="self-describe">I'd like to self-describe</SelectItem>
                     <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
                   </SelectContent>
                 </Select>
@@ -599,30 +628,52 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
                 </p>
               </div>
 
-              {lookingFor === 'lgbtq' && (
+              {relationshipIntent === 'self-describe' && (
                 <div className="space-y-2">
-                  <Label htmlFor="genderIdentity">Your Gender Identity</Label>
-                  <Select value={genderIdentity} onValueChange={setGenderIdentity} required>
-                    <SelectTrigger id="genderIdentity">
-                      <SelectValue placeholder="Select your gender identity" />
-                    </SelectTrigger>
-                    <SelectContent className="max-h-[200px] overflow-y-auto">
-                      <SelectItem value="cisgender-man">Cisgender man</SelectItem>
-                      <SelectItem value="cisgender-woman">Cisgender woman</SelectItem>
-                      <SelectItem value="transgender-man">Transgender man</SelectItem>
-                      <SelectItem value="transgender-woman">Transgender woman</SelectItem>
-                      <SelectItem value="non-binary">Non-binary</SelectItem>
-                      <SelectItem value="genderqueer">Genderqueer</SelectItem>
-                      <SelectItem value="genderfluid">Genderfluid</SelectItem>
-                      <SelectItem value="agender">Agender</SelectItem>
-                      <SelectItem value="two-spirit">Two-Spirit</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                      <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <p className="text-xs text-muted-foreground">
-                    We celebrate all gender identities
-                  </p>
+                  <Label htmlFor="customIntent">Describe what you're looking for</Label>
+                  <Input
+                    id="customIntent"
+                    type="text"
+                    placeholder="Tell us in your own words..."
+                    value={customIntent}
+                    onChange={(e) => setCustomIntent(e.target.value)}
+                    required
+                  />
+                </div>
+              )}
+
+              <div className="space-y-2">
+                <Label htmlFor="genderPreference">Who are you interested in?</Label>
+                <Select value={genderPreference} onValueChange={setGenderPreference} required>
+                  <SelectTrigger id="genderPreference">
+                    <SelectValue placeholder="Select your preference" />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-[250px] overflow-y-auto">
+                    <SelectItem value="women">Women</SelectItem>
+                    <SelectItem value="men">Men</SelectItem>
+                    <SelectItem value="nonbinary">Nonbinary people</SelectItem>
+                    <SelectItem value="trans">Trans folks</SelectItem>
+                    <SelectItem value="all-genders">All genders / Anyone</SelectItem>
+                    <SelectItem value="self-describe">I'd like to self-describe</SelectItem>
+                    <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">
+                  We celebrate all identities and preferences
+                </p>
+              </div>
+
+              {genderPreference === 'self-describe' && (
+                <div className="space-y-2">
+                  <Label htmlFor="customGenderPreference">Describe your preference</Label>
+                  <Input
+                    id="customGenderPreference"
+                    type="text"
+                    placeholder="Tell us in your own words..."
+                    value={customGenderPreference}
+                    onChange={(e) => setCustomGenderPreference(e.target.value)}
+                    required
+                  />
                 </div>
               )}
               
