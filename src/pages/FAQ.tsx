@@ -543,6 +543,7 @@ const FAQ = () => {
                       <Button 
                         variant="outline" 
                         size="lg"
+                        onClick={() => window.location.href = 'mailto:aicompleteme@aicompleteme.com'}
                         className="focus:ring-2 focus:ring-primary focus:ring-offset-2 w-full sm:w-auto max-w-xs"
                         aria-label="Contact accessibility team for support"
                       >
