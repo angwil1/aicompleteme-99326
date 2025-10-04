@@ -135,7 +135,7 @@ const Privacy = () => {
               
               <h3 className="font-semibold mt-4 mb-2">Data Rights:</h3>
               <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Export Data:</strong> Download a copy of all your data (email support@aicompleteme.com)</li>
+                <li><strong>Export Data:</strong> Download a copy of all your data (email aicompleteme@aicompleteme.com)</li>
                 <li><strong>Delete Account:</strong> Permanently delete your account and all associated data</li>
                 <li><strong>Opt-Out:</strong> Unsubscribe from marketing emails (premium features only)</li>
                 <li><strong>Withdraw Consent:</strong> Change permission for location or other data collection</li>

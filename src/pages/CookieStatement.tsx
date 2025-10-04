@@ -65,8 +65,8 @@ export default function CookieStatement() {
               <h3 className="text-xl font-semibold">Questions?</h3>
               <p>
                 If you have any questions about our cookie practices, please contact us at{" "}
-                <a href="mailto:privacy@getunlockedapp.com" className="text-primary hover:underline">
-                  privacy@getunlockedapp.com
+                <a href="mailto:aicompleteme@aicompleteme.com" className="text-primary hover:underline">
+                  aicompleteme@aicompleteme.com
                 </a>
               </p>
             </div>

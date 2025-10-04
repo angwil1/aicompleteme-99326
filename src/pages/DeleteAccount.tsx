@@ -126,8 +126,8 @@ const DeleteAccount = () => {
             <div className="pt-4 border-t">
               <p className="text-sm text-muted-foreground">
                 Need help? Contact us at{" "}
-                <a href="mailto:support@aicompleteme.com" className="text-primary hover:underline">
-                  support@aicompleteme.com
+                <a href="mailto:aicompleteme@aicompleteme.com" className="text-primary hover:underline">
+                  aicompleteme@aicompleteme.com
                 </a>
               </p>
             </div>
