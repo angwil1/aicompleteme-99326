@@ -583,6 +583,7 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
                   <SelectContent className="max-h-[250px] overflow-y-auto">
                     <SelectItem value="marriage">Marriage</SelectItem>
                     <SelectItem value="long-term">Long-term relationship</SelectItem>
+                    <SelectItem value="casual-dating">Casual dating</SelectItem>
                     <SelectItem value="men">Men</SelectItem>
                     <SelectItem value="women">Women</SelectItem>
                     <SelectItem value="anyone">Anyone</SelectItem>
