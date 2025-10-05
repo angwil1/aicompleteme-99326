@@ -7,7 +7,14 @@ export const GetStarted = () => {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate('/quick-start');
+    // Check if age is verified
+    const ageVerified = localStorage.getItem('ageVerified') === 'true';
+    if (ageVerified) {
+      navigate('/auth');
+    } else {
+      // Trigger age verification on homepage
+      window.dispatchEvent(new CustomEvent('showAgeVerification'));
+    }
     setTimeout(() => window.scrollTo(0, 0), 0);
   };
 

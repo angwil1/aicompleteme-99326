@@ -18,6 +18,7 @@ import HeroSection from '@/components/HeroSection';
 import { PageLoadingSkeleton } from '@/components/LoadingSkeleton';
 import { ProfileCompletionPrompt } from '@/components/ProfileCompletionPrompt';
 import { Heart, Shield, Star } from 'lucide-react';
+import { AgeVerification } from '@/components/AgeVerification';
 
 
 const Index = () => {
@@ -30,6 +31,8 @@ const Index = () => {
   const [showSearchUpgradePrompt, setShowSearchUpgradePrompt] = useState(false);
   const [hasCompletedQuiz, setHasCompletedQuiz] = useState(false);
   const [isPageLoading, setIsPageLoading] = useState(true);
+  const [showAgeVerification, setShowAgeVerification] = useState(false);
+  const [ageVerified, setAgeVerified] = useState(false);
   
 
   // Simplified without subscription
@@ -72,13 +75,35 @@ const Index = () => {
   };
 
 
-  // Age verification is now handled during signup flow
+  // Check age verification on mount
+  useEffect(() => {
+    const verified = localStorage.getItem('ageVerified') === 'true';
+    setAgeVerified(verified);
+    
+    // Listen for age verification requests
+    const handleShowAgeVerification = () => {
+      setShowAgeVerification(true);
+    };
+    
+    window.addEventListener('showAgeVerification', handleShowAgeVerification);
+    
+    return () => {
+      window.removeEventListener('showAgeVerification', handleShowAgeVerification);
+    };
+  }, []);
 
   // Page loading effect
   useEffect(() => {
     const timer = setTimeout(() => setIsPageLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
+  
+  const handleAgeVerificationComplete = () => {
+    setAgeVerified(true);
+    setShowAgeVerification(false);
+    // After age verification, navigate to signup
+    navigate('/auth');
+  };
 
   // Check if user has completed quiz
   useEffect(() => {
@@ -328,6 +353,14 @@ const Index = () => {
         <Footer />
         
         <FloatingQuizButton />
+        
+        {/* Age Verification Modal */}
+        {showAgeVerification && (
+          <AgeVerification 
+            forceOpen={true}
+            onVerificationComplete={handleAgeVerificationComplete}
+          />
+        )}
       </div>
     );
 };

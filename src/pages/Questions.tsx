@@ -91,11 +91,11 @@ const Questions = () => {
 
       toast({
         title: "Quiz completed! 🎉",
-        description: "Here are your quiz results! Your compatibility profile has been generated.",
+        description: "Now let's complete your profile.",
       });
 
-      // Navigate to quiz results instead of matches
-      navigate('/quiz-results');
+      // Navigate to profile setup after quiz
+      navigate('/profile/setup');
     } catch (error) {
       console.error('Error submitting quiz:', error);
       toast({
