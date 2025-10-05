@@ -7,7 +7,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
+const lovableApiKey = Deno.env.get('LOVABLE_API_KEY');
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -17,8 +17,8 @@ serve(async (req) => {
   try {
     console.log('[CONNECTION-DNA] Function called');
 
-    if (!openAIApiKey) {
-      throw new Error('OPENAI_API_KEY is not configured');
+    if (!lovableApiKey) {
+      throw new Error('LOVABLE_API_KEY is not configured');
     }
 
     // Create Supabase client with service role for full access
@@ -383,22 +383,30 @@ async function generateInsights(supabase: any, userId: string) {
 }
 
 async function callOpenAI(messages: any[]) {
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+  const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${openAIApiKey}`,
+      'Authorization': `Bearer ${lovableApiKey}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: 'gpt-4.1-2025-04-14',
+      model: 'google/gemini-2.5-flash',
       messages: messages,
-      temperature: 0.7,
       max_tokens: 2000,
     }),
   });
 
   if (!response.ok) {
-    throw new Error(`OpenAI API error: ${response.statusText}`);
+    const errorText = await response.text();
+    console.error('[CONNECTION-DNA] AI API error:', response.status, errorText);
+    
+    if (response.status === 429) {
+      throw new Error('Rate limit exceeded. Please try again later.');
+    }
+    if (response.status === 402) {
+      throw new Error('Payment required. Please add credits to your Lovable AI workspace.');
+    }
+    throw new Error(`AI API error: ${response.statusText}`);
   }
 
   const data = await response.json();

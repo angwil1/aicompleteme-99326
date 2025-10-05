@@ -61,6 +61,10 @@ const FAQ = () => {
       answer: "Memory Vault lives inside Complete Beyond. It lets you save favorite matches, prompts, and connection moments. It's your emotional archive—a way to revisit the sparks that matter."
     },
     {
+      question: "🧬 What is Connection DNA?",
+      answer: "Connection DNA is part of Complete Beyond—your evolving emotional intelligence profile. It analyzes your interactions over time to reveal deep insights about your communication style, love language, and compatibility patterns.\n\nConnection DNA tracks:\n• Emotional Intelligence Score - Your awareness and management of emotions\n• Communication Style - How you naturally express yourself and connect\n• Empathy Score - Your ability to understand and share feelings\n• Love Language - How you give and receive affection (Quality Time, Words of Affirmation, etc.)\n• Conflict Resolution Style - Your approach to handling disagreements\n• Personality Markers - Deep patterns in openness, conscientiousness, and more\n\nThe AI learns from your conversations and provides personalized insights with actionable steps to deepen connections. It's not static—it evolves as you grow, giving you real-time feedback on your emotional journey.\n\nThink of it as a mirror that shows you who you are in relationships, helping you understand yourself better and create more meaningful connections."
+    },
+    {
       question: "🔐 Is my data safe here?",
       answer: "Yes. We do not sell or share your data. We believe privacy is the foundation of trust. You're not the product—you're the protagonist."
     },
