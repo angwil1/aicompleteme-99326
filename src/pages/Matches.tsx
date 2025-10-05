@@ -147,7 +147,9 @@ const Matches = () => {
                 <Card 
                   key={match.profile.id} 
                   className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
-                  onClick={() => navigate(`/sample-user-profile/${match.profile.id}`)}
+                  onClick={() => navigate(`/sample-user-profile/${match.profile.id}`, {
+                    state: { profileData: match.profile }
+                  })}
                 >
                   <div className="relative">
                     <div className="aspect-[3/4] bg-gradient-to-br from-primary/20 to-secondary/20">
@@ -230,7 +232,9 @@ const Matches = () => {
                         className="flex-1"
                         onClick={(e) => {
                           e.stopPropagation();
-                          navigate(`/sample-user-profile/${match.profile.id}`);
+                          navigate(`/sample-user-profile/${match.profile.id}`, {
+                            state: { profileData: match.profile }
+                          });
                         }}
                       >
                         View Profile
