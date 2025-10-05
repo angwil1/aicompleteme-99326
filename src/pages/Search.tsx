@@ -130,7 +130,9 @@ const Search = () => {
           console.error('Error checking quiz completion:', error);
           setQuizCompleted(false);
         } else {
-          setQuizCompleted(data && data.length > 0);
+          const hasCompleted = data && data.length > 0;
+          setQuizCompleted(hasCompleted);
+          console.log('Quiz completion status:', hasCompleted);
         }
       } catch (error) {
         console.error('Error:', error);
@@ -143,21 +145,25 @@ const Search = () => {
     checkQuizCompletion();
   }, [user]);
 
-  // Check profile completion
+  // Check profile completion - only redirect once on initial load
   useEffect(() => {
     if (!user || profileLoading || checkingQuiz) return;
 
     // Redirect to profile setup if basic info is missing
     if (profile && (!profile.gender || !profile.looking_for || !profile.location)) {
+      console.log('Redirecting to profile setup - missing basic info');
       navigate('/profile/setup');
       return;
     }
 
-    // Redirect to quiz if not completed
+    // Only redirect to quiz if definitely not completed
     if (!quizCompleted) {
+      console.log('Redirecting to questions - quiz not completed');
       navigate('/questions');
       return;
     }
+    
+    console.log('All checks passed - staying on search page');
   }, [user, profile, profileLoading, quizCompleted, checkingQuiz, navigate]);
 
   // Restore search state from URL on page load
