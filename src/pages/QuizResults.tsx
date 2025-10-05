@@ -61,17 +61,17 @@ const QuizResults = () => {
     }
 
     try {
-      // Get current user's profile
+      // Get current user's profile with location
       const { data: currentProfile } = await supabase
         .from('profiles')
-        .select('interests, personality_type, age')
+        .select('interests, personality_type, age, location, zip_code')
         .eq('id', user.id)
         .single();
 
       // Get other profiles to match with
       const { data: allProfiles, error } = await supabase
         .from('profiles')
-        .select('id, name, age, personality_type, interests, photos, location, occupation, bio')
+        .select('id, name, age, personality_type, interests, photos, location, occupation, bio, zip_code')
         .neq('id', user.id)
         .not('personality_type', 'is', null)
         .not('name', 'is', null)
@@ -81,7 +81,7 @@ const QuizResults = () => {
       const excludedNames = ['jordan', 'marcus', 'jake', 'jackson'];
       const excludedPhotos = ['profile-silhouette', 'placeholder', 'default'];
       
-      const profiles = (allProfiles || []).filter(profile => {
+      let filteredProfiles = (allProfiles || []).filter(profile => {
         const name = profile.name?.toLowerCase() || '';
         const hasExcludedName = excludedNames.some(excluded => name.includes(excluded));
         
@@ -93,22 +93,42 @@ const QuizResults = () => {
         return !hasExcludedName && !hasPlaceholderPhoto;
       });
 
+      // Filter by location if user has a location/zip code set
+      if (currentProfile?.location || currentProfile?.zip_code) {
+        const userLocation = currentProfile.location?.toLowerCase() || '';
+        const userState = userLocation.split(',').pop()?.trim() || '';
+        
+        filteredProfiles = filteredProfiles.filter(profile => {
+          const profileLocation = profile.location?.toLowerCase() || '';
+          const profileState = profileLocation.split(',').pop()?.trim() || '';
+          
+          // Match by state if available
+          if (userState && profileState) {
+            return userState === profileState;
+          }
+          
+          return true; // Keep profile if we can't determine state
+        });
+      }
+
+      const profiles = filteredProfiles;
+
       if (error) {
         console.error('Error loading profiles:', error);
         throw error;
       }
 
       if (!profiles || profiles.length === 0) {
-        // Show placeholder if no real profiles exist
+        // Show Alex as placeholder with the specific encouraging message
         const placeholderPreviews: MatchPreview[] = [
           {
-            id: 'sample-1',
+            id: 'sample-alex',
             name: 'Alex',
             age: 28,
-            compatibility: 94,
+            compatibility: 87,
             commonInterests: ['Photography', 'Hiking'],
-            blurredPhoto: 'https://images.unsplash.com/photo-1581092795360-fd1ca04f0952',
-            location: 'San Francisco, CA',
+            blurredPhoto: '/src/assets/alex-profile-main.jpg',
+            location: currentProfile?.location || 'San Francisco, CA',
             occupation: 'Software Developer',
             bio: 'Adventure seeker who loves capturing moments through photography and exploring new trails.'
           }
@@ -180,20 +200,20 @@ const QuizResults = () => {
       setMatchPreviews(matchedProfiles);
     } catch (error) {
       console.error('Error loading match previews:', error);
-      // Fallback to placeholder
-        const placeholderPreviews: MatchPreview[] = [
-          {
-            id: 'sample-1',
-            name: 'Alex',
-            age: 28,
-            compatibility: 94,
-            commonInterests: ['Photography', 'Hiking'],
-            blurredPhoto: 'https://images.unsplash.com/photo-1581092795360-fd1ca04f0952',
-            location: 'San Francisco, CA',
-            occupation: 'Software Developer',
-            bio: 'Adventure seeker who loves capturing moments through photography and exploring new trails.'
-          }
-        ];
+      // Fallback to Alex
+      const placeholderPreviews: MatchPreview[] = [
+        {
+          id: 'sample-alex',
+          name: 'Alex',
+          age: 28,
+          compatibility: 87,
+          commonInterests: ['Photography', 'Hiking'],
+          blurredPhoto: '/src/assets/alex-profile-main.jpg',
+          location: 'San Francisco, CA',
+          occupation: 'Software Developer',
+          bio: 'Adventure seeker who loves capturing moments through photography and exploring new trails.'
+        }
+      ];
       setMatchPreviews(placeholderPreviews);
     } finally {
       setLoading(false);
@@ -333,9 +353,7 @@ const QuizResults = () => {
           <div className="text-center mb-6">
             <h2 className="text-2xl font-semibold mb-3">Your Top Compatibility Matches</h2>
             <p className="text-muted-foreground italic">
-              {Math.random() > 0.5 
-                ? "This is just the start. You're part of something new, and your presence helps it bloom."
-                : "Not many matches yet—but you're here at the beginning, and that matters. Every connection starts with one."}
+              One match, a few miles away—but every connection begins somewhere. You're helping shape what comes next.
             </p>
           </div>
           <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 max-w-4xl mx-auto">
