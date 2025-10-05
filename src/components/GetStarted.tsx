@@ -7,14 +7,7 @@ export const GetStarted = () => {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    // Check if age is verified
-    const ageVerified = localStorage.getItem('ageVerified') === 'true';
-    if (ageVerified) {
-      navigate('/auth');
-    } else {
-      // Trigger age verification on homepage
-      window.dispatchEvent(new CustomEvent('showAgeVerification'));
-    }
+    navigate('/quick-start');
     setTimeout(() => window.scrollTo(0, 0), 0);
   };
 
@@ -59,6 +52,14 @@ export const GetStarted = () => {
                 <Heart className="h-4 w-4 mr-2" />
                 Get Started Now
                 <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+              
+              <Button 
+                variant="ghost" 
+                onClick={() => navigate('/auth')}
+                className="text-sm text-muted-foreground hover:text-foreground"
+              >
+                Already have an account? Sign In
               </Button>
               
               <p className="text-xs text-muted-foreground">

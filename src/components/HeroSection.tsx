@@ -182,24 +182,22 @@ useEffect(() => {
             {/* Call to Action */}
             <div className="space-y-3 sm:space-y-4">
               <Button 
-                onClick={user ? () => navigate('/search') : handleGetStarted}
+                onClick={handleGetStarted}
                 className="hero-cta-button w-full px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-medium bg-primary text-white hover:bg-primary/90"
                 size="lg"
               >
                 <Heart className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                {user ? 'Find Matches' : 'Join'}
+                {user ? 'Find Matches' : 'Get Started'}
                 <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 ml-2" />
               </Button>
               
-              {!user && (
-                <Button 
-                  variant="ghost" 
-                  onClick={() => navigate('/auth')}
-                  className="w-full text-xs sm:text-sm text-white/90 hover:text-white hover:bg-white/10 py-2 sm:py-3"
-                >
-                  Already have an account? Log in
-                </Button>
-              )}
+              <Button 
+                variant="ghost" 
+                onClick={() => navigate('/auth')}
+                className="w-full text-xs sm:text-sm text-white/90 hover:text-white hover:bg-white/10 py-2 sm:py-3"
+              >
+                Already have an account? Sign In
+              </Button>
             </div>
           </div>
         </div>
