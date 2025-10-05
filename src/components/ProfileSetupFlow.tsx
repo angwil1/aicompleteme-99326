@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
@@ -555,9 +556,11 @@ export const ProfileSetupFlow: React.FC = () => {
                       <SelectValue placeholder="Select your education level" />
                     </SelectTrigger>
                     <SelectContent>
-                      {educationOptions.map(education => (
-                        <SelectItem key={education} value={education}>{education}</SelectItem>
-                      ))}
+                      <ScrollArea className="h-[200px]">
+                        {educationOptions.map(education => (
+                          <SelectItem key={education} value={education}>{education}</SelectItem>
+                        ))}
+                      </ScrollArea>
                     </SelectContent>
                   </Select>
                 </div>
