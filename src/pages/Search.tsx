@@ -155,14 +155,8 @@ const Search = () => {
       navigate('/profile/setup');
       return;
     }
-
-    // Only redirect to quiz if definitely not completed
-    if (!quizCompleted) {
-      console.log('Redirecting to questions - quiz not completed');
-      navigate('/questions');
-      return;
-    }
     
+    // Allow users to browse even without completing quiz
     console.log('All checks passed - staying on search page');
   }, [user, profile, profileLoading, quizCompleted, checkingQuiz, navigate]);
 
