@@ -112,9 +112,21 @@ const QuickStart = () => {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 px-4">
               Quick Start Guide
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed mb-8">
               Get started with AI Complete Me in just 4 simple steps and find your perfect match
             </p>
+            
+            {!user && (
+              <Button 
+                onClick={() => navigate('/auth')}
+                size="lg"
+                className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white font-semibold text-lg px-8 py-6 h-auto shadow-lg hover:shadow-xl transition-all"
+              >
+                <Heart className="h-5 w-5 mr-2" />
+                Start Signup Now
+                <ArrowRight className="h-5 w-5 ml-2" />
+              </Button>
+            )}
           </div>
 
           <Card className="mb-8 md:mb-12 bg-gradient-to-br from-background to-muted/5 border-primary/10 shadow-lg">
