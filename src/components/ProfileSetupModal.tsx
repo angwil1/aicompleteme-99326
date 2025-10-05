@@ -19,6 +19,7 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
   const [lookingFor, setLookingFor] = useState<string>("");
   const [ageRange, setAgeRange] = useState<number[]>([18, 35]);
   const [location, setLocation] = useState<string>("");
+  const [culturalIdentity, setCulturalIdentity] = useState<string>("");
   const [loading, setLoading] = useState(false);
   
   const { updateProfile } = useProfile();
@@ -38,6 +39,7 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
         age_preference_min: ageRange[0],
         age_preference_max: ageRange[1],
         location,
+        cultural_identity: culturalIdentity || null,
       });
       
       onComplete();
@@ -142,6 +144,34 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
               onChange={(e) => setLocation(e.target.value)}
               className="w-full h-8 rounded-md border border-border text-xs"
             />
+          </div>
+
+          {/* Cultural Identity (Optional) */}
+          <div className="space-y-1">
+            <Label className="text-xs font-medium text-foreground">Cultural Identity <span className="text-muted-foreground">(Optional)</span></Label>
+            <Select value={culturalIdentity} onValueChange={setCulturalIdentity}>
+              <SelectTrigger className="w-full h-8 rounded-md border border-border text-xs">
+                <SelectValue placeholder="Select if you'd like" />
+              </SelectTrigger>
+              <SelectContent className="rounded-md">
+                <SelectItem value="african">African</SelectItem>
+                <SelectItem value="african-american">African American</SelectItem>
+                <SelectItem value="asian">Asian</SelectItem>
+                <SelectItem value="caribbean">Caribbean</SelectItem>
+                <SelectItem value="east-asian">East Asian</SelectItem>
+                <SelectItem value="european">European</SelectItem>
+                <SelectItem value="hispanic-latino">Hispanic/Latino</SelectItem>
+                <SelectItem value="indigenous">Indigenous</SelectItem>
+                <SelectItem value="middle-eastern">Middle Eastern</SelectItem>
+                <SelectItem value="mixed">Mixed/Multiracial</SelectItem>
+                <SelectItem value="native-american">Native American</SelectItem>
+                <SelectItem value="pacific-islander">Pacific Islander</SelectItem>
+                <SelectItem value="south-asian">South Asian</SelectItem>
+                <SelectItem value="southeast-asian">Southeast Asian</SelectItem>
+                <SelectItem value="other">Other</SelectItem>
+                <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Submit Button */}

@@ -23,6 +23,7 @@ export interface Profile {
   age_preference_min: number | null;
   age_preference_max: number | null;
   zip_code?: string | null;
+  cultural_identity?: string | null;
   created_at: string;
   updated_at: string | null;
   // Premium features
@@ -141,7 +142,7 @@ export const useProfile = () => {
       }
       
       // Handle other string fields that should be null instead of empty
-      const stringFieldsToClean: (keyof Profile)[] = ['name', 'bio', 'gender', 'location', 'occupation', 'education', 'looking_for', 'avatar_url', 'zip_code'];
+      const stringFieldsToClean: (keyof Profile)[] = ['name', 'bio', 'gender', 'location', 'occupation', 'education', 'looking_for', 'avatar_url', 'zip_code', 'cultural_identity'];
       
       stringFieldsToClean.forEach(field => {
         if (field in cleanedUpdates && cleanedUpdates[field] === '') {
