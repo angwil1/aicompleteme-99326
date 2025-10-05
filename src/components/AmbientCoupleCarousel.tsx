@@ -5,6 +5,7 @@ import coupleIndianRomantic from '@/assets/couple-indian-romantic.jpg';
 import coupleBlackRomantic from '@/assets/couple-black-romantic.jpg';
 import coupleWhiteNatural from '@/assets/couple-white-natural.jpg';
 import coupleYoungSunsetBeach from '@/assets/couple-young-sunset-beach.jpg';
+import coupleYoungUrbanMobile from '@/assets/couple-young-urban-mobile.jpg';
 
 
 interface CoupleImage {
@@ -46,6 +47,13 @@ const ambientCoupleImages: CoupleImage[] = [
     alt: "Beautiful Indian couple sharing a romantic moment",
     focusDesktop: 'center 0%',
     focusMobile: 'center 0%'
+  },
+  {
+    src: coupleYoungUrbanMobile,
+    caption: "City lights, genuine connection",
+    alt: "Young couple on a city rooftop at twilight with skyline in background",
+    focusDesktop: 'center center',
+    focusMobile: 'center center'
   }
 ];
 
