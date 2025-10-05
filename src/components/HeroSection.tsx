@@ -18,9 +18,11 @@ import coupleYoungRomantic2 from '@/assets/couple-young-romantic-2.jpg';
 import coupleYoungRomantic3 from '@/assets/couple-young-romantic-3.jpg';
 import coupleYoungRomantic4 from '@/assets/couple-young-romantic-4.jpg';
 import coupleYoungBlackBeach from '@/assets/couple-young-black-beach.jpg';
+import coupleYoungCoffeeMobile from '@/assets/couple-young-coffee-mobile.jpg';
 
 // Original rotating background images
 const heroImages = [
+  coupleYoungCoffeeMobile,
   coupleYoungRomantic1,
   coupleYoungRomantic2,
   coupleYoungRomantic3,
@@ -32,6 +34,7 @@ const heroImages = [
 
 // Per-image focal points optimized for both desktop and mobile
 const heroPositionsDesktop = [
+  'center center', // young coffee mobile - new image
   'center 35%', // young romantic 1
   'center 40%', // young romantic 2
   'center 35%', // young romantic 3
@@ -42,6 +45,7 @@ const heroPositionsDesktop = [
 ];
 
 const heroPositionsMobile = [
+  'center center', // young coffee mobile - new image
   'center 35%', // young romantic 1
   'center 40%', // young romantic 2
   'center 35%', // young romantic 3
