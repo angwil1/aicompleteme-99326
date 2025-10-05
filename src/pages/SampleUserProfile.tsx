@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { ReportUser } from '@/components/ReportUser';
 import { BlockUser } from '@/components/BlockUser';
 import { SaveToVaultButton } from '@/components/SaveToVaultButton';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { ArrowLeft, MessageCircle, Heart, Shield, MapPin, Briefcase, Eye } from 'lucide-react';
 import { founderCuratedProfiles, browseProfiles } from '@/data/sampleProfiles';
 import { stateProfiles } from '@/data/stateProfiles';
@@ -14,10 +14,15 @@ import { stateProfiles } from '@/data/stateProfiles';
 const SampleUserProfile = () => {
   const navigate = useNavigate();
   const { profileId } = useParams();
+  const location = useLocation();
   const [isLiked, setIsLiked] = useState(false);
 
-  // Find the profile from all sample data arrays
-  const profile = founderCuratedProfiles.find(p => p.id === profileId) || 
+  // Check if profile data was passed via state (from QuizResults)
+  const stateProfileData = location.state?.profileData;
+
+  // Find the profile from all sample data arrays or use state data
+  const profile = stateProfileData || 
+                  founderCuratedProfiles.find(p => p.id === profileId) || 
                   browseProfiles.find(p => p.id === profileId) ||
                   stateProfiles.find(p => p.id === profileId);
 
@@ -75,7 +80,7 @@ const SampleUserProfile = () => {
                       <DialogTrigger asChild>
                         <div className="relative cursor-pointer group">
                           <img 
-                            src={profile.photos[0]} 
+                            src={profile.photos?.[0] || profile.blurredPhoto || '/src/assets/profile-silhouette.jpg'} 
                             alt={profile.name}
                             className="w-full h-full object-cover object-center"
                             loading="eager"
@@ -88,7 +93,7 @@ const SampleUserProfile = () => {
                       </DialogTrigger>
                       <DialogContent className="max-w-[80vw] max-h-[80vh] w-full">
                         <img 
-                          src={profile.photos[0]} 
+                          src={profile.photos?.[0] || profile.blurredPhoto || '/src/assets/profile-silhouette.jpg'} 
                           alt={profile.name}
                           className="w-full h-auto max-h-[70vh] object-contain rounded-lg"
                         />
