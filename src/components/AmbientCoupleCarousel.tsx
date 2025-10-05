@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/card';
 import coupleIndianRomantic from '@/assets/couple-indian-romantic.jpg';
 import coupleBlackRomantic from '@/assets/couple-black-romantic.jpg';
 import coupleWhiteNatural from '@/assets/couple-white-natural.jpg';
-import coupleYoungSunsetMobile from '@/assets/couple-young-sunset-mobile.jpg';
+import coupleYoungSunsetBeach from '@/assets/couple-young-sunset-beach.jpg';
 
 
 interface CoupleImage {
@@ -20,8 +20,8 @@ interface CoupleImage {
 
 const ambientCoupleImages: CoupleImage[] = [
   {
-    src: coupleYoungSunsetMobile,
-    caption: "Pure connection, beautiful souls",
+    src: coupleYoungSunsetBeach,
+    caption: "Golden hour smiles, effortless chemistry",
     alt: "Young interracial couple laughing together at sunset on a beach",
     focusDesktop: 'center center',
     focusMobile: 'center center'
