@@ -11,6 +11,7 @@ import { stateProfiles } from '@/data/stateProfiles';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import SearchFilters from '@/components/SearchFilters';
+import { useProfile } from '@/hooks/useProfile';
 
 // All 50 US States with sample zip codes for easier searching
 const US_STATES = [
@@ -71,8 +72,11 @@ const Search = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useAuth();
+  const { profile, loading: profileLoading } = useProfile();
   const [likedProfiles, setLikedProfiles] = useState<Set<string>>(new Set());
   const [visibleMatches, setVisibleMatches] = useState(6);
+  const [quizCompleted, setQuizCompleted] = useState(false);
+  const [checkingQuiz, setCheckingQuiz] = useState(true);
   
   // Initialize from URL parameters or defaults
   const [searchZipCode, setSearchZipCode] = useState(searchParams.get('zip') || '');
@@ -106,16 +110,55 @@ const Search = () => {
     }
   };
   
+  // Check if user has completed quiz
   useEffect(() => {
-    // Only redirect to auth if we're sure there's no user and not just loading
-    const timer = setTimeout(() => {
+    const checkQuizCompletion = async () => {
       if (!user) {
-        navigate('/auth');
+        setCheckingQuiz(false);
+        return;
       }
-    }, 1000); // Give 1 second for auth state to settle
 
-    return () => clearTimeout(timer);
-  }, [user, navigate]);
+      try {
+        const { data, error } = await supabase
+          .from('user_events')
+          .select('id')
+          .eq('user_id', user.id)
+          .eq('event_type', 'quiz_completed')
+          .limit(1);
+
+        if (error) {
+          console.error('Error checking quiz completion:', error);
+          setQuizCompleted(false);
+        } else {
+          setQuizCompleted(data && data.length > 0);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        setQuizCompleted(false);
+      } finally {
+        setCheckingQuiz(false);
+      }
+    };
+
+    checkQuizCompletion();
+  }, [user]);
+
+  // Check profile completion
+  useEffect(() => {
+    if (!user || profileLoading || checkingQuiz) return;
+
+    // Redirect to profile setup if basic info is missing
+    if (profile && (!profile.gender || !profile.looking_for || !profile.location)) {
+      navigate('/profile/setup');
+      return;
+    }
+
+    // Redirect to quiz if not completed
+    if (!quizCompleted) {
+      navigate('/questions');
+      return;
+    }
+  }, [user, profile, profileLoading, quizCompleted, checkingQuiz, navigate]);
 
   // Restore search state from URL on page load
   useEffect(() => {
@@ -349,6 +392,18 @@ const Search = () => {
     // Clear URL parameters
     setSearchParams({});
   };
+
+  // Show loading while checking requirements
+  if (profileLoading || checkingQuiz) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
