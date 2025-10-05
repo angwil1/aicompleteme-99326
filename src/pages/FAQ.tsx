@@ -13,10 +13,6 @@ const FAQ = () => {
   
   const faqs = [
     {
-      question: "What's included in each tier?",
-      answer: "Quiet Start: A gentle beginning. You get 60 days free with access to basic matching, public prompts, and core connection tools—with no pressure.\n\nComplete Plus: Everything in Quiet Start, plus deeper compatibility quizzes, private Match Memory, and early access to new features. You're signaling you're ready for more emotional texture.\n\nComplete Beyond: A full emotional toolkit. Includes everything above—plus Memory Vault to save connection moments, Connection DNA for deep emotional mirroring, and poetic onboarding overlays for when you need a fresh start."
-    },
-    {
       question: "How does AI Complete Me work?",
       answer: "AI Complete Me uses advanced AI matching algorithms to connect you with compatible partners based on your personality, interests, and values. Complete our comprehensive quiz to get started."
     },
@@ -29,32 +25,64 @@ const FAQ = () => {
       answer: "We focus on meaningful connections through deep personality analysis, AI-powered matching, and features like video chat to help you build authentic relationships."
     },
     {
+      question: "What's included in each tier?",
+      answer: "Quiet Start: A gentle beginning. You get 60 days free with access to basic matching, public prompts, and core connection tools—with no pressure.\n\nComplete Plus: Everything in Quiet Start, plus deeper compatibility quizzes, private Match Memory, and early access to new features. You're signaling you're ready for more emotional texture.\n\nComplete Beyond: A full emotional toolkit. Includes everything above—plus Memory Vault to save connection moments, Connection DNA for deep emotional mirroring, and poetic onboarding overlays for when you need a fresh start."
+    },
+    {
+      question: "💳 Do I need to pay to use AI Complete Me?",
+      answer: "You can explore and connect for free. Some features may be part of a paid tier, but we'll always let you know before anything changes."
+    },
+    {
       question: "How much does AI Complete Me cost?",
       answer: "We offer 60 days free with access to all Complete Plus features, then paid plans starting at $12/month for continued access to advanced features like video chat, read receipts, and priority matching."
-    },
-    {
-      question: "When will I be charged?",
-      answer: "You won't be charged for 60 days. After your 60-day free trial ends, you'll automatically be enrolled in Complete Plus at $12/month unless you cancel or choose a different plan. You can cancel anytime during the 60-day trial period with no charge."
-    },
-    {
-      question: "Can I cancel my subscription anytime?",
-      answer: "Yes, you can cancel your subscription at any time during your 60-day free trial or after. If you cancel during the trial, you won't be charged anything. If you cancel after the trial, you'll continue to have access to premium features until your current billing period ends."
     },
     {
       question: "What is the Quiet Start offer?",
       answer: "Quiet Start is our 60-day free trial. We're just beginning, and you're invited to grow with us. Explore freely for 60 days with full access to Complete Plus features. No charge today—only billed if you choose to stay. Cancel anytime—quietly, easily, no surprises."
     },
     {
-      question: "What happens after my 60-day trial?",
-      answer: "After your 60-day free trial ends, you'll automatically continue with Complete Plus at $12/month unless you cancel or choose Complete Beyond ($39/year). You can change plans or cancel anytime through your account settings."
-    },
-    {
       question: "How long is the free trial and when do I get charged?",
       answer: "You get 60 days completely free with full access to Complete Plus features. Your card will only be charged after the 60-day trial period ends, at which point you'll be billed $12/month for Complete Plus unless you cancel or choose a different plan."
     },
     {
-      question: "How do I delete my account?",
-      answer: "You can delete your account through your profile settings. This action is permanent and will remove all your data from our servers."
+      question: "When will I be charged?",
+      answer: "You won't be charged for 60 days. After your 60-day free trial ends, you'll automatically be enrolled in Complete Plus at $12/month unless you cancel or choose a different plan. You can cancel anytime during the 60-day trial period with no charge."
+    },
+    {
+      question: "What happens after my 60-day trial?",
+      answer: "After your 60-day free trial ends, you'll automatically continue with Complete Plus at $12/month unless you cancel or choose Complete Beyond ($39/year). You can change plans or cancel anytime through your account settings."
+    },
+    {
+      question: "🆓 What happens after the free trial?",
+      answer: "After your free trial ends, you'll be automatically enrolled in our Complete Plus at $12/month, billed monthly. If you'd prefer not to continue, you can cancel anytime before your trial ends in your account settings."
+    },
+    {
+      question: "🚪 What if I cancel during my 60-day free trial?",
+      answer: "You're free to cancel anytime during your trial—no charges, no guilt. We won't bill you unless you choose to stay after the 60 days. Your journey here matters, even if it's brief.\n\nWe're just getting started, and so are you. Whether you stay or step away, thank you for exploring with us."
+    },
+    {
+      question: "Can I cancel my subscription anytime?",
+      answer: "Yes, you can cancel your subscription at any time during your 60-day free trial or after. If you cancel during the trial, you won't be charged anything. If you cancel after the trial, you'll continue to have access to premium features until your current billing period ends."
+    },
+    {
+      question: "❌ Can I cancel anytime?",
+      answer: "Yes. You're never locked in. Cancel anytime from your account settings—no guilt, no friction."
+    },
+    {
+      question: "🔁 How does the subscription work?",
+      answer: "Subscriptions are set to auto-renew, which means you'll be charged automatically on a recurring basis unless you cancel beforehand. We don't send reminders before renewal, so if you'd prefer not to continue, please cancel your plan before the renewal date in your account settings.\n\nWe believe in clear, upfront communication—no hidden fees, no surprises. You're always in control."
+    },
+    {
+      question: "📅 Is billing monthly or yearly?",
+      answer: "We currently offer both monthly and yearly options. You choose what fits your rhythm."
+    },
+    {
+      question: "💰 Will pricing ever change?",
+      answer: "Our pricing may evolve as we grow, but we'll always communicate changes clearly and with care. You'll never be surprised—just gently informed.\n\n\"We believe connection should feel spacious, not transactional. Our pricing reflects that.\""
+    },
+    {
+      question: "🔄 Do you offer refunds?",
+      answer: "We're a small team building with heart. If something doesn't feel right, reach out—we'll do our best to make it right."
     },
     {
       question: "💾 What is the Memory Vault?",
@@ -67,6 +95,14 @@ const FAQ = () => {
     {
       question: "🔐 Is my data safe here?",
       answer: "Yes. We do not sell or share your data. We believe privacy is the foundation of trust. You're not the product—you're the protagonist."
+    },
+    {
+      question: "How do I delete my account?",
+      answer: "You can delete your account through your profile settings. This action is permanent and will remove all your data from our servers."
+    },
+    {
+      question: "What if I want to delete my account or data?",
+      answer: "You can fully delete your account and associated data in just a few taps. No hoops, no guilt trips. We'll miss you, but you won't leave footprints."
     },
     {
       question: "What if I'm not getting matches?",
@@ -95,10 +131,6 @@ const FAQ = () => {
     {
       question: "📷 Can I turn off premium features once I've activated them?",
       answer: "Always. You can toggle any premium features, hide content, or adjust your visibility at any time. Flexibility adapts to your comfort."
-    },
-    {
-      question: "What if I want to delete my account or data?",
-      answer: "You can fully delete your account and associated data in just a few taps. No hoops, no guilt trips. We'll miss you, but you won't leave footprints."
     },
     {
       question: "⏳ Do I have to wait for matches to appear?",
@@ -167,38 +199,6 @@ const FAQ = () => {
     {
       question: "Are there keyboard shortcuts for navigating AI Complete Me?",
       answer: "Yes! AI Complete Me includes comprehensive keyboard navigation: Tab/Shift+Tab to move between elements, Enter/Space to activate buttons and links, Arrow keys in menus and accordions, Escape to close dialogs and menus, Alt+S to skip to main content, and Alt+M to access the main navigation menu. All interactive elements are reachable via keyboard, and focus indicators clearly show your current position."
-    },
-    {
-      question: "💳 Do I need to pay to use AI Complete Me?",
-      answer: "You can explore and connect for free. Some features may be part of a paid tier, but we'll always let you know before anything changes."
-    },
-    {
-      question: "💰 Will pricing ever change?",
-      answer: "Our pricing may evolve as we grow, but we'll always communicate changes clearly and with care. You'll never be surprised—just gently informed.\n\n\"We believe connection should feel spacious, not transactional. Our pricing reflects that.\""
-    },
-    {
-      question: "🔄 Do you offer refunds?",
-      answer: "We're a small team building with heart. If something doesn't feel right, reach out—we'll do our best to make it right."
-    },
-    {
-      question: "📅 Is billing monthly or yearly?",
-      answer: "We currently offer both monthly and yearly options. You choose what fits your rhythm."
-    },
-    {
-      question: "❌ Can I cancel anytime?",
-      answer: "Yes. You're never locked in. Cancel anytime from your account settings—no guilt, no friction."
-    },
-    {
-      question: "🔁 How does the subscription work?",
-      answer: "Subscriptions are set to auto-renew, which means you'll be charged automatically on a recurring basis unless you cancel beforehand. We don't send reminders before renewal, so if you'd prefer not to continue, please cancel your plan before the renewal date in your account settings.\n\nWe believe in clear, upfront communication—no hidden fees, no surprises. You're always in control."
-    },
-    {
-      question: "🆓 What happens after the free trial?",
-      answer: "After your free trial ends, you'll be automatically enrolled in our Complete Plus at $12/month, billed monthly. If you'd prefer not to continue, you can cancel anytime before your trial ends in your account settings."
-    },
-    {
-      question: "🚪 What if I cancel during my 60-day free trial?",
-      answer: "You're free to cancel anytime during your trial—no charges, no guilt. We won't bill you unless you choose to stay after the 60 days. Your journey here matters, even if it's brief.\n\nWe're just getting started, and so are you. Whether you stay or step away, thank you for exploring with us."
     }
   ];
 
