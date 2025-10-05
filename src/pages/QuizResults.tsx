@@ -314,7 +314,14 @@ const QuizResults = () => {
 
         {/* Match Previews */}
         <div className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4 text-center">Your Top Compatibility Matches</h2>
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-semibold mb-3">Your Top Compatibility Matches</h2>
+            <p className="text-muted-foreground italic">
+              {Math.random() > 0.5 
+                ? "This is just the start. You're part of something new, and your presence helps it bloom."
+                : "Not many matches yet—but you're here at the beginning, and that matters. Every connection starts with one."}
+            </p>
+          </div>
           <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 max-w-4xl mx-auto">
             {matchPreviews.map((match, index) => (
               <Card 
