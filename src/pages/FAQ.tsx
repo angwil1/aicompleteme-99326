@@ -167,6 +167,26 @@ const FAQ = () => {
     {
       question: "Are there keyboard shortcuts for navigating AI Complete Me?",
       answer: "Yes! AI Complete Me includes comprehensive keyboard navigation: Tab/Shift+Tab to move between elements, Enter/Space to activate buttons and links, Arrow keys in menus and accordions, Escape to close dialogs and menus, Alt+S to skip to main content, and Alt+M to access the main navigation menu. All interactive elements are reachable via keyboard, and focus indicators clearly show your current position."
+    },
+    {
+      question: "💳 Do I need to pay to use AI Complete Me?",
+      answer: "You can explore and connect for free. Some features may be part of a paid tier, but we'll always let you know before anything changes."
+    },
+    {
+      question: "💰 Will pricing ever change?",
+      answer: "Our pricing may evolve as we grow, but we'll always communicate changes clearly and with care. You'll never be surprised—just gently informed.\n\n\"We believe connection should feel spacious, not transactional. Our pricing reflects that.\""
+    },
+    {
+      question: "🔄 Do you offer refunds?",
+      answer: "We're a small team building with heart. If something doesn't feel right, reach out—we'll do our best to make it right."
+    },
+    {
+      question: "📅 Is billing monthly or yearly?",
+      answer: "We currently offer both monthly and yearly options. You choose what fits your rhythm."
+    },
+    {
+      question: "❌ Can I cancel anytime?",
+      answer: "Yes. You're never locked in. Cancel anytime from your account settings—no guilt, no friction."
     }
   ];
 
