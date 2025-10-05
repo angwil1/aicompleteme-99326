@@ -105,13 +105,15 @@ export const AmbientCoupleCarousel = () => {
                      <img
                        src={image.src}
                        alt={image.alt}
-                       className="w-full h-64 sm:h-72 md:h-80 lg:h-96 xl:h-[28rem] object-cover transition-transform duration-500 group-hover:scale-105"
+                       className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                       style={{ 
+                         height: index === 0 ? 'auto' : undefined,
+                         aspectRatio: index === 0 ? '9/16' : undefined,
+                         objectPosition: index === 0 ? 'center center' : (isDesktop 
+                           ? (image.focusDesktop ?? 'center center') 
+                           : (image.focusMobile ?? 'center center'))
+                       }}
                        loading="lazy"
-                        style={{ 
-                          objectPosition: isDesktop 
-                            ? (image.focusDesktop ?? 'center center') 
-                            : (image.focusMobile ?? 'center center')
-                        }}
                      />
                   </div>
                 </Card>
