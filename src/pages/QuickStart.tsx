@@ -2,7 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
-import { CheckCircle, ArrowRight, Heart, Zap, Brain, User, UserCheck, Lock, ArrowLeft } from "lucide-react";
+import { CheckCircle, ArrowRight, Heart, Zap, Brain, User, UserCheck, Lock, ArrowLeft, ShieldCheck } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useProfile } from "@/hooks/useProfile";
 import { useToast } from "@/hooks/use-toast";
@@ -13,6 +13,9 @@ const QuickStart = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
+  // Check age verification
+  const ageVerified = localStorage.getItem('ageVerified') === 'true';
+  
   // Check if profile is considered complete (has basic info like name, age, etc.)
   console.log('Profile data:', { 
     name: profile?.name, 
@@ -24,27 +27,46 @@ const QuickStart = () => {
   });
   // More realistic completeness check - just need name and basic preferences
   const isProfileComplete = profile?.name && profile?.gender && profile?.looking_for;
-  const canTakeQuiz = user && isProfileComplete;
   // Check if user has completed the quiz/onboarding
   const hasCompletedQuiz = profile?.interests?.length > 0 || profile?.bio;
 
   const handleStepClick = (step: number) => {
-    console.log('Step clicked:', step, { user: !!user, isProfileComplete });
+    console.log('Step clicked:', step, { ageVerified, user: !!user, isProfileComplete });
     switch (step) {
       case 1:
-        // Create Account
-        console.log('Navigating to auth - no user');
-        if (!user) {
-          navigate('/auth');
-        } else {
-          // User already has account, direct them to edit their profile
-          console.log('User exists, navigating to profile edit');
-          navigate('/profile/edit');
+        // Verify Age
+        if (!ageVerified) {
+          window.dispatchEvent(new CustomEvent('showAgeVerification'));
         }
         break;
       case 2:
-        // Complete Profile  
-        console.log('Step 2 clicked - Complete Profile');
+        // Create Account
+        if (!ageVerified) {
+          toast({
+            title: "Verify Age First",
+            description: "Please verify your age before creating an account.",
+            variant: "destructive"
+          });
+          window.dispatchEvent(new CustomEvent('showAgeVerification'));
+        } else if (!user) {
+          navigate('/auth');
+        }
+        break;
+      case 3:
+        // Take Quiz
+        if (!user) {
+          toast({
+            title: "Create Account First",
+            description: "Please create an account before taking the quiz.",
+            variant: "destructive"
+          });
+          navigate('/auth');
+        } else {
+          navigate('/questions');
+        }
+        break;
+      case 4:
+        // Complete Profile
         if (!user) {
           toast({
             title: "Create Account First",
@@ -52,29 +74,15 @@ const QuickStart = () => {
             variant: "destructive"
           });
           navigate('/auth');
-        } else {
-          navigate('/profile/edit');
-        }
-        break;
-      case 3:
-        // Take Quiz
-        console.log('Step 3 clicked - Take Quiz');
-        if (!user) {
+        } else if (!hasCompletedQuiz) {
           toast({
-            title: "Create Account First",
-            description: "Please create an account and complete your profile before taking the quiz.",
+            title: "Complete Quiz First",
+            description: "Please complete the onboarding quiz before setting up your profile.",
             variant: "destructive"
           });
-          navigate('/auth');
-        } else if (!isProfileComplete) {
-          toast({
-            title: "Complete Profile First",
-            description: "Please complete your profile before taking the personality quiz.",
-            variant: "destructive"
-          });
-          navigate('/profile/edit');
+          navigate('/questions');
         } else {
-          navigate('/matches');
+          navigate('/profile/setup');
         }
         break;
     }
@@ -105,7 +113,7 @@ const QuickStart = () => {
               Quick Start Guide
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
-              Get started with AI Complete Me in just 3 simple steps and find your perfect match
+              Get started with AI Complete Me in just 4 simple steps and find your perfect match
             </p>
           </div>
 
@@ -121,13 +129,61 @@ const QuickStart = () => {
             </CardHeader>
             <CardContent className="p-4 md:p-8">
               <div className="space-y-6">
-                 {/* Step 1 */}
+                 {/* Step 1: Verify Age */}
+                 <div className="bg-gradient-to-r from-blue-500/5 to-primary/5 border-2 border-blue-500/20 rounded-xl p-4 md:p-6 hover:shadow-lg transition-all duration-300">
+                   <div className="flex flex-col sm:flex-row items-start gap-4 md:gap-6">
+                     <div className="flex-shrink-0 self-center sm:self-start">
+                       <div className="relative">
+                         <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-r from-blue-500 to-primary text-white flex items-center justify-center text-lg md:text-2xl font-bold shadow-lg">
+                           {ageVerified ? <CheckCircle className="h-6 w-6 md:h-8 md:w-8" /> : "1"}
+                         </div>
+                         {ageVerified && (
+                           <div className="absolute -top-2 -right-2 w-5 h-5 md:w-6 md:h-6 rounded-full bg-green-500 flex items-center justify-center">
+                             <CheckCircle className="h-3 w-3 md:h-4 md:w-4 text-white" />
+                           </div>
+                         )}
+                       </div>
+                     </div>
+                     <div className="flex-grow min-w-0 text-center sm:text-left">
+                       <h3 className="font-bold text-lg md:text-xl mb-2 text-foreground">Verify Your Age</h3>
+                       <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
+                         One-time age verification to ensure a safe community (18+ only)
+                       </p>
+                       <div className="flex items-center justify-center sm:justify-start gap-2 mb-4">
+                         {ageVerified ? (
+                           <div className="flex items-center gap-2">
+                             <CheckCircle className="h-4 w-4 text-green-500" />
+                             <span className="text-sm text-green-600 font-medium">✓ Age Verified</span>
+                           </div>
+                         ) : (
+                           <div className="flex items-center gap-2">
+                             <ShieldCheck className="h-4 w-4 text-blue-500" />
+                             <span className="text-sm text-blue-500 font-medium">Ready to verify</span>
+                           </div>
+                         )}
+                       </div>
+                       <Button 
+                         onClick={() => handleStepClick(1)}
+                         className={`w-full sm:w-auto min-w-0 ${
+                           ageVerified 
+                             ? "bg-green-500 hover:bg-green-600 text-white" 
+                             : "bg-gradient-to-r from-blue-500 to-primary hover:from-blue-600 hover:to-primary/90 text-white"
+                         }`}
+                         disabled={ageVerified}
+                       >
+                         {ageVerified ? "✓ Age Verified" : "Verify Age"}
+                       </Button>
+                     </div>
+                   </div>
+                 </div>
+
+                 {/* Step 2: Create Account */}
                  <div className="bg-gradient-to-r from-primary/5 to-purple-500/5 border-2 border-primary/20 rounded-xl p-4 md:p-6 hover:shadow-lg transition-all duration-300">
                    <div className="flex flex-col sm:flex-row items-start gap-4 md:gap-6">
                      <div className="flex-shrink-0 self-center sm:self-start">
                        <div className="relative">
                          <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-r from-primary to-purple-600 text-white flex items-center justify-center text-lg md:text-2xl font-bold shadow-lg">
-                           {user ? <CheckCircle className="h-6 w-6 md:h-8 md:w-8" /> : "1"}
+                           {user ? <CheckCircle className="h-6 w-6 md:h-8 md:w-8" /> : "2"}
                          </div>
                          {user && (
                            <div className="absolute -top-2 -right-2 w-5 h-5 md:w-6 md:h-6 rounded-full bg-green-500 flex items-center justify-center">
@@ -147,100 +203,115 @@ const QuickStart = () => {
                              <CheckCircle className="h-4 w-4 text-green-500" />
                              <span className="text-sm text-green-600 font-medium">✓ Complete</span>
                            </div>
-                         ) : (
+                         ) : ageVerified ? (
                            <div className="flex items-center gap-2">
                              <User className="h-4 w-4 text-primary" />
                              <span className="text-sm text-primary font-medium">Ready to start</span>
                            </div>
+                         ) : (
+                           <div className="flex items-center gap-2">
+                             <Lock className="h-4 w-4 text-muted-foreground" />
+                             <span className="text-sm text-muted-foreground font-medium">Verify age first</span>
+                           </div>
                          )}
                        </div>
                        <Button 
-                         onClick={() => handleStepClick(1)}
+                         onClick={() => handleStepClick(2)}
                          className={`w-full sm:w-auto min-w-0 ${
                            user 
                              ? "bg-green-500 hover:bg-green-600 text-white" 
-                             : "bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white"
+                             : ageVerified
+                               ? "bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white"
+                               : "bg-muted text-muted-foreground cursor-not-allowed"
                          }`}
-                         disabled={!!user}
+                         disabled={!ageVerified || !!user}
                        >
-                         {user ? "✓ Account Created" : "Create Account"}
+                         {user ? "✓ Account Created" : ageVerified ? "Create Account" : "Verify Age First"}
                        </Button>
                      </div>
                    </div>
                  </div>
 
-                 {/* Step 2 */}
-                 <div className="bg-gradient-to-r from-purple-500/5 to-pink-500/5 border-2 border-purple-500/20 rounded-xl p-4 md:p-6 hover:shadow-lg transition-all duration-300">
+                 {/* Step 3: Complete Quiz */}
+                 <div className={`bg-gradient-to-r from-purple-500/5 to-pink-500/5 border-2 rounded-xl p-4 md:p-6 hover:shadow-lg transition-all duration-300 ${
+                   hasCompletedQuiz ? "border-green-500/20" : "border-purple-500/20"
+                 }`}>
                    <div className="flex flex-col sm:flex-row items-start gap-4 md:gap-6">
                      <div className="flex-shrink-0 self-center sm:self-start">
                        <div className="relative">
-                         <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white flex items-center justify-center text-lg md:text-2xl font-bold shadow-lg">
-                           {user && isProfileComplete ? <CheckCircle className="h-6 w-6 md:h-8 md:w-8" /> : "2"}
+                         <div className={`w-12 h-12 md:w-16 md:h-16 rounded-full text-white flex items-center justify-center text-lg md:text-2xl font-bold shadow-lg ${
+                           hasCompletedQuiz
+                             ? "bg-gradient-to-r from-green-500 to-green-600"
+                             : user 
+                               ? "bg-gradient-to-r from-purple-500 to-pink-500" 
+                               : "bg-muted text-muted-foreground"
+                         }`}>
+                           {hasCompletedQuiz ? <CheckCircle className="h-6 w-6 md:h-8 md:w-8" /> : user ? "3" : <Lock className="h-6 w-6 md:h-8 md:w-8" />}
                          </div>
-                         {user && isProfileComplete && (
+                         {hasCompletedQuiz && (
                            <div className="absolute -top-2 -right-2 w-5 h-5 md:w-6 md:h-6 rounded-full bg-green-500 flex items-center justify-center">
                              <CheckCircle className="h-3 w-3 md:h-4 md:w-4 text-white" />
                            </div>
                          )}
                        </div>
                      </div>
-                     <div className="flex-grow min-w-0 text-center sm:text-left">
-                       <h3 className="font-bold text-lg md:text-xl mb-2 text-foreground">Complete Your Profile</h3>
-                       <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
-                         Add photos, verify your age, and fill out your profile details to attract quality matches
-                       </p>
+                      <div className="flex-grow min-w-0 text-center sm:text-left">
+                        <h3 className="font-bold text-lg md:text-xl mb-2 text-foreground">Complete Onboarding Quiz</h3>
+                        <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
+                          Answer compatibility questions to enable AI-powered matching
+                        </p>
                        <div className="flex items-center justify-center sm:justify-start gap-2 mb-4">
-                         {user && isProfileComplete ? (
+                         {hasCompletedQuiz ? (
                            <div className="flex items-center gap-2">
                              <CheckCircle className="h-4 w-4 text-green-500" />
                              <span className="text-sm text-green-600 font-medium">✓ Complete</span>
                            </div>
                          ) : user ? (
                            <div className="flex items-center gap-2">
-                             <UserCheck className="h-4 w-4 text-purple-500" />
-                             <span className="text-sm text-purple-500 font-medium">Ready to complete</span>
+                             <Brain className="h-4 w-4 text-purple-500" />
+                             <span className="text-sm text-purple-500 font-medium">Ready to begin</span>
                            </div>
                          ) : (
                            <div className="flex items-center gap-2">
-                             <UserCheck className="h-4 w-4 text-muted-foreground" />
-                             <span className="text-sm text-muted-foreground font-medium">Step 1 required</span>
+                             <Lock className="h-4 w-4 text-muted-foreground" />
+                             <span className="text-sm text-muted-foreground font-medium">Complete Steps 1 & 2</span>
                            </div>
                          )}
                        </div>
                        <Button 
-                         onClick={() => handleStepClick(2)}
+                         onClick={() => handleStepClick(3)}
                          className={`w-full sm:w-auto min-w-0 text-sm ${
-                           user && isProfileComplete 
-                             ? "bg-green-500 hover:bg-green-600 text-white" 
-                             : !user 
-                               ? "bg-muted text-muted-foreground cursor-not-allowed"
-                               : "bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                           hasCompletedQuiz
+                             ? "bg-green-500 hover:bg-green-600 text-white"
+                             : user 
+                               ? "bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                               : "bg-muted text-muted-foreground cursor-not-allowed"
                          }`}
-                         disabled={!user || (!!user && !!isProfileComplete)}
+                         disabled={!user || !!hasCompletedQuiz}
                        >
-                         {user && isProfileComplete ? "✓ Profile Complete" : !user ? "Complete Step 1 First" : "Setup Profile"}
+                         {hasCompletedQuiz ? "✓ Quiz Complete" : user ? "Start Quiz" : "Complete Previous Steps"}
                        </Button>
                      </div>
                    </div>
                  </div>
 
-                  {/* Step 3 */}
+                  {/* Step 4: Complete Profile */}
                   <div className={`bg-gradient-to-r from-pink-500/5 to-primary/5 border-2 rounded-xl p-4 md:p-6 hover:shadow-lg transition-all duration-300 ${
-                    hasCompletedQuiz ? "border-green-500/20" : "border-pink-500/20"
+                    isProfileComplete ? "border-green-500/20" : "border-pink-500/20"
                   }`}>
                     <div className="flex flex-col sm:flex-row items-start gap-4 md:gap-6">
                       <div className="flex-shrink-0 self-center sm:self-start">
                         <div className="relative">
                           <div className={`w-12 h-12 md:w-16 md:h-16 rounded-full text-white flex items-center justify-center text-lg md:text-2xl font-bold shadow-lg ${
-                            hasCompletedQuiz
+                            isProfileComplete
                               ? "bg-gradient-to-r from-green-500 to-green-600"
-                              : canTakeQuiz 
+                              : hasCompletedQuiz 
                                 ? "bg-gradient-to-r from-pink-500 to-primary" 
                                 : "bg-muted text-muted-foreground"
                           }`}>
-                            {hasCompletedQuiz ? <CheckCircle className="h-6 w-6 md:h-8 md:w-8" /> : canTakeQuiz ? "3" : <Lock className="h-6 w-6 md:h-8 md:w-8" />}
+                            {isProfileComplete ? <CheckCircle className="h-6 w-6 md:h-8 md:w-8" /> : hasCompletedQuiz ? "4" : <Lock className="h-6 w-6 md:h-8 md:w-8" />}
                           </div>
-                          {hasCompletedQuiz && (
+                          {isProfileComplete && (
                             <div className="absolute -top-2 -right-2 w-5 h-5 md:w-6 md:h-6 rounded-full bg-green-500 flex items-center justify-center">
                               <CheckCircle className="h-3 w-3 md:h-4 md:w-4 text-white" />
                             </div>
@@ -248,40 +319,40 @@ const QuickStart = () => {
                         </div>
                       </div>
                        <div className="flex-grow min-w-0 text-center sm:text-left">
-                         <h3 className="font-bold text-lg md:text-xl mb-2 text-foreground">Complete Onboarding Quiz</h3>
+                         <h3 className="font-bold text-lg md:text-xl mb-2 text-foreground">Complete Your Profile</h3>
                          <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
-                           Take our one-time personality quiz to set up your compatibility profile and enable AI matching
+                           Add photos and profile details to attract quality matches
                          </p>
                         <div className="flex items-center justify-center sm:justify-start gap-2 mb-4">
-                          {hasCompletedQuiz ? (
+                          {isProfileComplete ? (
                             <div className="flex items-center gap-2">
                               <CheckCircle className="h-4 w-4 text-green-500" />
                               <span className="text-sm text-green-600 font-medium">✓ Complete</span>
                             </div>
-                          ) : canTakeQuiz ? (
+                          ) : hasCompletedQuiz ? (
                             <div className="flex items-center gap-2">
-                              <Brain className="h-4 w-4 text-pink-500" />
-                              <span className="text-sm text-pink-500 font-medium">Ready to begin</span>
+                              <UserCheck className="h-4 w-4 text-pink-500" />
+                              <span className="text-sm text-pink-500 font-medium">Ready to complete</span>
                             </div>
                           ) : (
                             <div className="flex items-center gap-2">
                               <Lock className="h-4 w-4 text-muted-foreground" />
-                              <span className="text-sm text-muted-foreground font-medium">Complete Steps 1 & 2</span>
+                              <span className="text-sm text-muted-foreground font-medium">Complete quiz first</span>
                             </div>
                           )}
                         </div>
                         <Button 
-                          onClick={() => handleStepClick(3)}
+                          onClick={() => handleStepClick(4)}
                           className={`w-full sm:w-auto min-w-0 text-sm ${
-                            hasCompletedQuiz
+                            isProfileComplete
                               ? "bg-green-500 hover:bg-green-600 text-white"
-                              : canTakeQuiz 
+                              : hasCompletedQuiz 
                                 ? "bg-gradient-to-r from-pink-500 to-primary hover:from-pink-600 hover:to-primary/90 text-white"
                                 : "bg-muted text-muted-foreground cursor-not-allowed"
                           }`}
-                          disabled={!canTakeQuiz || !!hasCompletedQuiz}
+                          disabled={!hasCompletedQuiz || !!isProfileComplete}
                         >
-                          {hasCompletedQuiz ? "✓ Quiz Complete" : canTakeQuiz ? "Start Quiz" : "Complete Previous Steps"}
+                          {isProfileComplete ? "✓ Profile Complete" : hasCompletedQuiz ? "Setup Profile" : "Complete Quiz First"}
                         </Button>
                       </div>
                     </div>
@@ -429,13 +500,12 @@ const QuickStart = () => {
                     onClick={() => {
                       if (!user) {
                         navigate('/auth');
+                      } else if (!hasCompletedQuiz) {
+                        navigate('/questions');
                       } else if (!isProfileComplete) {
-                        // If no profile exists at all, go to setup; otherwise go to edit
-                        navigate(profile ? '/profile/edit' : '/profile/setup');
-                      } else if (canTakeQuiz) {
-                        navigate('/matches');
+                        navigate('/profile/setup');
                       } else {
-                        navigate('/profile');
+                        navigate('/matches');
                       }
                     }}
                   >
