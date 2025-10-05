@@ -69,13 +69,19 @@ const QuizResults = () => {
         .single();
 
       // Get other profiles to match with
-      const { data: profiles, error } = await supabase
+      const { data: allProfiles, error } = await supabase
         .from('profiles')
         .select('id, name, age, personality_type, interests, photos, location, occupation, bio')
         .neq('id', user.id)
         .not('personality_type', 'is', null)
         .not('name', 'is', null)
-        .limit(10);
+        .limit(20);
+      
+      // Filter out Jordan and Marcus
+      const profiles = (allProfiles || []).filter(profile => {
+        const name = profile.name?.toLowerCase() || '';
+        return !name.includes('jordan') && !name.includes('marcus');
+      });
 
       if (error) {
         console.error('Error loading profiles:', error);
