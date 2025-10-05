@@ -195,6 +195,10 @@ const FAQ = () => {
     {
       question: "🆓 What happens after the free trial?",
       answer: "After your free trial ends, you'll be automatically enrolled in our Complete Plus at $12/month, billed monthly. If you'd prefer not to continue, you can cancel anytime before your trial ends in your account settings."
+    },
+    {
+      question: "🚪 What if I cancel during my 60-day free trial?",
+      answer: "You're free to cancel anytime during your trial—no charges, no guilt. We won't bill you unless you choose to stay after the 60 days. Your journey here matters, even if it's brief."
     }
   ];
 
