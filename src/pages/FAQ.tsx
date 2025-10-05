@@ -191,6 +191,10 @@ const FAQ = () => {
     {
       question: "🔁 How does the subscription work?",
       answer: "Subscriptions are set to auto-renew, which means you'll be charged automatically on a recurring basis unless you cancel beforehand. We don't send reminders before renewal, so if you'd prefer not to continue, please cancel your plan before the renewal date in your account settings.\n\nWe believe in clear, upfront communication—no hidden fees, no surprises. You're always in control."
+    },
+    {
+      question: "🆓 What happens after the free trial?",
+      answer: "After your free trial ends, you'll be automatically enrolled in our Complete Plus at $12/month, billed monthly. If you'd prefer not to continue, you can cancel anytime before your trial ends in your account settings."
     }
   ];
 
