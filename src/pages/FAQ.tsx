@@ -198,7 +198,7 @@ const FAQ = () => {
     },
     {
       question: "🚪 What if I cancel during my 60-day free trial?",
-      answer: "You're free to cancel anytime during your trial—no charges, no guilt. We won't bill you unless you choose to stay after the 60 days. Your journey here matters, even if it's brief."
+      answer: "You're free to cancel anytime during your trial—no charges, no guilt. We won't bill you unless you choose to stay after the 60 days. Your journey here matters, even if it's brief.\n\nWe're just getting started, and so are you. Whether you stay or step away, thank you for exploring with us."
     }
   ];
 
