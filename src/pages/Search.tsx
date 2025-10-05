@@ -206,6 +206,22 @@ const Search = () => {
   const filterProfiles = async (zipCode: string, distance: string, ageRange: string, genderPref: string, selectedState?: string) => {
     // Combine all available profiles
     const allProfiles = [...founderCuratedProfiles, ...stateProfiles];
+
+    // Normalize gender preference to avoid mismatches (e.g., woman/female -> women)
+    const normalizeGenderPref = (pref: string) => {
+      const p = (pref || '').toLowerCase().trim();
+      if (!p || p === 'everyone') return 'everyone';
+      if (['women', 'woman', 'female', 'f', 'w'].includes(p)) return 'women';
+      if (['men', 'man', 'male', 'm'].includes(p)) return 'men';
+      if (['non-binary', 'nonbinary', 'nb', 'enby'].includes(p)) return 'non-binary';
+      if (['transgender-women', 'trans women', 'trans-women', 'transgender woman'].includes(p)) return 'transgender-women';
+      if (['transgender-men', 'trans men', 'trans-men', 'transgender man'].includes(p)) return 'transgender-men';
+      if (['lgbtq', 'lgbtq+', 'lgbtq-community'].includes(p)) return 'lgbtq-community';
+      if (['activity', 'activity-partners'].includes(p)) return 'activity-partners';
+      if (['travel', 'travel-buddies'].includes(p)) return 'travel-buddies';
+      return 'everyone';
+    };
+    const pref = normalizeGenderPref(genderPref);
     
     // Determine the search state from zip code or selected state
     let searchState = selectedState;
@@ -251,34 +267,26 @@ const Search = () => {
 
       // Gender filtering - match profiles whose gender matches what the user is looking for
       let genderMatch = true;
-      if (genderPref !== 'everyone') {
-        switch (genderPref) {
+      if (pref !== 'everyone') {
+        switch (pref) {
           case 'women':
-            // User is looking for women, so show female profiles
             genderMatch = profile.gender === 'women';
             break;
           case 'men':
-            // User is looking for men, so show male profiles
             genderMatch = profile.gender === 'men';
             break;
           case 'non-binary':
             genderMatch = profile.gender === 'non-binary';
             break;
           case 'transgender-women':
-            // Show profiles that identify as women
             genderMatch = profile.gender === 'women';
             break;
           case 'transgender-men':
-            // Show profiles that identify as men
             genderMatch = profile.gender === 'men';
             break;
           case 'lgbtq-community':
-            // For LGBTQ+ searches, include all genders
-            genderMatch = true;
-            break;
           case 'activity-partners':
           case 'travel-buddies':
-            // For activity-based matching, gender doesn't matter as much
             genderMatch = true;
             break;
           default:
@@ -318,10 +326,19 @@ const Search = () => {
         }
         
         if (minDistance <= distanceLimit) {
-          profilesWithDistance.push({
-            ...profile,
-            distance: minDistance
-          });
+          const genderAllowed = pref === 'everyone' ||
+            (pref === 'women' && profile.gender === 'women') ||
+            (pref === 'men' && profile.gender === 'men') ||
+            (pref === 'non-binary' && profile.gender === 'non-binary') ||
+            (pref === 'transgender-women' && profile.gender === 'women') ||
+            (pref === 'transgender-men' && profile.gender === 'men') ||
+            (pref === 'lgbtq-community') || (pref === 'activity-partners') || (pref === 'travel-buddies');
+          if (genderAllowed) {
+            profilesWithDistance.push({
+              ...profile,
+              distance: minDistance
+            });
+          }
         }
       } catch (error) {
         console.error('Distance calculation error for profile:', profile.name, error);
@@ -349,11 +366,20 @@ const Search = () => {
           }
           
           if (minDistance <= 200) {
-            profilesWithDistance.push({
-              ...profile,
-              distance: minDistance,
-              isRegionalMatch: true
-            });
+            const genderAllowed = pref === 'everyone' ||
+              (pref === 'women' && profile.gender === 'women') ||
+              (pref === 'men' && profile.gender === 'men') ||
+              (pref === 'non-binary' && profile.gender === 'non-binary') ||
+              (pref === 'transgender-women' && profile.gender === 'women') ||
+              (pref === 'transgender-men' && profile.gender === 'men') ||
+              (pref === 'lgbtq-community') || (pref === 'activity-partners') || (pref === 'travel-buddies');
+            if (genderAllowed) {
+              profilesWithDistance.push({
+                ...profile,
+                distance: minDistance,
+                isRegionalMatch: true
+              });
+            }
           }
         } catch (error) {
           console.error('Distance calculation error for profile:', profile.name, error);
