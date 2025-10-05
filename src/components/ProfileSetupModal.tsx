@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useProfile } from "@/hooks/useProfile";
 import { useNavigate } from "react-router-dom";
 import { Heart, X } from "lucide-react";
@@ -109,10 +110,12 @@ export const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, on
                 <SelectValue placeholder="Looking for" />
               </SelectTrigger>
               <SelectContent className="rounded-md">
-                <SelectItem value="woman">Woman</SelectItem>
-                <SelectItem value="man">Man</SelectItem>
-                <SelectItem value="nonbinary">Nonbinary</SelectItem>
-                <SelectItem value="anyone">Anyone</SelectItem>
+                <ScrollArea className="h-[200px]">
+                  <SelectItem value="woman">Woman</SelectItem>
+                  <SelectItem value="man">Man</SelectItem>
+                  <SelectItem value="nonbinary">Nonbinary</SelectItem>
+                  <SelectItem value="anyone">Anyone</SelectItem>
+                </ScrollArea>
               </SelectContent>
             </Select>
           </div>
