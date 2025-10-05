@@ -34,15 +34,15 @@ const FAQ = () => {
     },
     {
       question: "How much does AI Complete Me cost?",
-      answer: "We offer 60 days free with access to all Complete Plus features, then paid plans starting at $12/month for continued access to advanced features like video chat, read receipts, and priority matching."
+      answer: "We offer 60 days free with access to all Complete Beyond features, then paid plans starting at $12/month for continued access to advanced features like video chat, read receipts, and priority matching."
     },
     {
       question: "What is the Quiet Start offer?",
-      answer: "Quiet Start is our 60-day free trial. We're just beginning, and you're invited to grow with us. Explore freely for 60 days with full access to Complete Plus features. No charge today—only billed if you choose to stay. Cancel anytime—quietly, easily, no surprises."
+      answer: "Quiet Start is our 60-day free trial. We're just beginning, and you're invited to grow with us. Explore freely for 60 days with full access to Complete Beyond features. No charge today—only billed if you choose to stay. Cancel anytime—quietly, easily, no surprises."
     },
     {
       question: "How long is the free trial and when do I get charged?",
-      answer: "You get 60 days completely free with full access to Complete Plus features. Your card will only be charged after the 60-day trial period ends, at which point you'll be billed $12/month for Complete Plus unless you cancel or choose a different plan."
+      answer: "You get 60 days completely free with full access to Complete Beyond features. Your card will only be charged after the 60-day trial period ends, at which point you'll be billed $12/month for Complete Plus unless you cancel or choose a different plan."
     },
     {
       question: "When will I be charged?",
