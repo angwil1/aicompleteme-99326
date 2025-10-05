@@ -456,16 +456,6 @@ const Messages = () => {
                     </div>
                     <p className="mt-2">Loading matches...</p>
                   </div>
-                ) : matches.length === 0 ? (
-                  <div className="p-6 text-center text-muted-foreground space-y-4 animate-fade-in" role="region" aria-label="No matches available">
-                    <div className="w-16 h-16 mx-auto rounded-full bg-muted/30 flex items-center justify-center">
-                      <div className="text-2xl">💫</div>
-                    </div>
-                    <div>
-                      <p className="font-medium">No matches yet</p>
-                      <p className="text-sm text-muted-foreground/70">Start matching to begin chatting!</p>
-                    </div>
-                  </div>
                 ) : (
                   <div role="listbox" aria-label="Your matches" aria-activedescendant={selectedMatch ? `match-${selectedMatch}` : undefined}>
                     {matches.map((match) => (
