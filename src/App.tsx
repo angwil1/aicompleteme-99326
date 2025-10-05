@@ -116,7 +116,16 @@ const App = () => {
   }
 
   if (!ageVerified) {
-    return <AgeGate onAgeConfirmed={handleAgeConfirmed} />;
+    const isAuthRoute = typeof window !== 'undefined' && window.location.hash.includes('#/auth');
+    const isLegalRoute = typeof window !== 'undefined' && (
+      window.location.hash.includes('#/privacy') ||
+      window.location.hash.includes('#/terms') ||
+      window.location.hash.includes('#/cookie') ||
+      window.location.hash.includes('#/accessibility')
+    );
+    if (!isAuthRoute && !isLegalRoute) {
+      return <AgeGate onAgeConfirmed={handleAgeConfirmed} />;
+    }
   }
 
   return (
