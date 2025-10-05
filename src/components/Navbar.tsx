@@ -98,7 +98,6 @@ export const Navbar = () => {
 
   const navigation = [
     { name: "Discover", href: "/quick-start" },
-    { name: "Join Now", href: "/quick-start", requiresSignup: true },
     { name: "Messages", href: user ? "/messages" : "/quick-start" },
     { name: "Memory Vault", href: user ? "/memory-vault" : "/quick-start" },
     { name: "Dating Tips", href: "/dating-tips" },
@@ -195,18 +194,6 @@ export const Navbar = () => {
               >
                 Discover
               </Link>
-              {!user && (
-                <Link
-                  to="/quick-start"
-                  className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
-                    isActive("/quick-start")
-                      ? "bg-primary text-primary-foreground shadow-sm"
-                      : "text-foreground hover:bg-background hover:shadow-sm"
-                  }`}
-                >
-                  Join Now
-                </Link>
-              )}
               <Link
                 to={user ? "/messages" : "/quick-start"}
                 className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
@@ -267,7 +254,7 @@ export const Navbar = () => {
 
           {/* Compact Navigation for medium screens */}
           <div className="hidden md:flex lg:hidden items-center space-x-4">
-            {(user ? navigation.filter(item => !item.requiresSignup).slice(0, 4) : navigation.slice(0, 4)).map((item) => (
+            {navigation.slice(0, 4).map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
@@ -364,7 +351,7 @@ export const Navbar = () => {
         {isMenuOpen && (
           <div className="md:hidden animate-fade-in">
             <div className="px-3 pt-4 pb-6 space-y-2 border-t border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-              {(user ? navigation.filter(item => !item.requiresSignup) : navigation).map((item) => (
+              {navigation.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
