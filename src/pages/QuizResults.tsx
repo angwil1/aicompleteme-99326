@@ -77,10 +77,20 @@ const QuizResults = () => {
         .not('name', 'is', null)
         .limit(20);
       
-      // Filter out Jordan and Marcus
+      // Filter out profiles that look fake or are placeholder profiles
+      const excludedNames = ['jordan', 'marcus', 'jake', 'jackson'];
+      const excludedPhotos = ['profile-silhouette', 'placeholder', 'default'];
+      
       const profiles = (allProfiles || []).filter(profile => {
         const name = profile.name?.toLowerCase() || '';
-        return !name.includes('jordan') && !name.includes('marcus');
+        const hasExcludedName = excludedNames.some(excluded => name.includes(excluded));
+        
+        // Check if photos contain placeholder images
+        const hasPlaceholderPhoto = profile.photos?.some((photo: string) => 
+          excludedPhotos.some(excluded => photo.toLowerCase().includes(excluded))
+        );
+        
+        return !hasExcludedName && !hasPlaceholderPhoto;
       });
 
       if (error) {
