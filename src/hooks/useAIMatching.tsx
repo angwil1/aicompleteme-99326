@@ -54,6 +54,14 @@ export const useAIMatching = () => {
       
       if (data?.matches) {
         setMatches(data.matches);
+        try {
+          const profileMap: Record<string, any> = Object.fromEntries(
+            data.matches.map((m: AIMatch) => [m.profile.id, m.profile])
+          );
+          sessionStorage.setItem('aiMatchProfiles', JSON.stringify(profileMap));
+        } catch (e) {
+          console.warn('Failed to cache AI matches in sessionStorage', e);
+        }
         toast({
           title: "✨ AI Matches Generated!",
           description: `Found ${data.matches.length} compatible profiles using AI analysis.`,

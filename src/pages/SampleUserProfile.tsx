@@ -20,11 +20,22 @@ const SampleUserProfile = () => {
   // Check if profile data was passed via state (from QuizResults)
   const stateProfileData = location.state?.profileData;
 
-  // Find the profile from all sample data arrays or use state data
+  // Find the profile from all sample data arrays or use state data; finally, try AI matches cache
   const profile = stateProfileData || 
                   founderCuratedProfiles.find(p => p.id === profileId) || 
                   browseProfiles.find(p => p.id === profileId) ||
-                  stateProfiles.find(p => p.id === profileId);
+                  stateProfiles.find(p => p.id === profileId) ||
+                  (() => {
+                    try {
+                      if (!profileId) return undefined;
+                      const cache = sessionStorage.getItem('aiMatchProfiles');
+                      if (!cache) return undefined;
+                      const map = JSON.parse(cache) as Record<string, any>;
+                      return map[profileId];
+                    } catch {
+                      return undefined;
+                    }
+                  })();
 
   // Fallback if profile not found
   if (!profile) {
