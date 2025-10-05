@@ -331,18 +331,13 @@ const QuizResults = () => {
                   </div>
                 </div>
               </div>
-               <div className="p-4 bg-accent/30 rounded-lg border border-accent/40">
-                <p className="text-sm font-medium text-accent-foreground mb-2">
-                  Want early access to deeper insights?
+               <div className="p-4 bg-primary/10 rounded-lg border border-primary/20">
+                <p className="text-sm font-medium text-primary mb-2">
+                  🌱 You're in the 60-Day Free Trial
                 </p>
-                <Button 
-                  onClick={handleUpgradeToPremium}
-                  variant="outline"
-                  className="border-accent text-accent-foreground hover:bg-accent/50"
-                >
-                  <Crown className="h-4 w-4 mr-2" />
-                  Complete Plus+
-                </Button>
+                <p className="text-xs text-muted-foreground">
+                  Explore all Complete Plus features for free while we grow together
+                </p>
               </div>
             </div>
           </CardContent>
@@ -439,20 +434,20 @@ const QuizResults = () => {
           </div>
         </div>
 
-        {/* Premium Upgrade Prompt */}
-        <Card className="mb-8 border-accent/40 bg-accent/20">
+        {/* Free Trial Features */}
+        <Card className="mb-8 border-primary/20 bg-primary/5">
           <CardHeader className="text-center">
-            <CardTitle className="flex items-center justify-center gap-2 text-accent-foreground">
-              <Crown className="h-5 w-5" />
-              Complete Your Full Potential
+            <CardTitle className="flex items-center justify-center gap-2 text-foreground">
+              <Sparkles className="h-5 w-5 text-primary" />
+              Your 60-Day Free Trial Includes
             </CardTitle>
-            <CardDescription>Premium members get 3x more matches and exclusive features</CardDescription>
+            <CardDescription>Full Complete Plus access while we build this together</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-3 md:grid-cols-2 mb-4">
               <div className="flex items-center gap-2">
                 <Heart className="h-4 w-4 text-red-500" />
-                <span className="text-sm">See all your matches</span>
+                <span className="text-sm">Unlimited matches</span>
               </div>
               <div className="flex items-center gap-2">
                 <MessageCircle className="h-4 w-4 text-blue-500" />
@@ -468,11 +463,11 @@ const QuizResults = () => {
               </div>
             </div>
             <Button 
-              onClick={handleUpgradeToPremium}
+              onClick={handleViewMatches}
               className="w-full bg-gradient-primary hover:opacity-90 text-primary-foreground shadow-primary hover:shadow-xl transition-all duration-300"
             >
-              <Sparkles className="h-4 w-4 mr-2" />
-              ✨ Complete Deeper Connections
+              <Heart className="h-4 w-4 mr-2" />
+              Start Connecting
             </Button>
           </CardContent>
         </Card>
