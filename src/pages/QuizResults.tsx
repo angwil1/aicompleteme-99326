@@ -127,9 +127,9 @@ const QuizResults = () => {
             age: 28,
             compatibility: 87,
             commonInterests: ['Photography', 'Hiking'],
-            blurredPhoto: '/src/assets/alex-profile-main.jpg',
+            blurredPhoto: '/src/assets/alex-profile-photography.jpg',
             location: currentProfile?.location || 'San Francisco, CA',
-            occupation: 'Software Developer',
+            occupation: 'Photographer',
             bio: 'Adventure seeker who loves capturing moments through photography and exploring new trails.'
           }
         ];
@@ -208,9 +208,9 @@ const QuizResults = () => {
           age: 28,
           compatibility: 87,
           commonInterests: ['Photography', 'Hiking'],
-          blurredPhoto: '/src/assets/alex-profile-main.jpg',
+          blurredPhoto: '/src/assets/alex-profile-photography.jpg',
           location: 'San Francisco, CA',
-          occupation: 'Software Developer',
+          occupation: 'Photographer',
           bio: 'Adventure seeker who loves capturing moments through photography and exploring new trails.'
         }
       ];
