@@ -57,7 +57,8 @@ const Auth = () => {
 
   const handleSignupComplete = () => {
     setShowSignupFlow(false);
-    navigate('/profile/setup');
+    // After signup, go directly to questions/quiz
+    navigate('/questions');
   };
 
   const handleForgotPassword = async (e: React.FormEvent) => {
