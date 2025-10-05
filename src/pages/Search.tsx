@@ -207,24 +207,39 @@ const Search = () => {
     // Combine all available profiles
     const allProfiles = [...founderCuratedProfiles, ...stateProfiles];
     
-    // If no zip code but state is selected, use all sample zips from that state
-    let searchZips: string[] = [];
+    // Determine the search state from zip code or selected state
+    let searchState = selectedState;
+    if (!searchState && zipCode.trim()) {
+      // Try to determine state from zip code
+      const state = US_STATES.find(s => s.sampleZips.includes(zipCode.trim()));
+      searchState = state?.code;
+    }
     
-    if (zipCode.trim()) {
-      searchZips = [zipCode.trim()];
-    } else if (selectedState) {
-      const state = US_STATES.find(s => s.code === selectedState);
-      searchZips = state ? state.sampleZips : [];
-    } else {
-      return allProfiles; // No location criteria
+    // Filter by state first if we have a state
+    let stateFilteredProfiles = allProfiles;
+    if (searchState) {
+      const stateName = US_STATES.find(s => s.code === searchState)?.name;
+      stateFilteredProfiles = allProfiles.filter(profile => {
+        // Check if profile location contains the state name or abbreviation
+        const location = profile.location?.toLowerCase() || '';
+        return location.includes(stateName?.toLowerCase() || '') || 
+               location.includes(`, ${searchState.toLowerCase()}`) ||
+               location.includes(searchState.toLowerCase());
+      });
+      console.log(`State filtering: ${stateFilteredProfiles.length} profiles found in ${stateName || searchState}`);
+    }
+    
+    // If no zip code and no state, return all profiles
+    if (!zipCode.trim() && !selectedState) {
+      return stateFilteredProfiles;
     }
 
-    // Filter profiles based on age range and gender
+    // Filter profiles based on age range and gender from state-filtered list
     const [minAge, maxAge] = ageRange === '55+' 
       ? [55, 100] 
       : ageRange.split('-').map(age => parseInt(age));
 
-    let filtered = allProfiles.filter(profile => {
+    let filtered = stateFilteredProfiles.filter(profile => {
       // Age filtering
       const profileAge = profile.age;
       let ageMatch = false;
@@ -274,9 +289,18 @@ const Search = () => {
       return ageMatch && genderMatch;
     });
 
-    // First try original distance
+    // Now apply distance filtering only within the same state
     const distanceLimit = parseInt(distance);
     let profilesWithDistance = [];
+    
+    // Build search zips array
+    let searchZips: string[] = [];
+    if (zipCode.trim()) {
+      searchZips = [zipCode.trim()];
+    } else if (searchState) {
+      const state = US_STATES.find(s => s.code === searchState);
+      searchZips = state ? state.sampleZips : [];
+    }
     
     for (const profile of filtered) {
       try {
