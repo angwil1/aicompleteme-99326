@@ -187,6 +187,10 @@ const FAQ = () => {
     {
       question: "❌ Can I cancel anytime?",
       answer: "Yes. You're never locked in. Cancel anytime from your account settings—no guilt, no friction."
+    },
+    {
+      question: "🔁 How does the subscription work?",
+      answer: "Subscriptions are set to auto-renew, which means you'll be charged automatically on a recurring basis unless you cancel beforehand. We don't send reminders before renewal, so if you'd prefer not to continue, please cancel your plan before the renewal date in your account settings.\n\nWe believe in clear, upfront communication—no hidden fees, no surprises. You're always in control."
     }
   ];
 
