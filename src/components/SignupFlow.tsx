@@ -602,8 +602,8 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="relationshipIntent">What are you hoping to find?</Label>
-                <Select value={relationshipIntent} onValueChange={setRelationshipIntent} required>
+                <Label htmlFor="relationshipIntent">What are you hoping to find? *</Label>
+                <Select value={relationshipIntent} onValueChange={setRelationshipIntent}>
                   <SelectTrigger id="relationshipIntent">
                     <SelectValue placeholder="Select what you're looking for" />
                   </SelectTrigger>
@@ -635,8 +635,8 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="genderPreference">Who are you interested in?</Label>
-                <Select value={genderPreference} onValueChange={setGenderPreference} required>
+                <Label htmlFor="genderPreference">Who are you interested in? *</Label>
+                <Select value={genderPreference} onValueChange={setGenderPreference}>
                   <SelectTrigger id="genderPreference">
                     <SelectValue placeholder="Select your preference" />
                   </SelectTrigger>
