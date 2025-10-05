@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/hooks/useAuth';
@@ -476,29 +477,31 @@ const ProfileEdit = () => {
                       <SelectValue placeholder="Select your occupation" />
                     </SelectTrigger>
                     <SelectContent className="bg-popover border border-border shadow-md z-50">
-                      <SelectItem value="Business & Finance">Business & Finance</SelectItem>
-                      <SelectItem value="Technology">Technology</SelectItem>
-                      <SelectItem value="Healthcare">Healthcare</SelectItem>
-                      <SelectItem value="Education">Education</SelectItem>
-                      <SelectItem value="Creative Arts">Creative Arts</SelectItem>
-                      <SelectItem value="Engineering">Engineering</SelectItem>
-                      <SelectItem value="Legal">Legal</SelectItem>
-                      <SelectItem value="Marketing & Sales">Marketing & Sales</SelectItem>
-                      <SelectItem value="Science & Research">Science & Research</SelectItem>
-                      <SelectItem value="Government">Government</SelectItem>
-                      <SelectItem value="Nonprofit">Nonprofit</SelectItem>
-                      <SelectItem value="Hospitality & Tourism">Hospitality & Tourism</SelectItem>
-                      <SelectItem value="Retail">Retail</SelectItem>
-                      <SelectItem value="Construction">Construction</SelectItem>
-                      <SelectItem value="Transportation">Transportation</SelectItem>
-                      <SelectItem value="Media & Communications">Media & Communications</SelectItem>
-                      <SelectItem value="Real Estate">Real Estate</SelectItem>
-                      <SelectItem value="Consulting">Consulting</SelectItem>
-                      <SelectItem value="Agriculture">Agriculture</SelectItem>
-                      <SelectItem value="Self-Employed">Self-Employed</SelectItem>
-                      <SelectItem value="Student">Student</SelectItem>
-                      <SelectItem value="Retired">Retired</SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
+                      <ScrollArea className="h-[200px]">
+                        <SelectItem value="Business & Finance">Business & Finance</SelectItem>
+                        <SelectItem value="Technology">Technology</SelectItem>
+                        <SelectItem value="Healthcare">Healthcare</SelectItem>
+                        <SelectItem value="Education">Education</SelectItem>
+                        <SelectItem value="Creative Arts">Creative Arts</SelectItem>
+                        <SelectItem value="Engineering">Engineering</SelectItem>
+                        <SelectItem value="Legal">Legal</SelectItem>
+                        <SelectItem value="Marketing & Sales">Marketing & Sales</SelectItem>
+                        <SelectItem value="Science & Research">Science & Research</SelectItem>
+                        <SelectItem value="Government">Government</SelectItem>
+                        <SelectItem value="Nonprofit">Nonprofit</SelectItem>
+                        <SelectItem value="Hospitality & Tourism">Hospitality & Tourism</SelectItem>
+                        <SelectItem value="Retail">Retail</SelectItem>
+                        <SelectItem value="Construction">Construction</SelectItem>
+                        <SelectItem value="Transportation">Transportation</SelectItem>
+                        <SelectItem value="Media & Communications">Media & Communications</SelectItem>
+                        <SelectItem value="Real Estate">Real Estate</SelectItem>
+                        <SelectItem value="Consulting">Consulting</SelectItem>
+                        <SelectItem value="Agriculture">Agriculture</SelectItem>
+                        <SelectItem value="Self-Employed">Self-Employed</SelectItem>
+                        <SelectItem value="Student">Student</SelectItem>
+                        <SelectItem value="Retired">Retired</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
+                      </ScrollArea>
                     </SelectContent>
                   </Select>
                 </div>
@@ -537,16 +540,18 @@ const ProfileEdit = () => {
                       <SelectValue placeholder="Select your education level" />
                     </SelectTrigger>
                     <SelectContent className="bg-popover border border-border shadow-md z-50">
-                      <SelectItem value="High School">High School</SelectItem>
-                      <SelectItem value="Some College">Some College</SelectItem>
-                      <SelectItem value="Associate Degree">Associate Degree</SelectItem>
-                      <SelectItem value="Bachelor's Degree">Bachelor's Degree</SelectItem>
-                      <SelectItem value="Master's Degree">Master's Degree</SelectItem>
-                      <SelectItem value="PhD/Doctorate">PhD/Doctorate</SelectItem>
-                      <SelectItem value="Professional Degree">Professional Degree</SelectItem>
-                      <SelectItem value="Trade School">Trade School</SelectItem>
-                      <SelectItem value="Certification Program">Certification Program</SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
+                      <ScrollArea className="h-[200px]">
+                        <SelectItem value="High School">High School</SelectItem>
+                        <SelectItem value="Some College">Some College</SelectItem>
+                        <SelectItem value="Associate Degree">Associate Degree</SelectItem>
+                        <SelectItem value="Bachelor's Degree">Bachelor's Degree</SelectItem>
+                        <SelectItem value="Master's Degree">Master's Degree</SelectItem>
+                        <SelectItem value="PhD/Doctorate">PhD/Doctorate</SelectItem>
+                        <SelectItem value="Professional Degree">Professional Degree</SelectItem>
+                        <SelectItem value="Trade School">Trade School</SelectItem>
+                        <SelectItem value="Certification Program">Certification Program</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
+                      </ScrollArea>
                     </SelectContent>
                   </Select>
                 </div>
