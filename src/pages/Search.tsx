@@ -234,24 +234,32 @@ const Search = () => {
         ageMatch = profileAge >= minAge && profileAge <= maxAge;
       }
 
-      // Gender filtering - use actual profile data
+      // Gender filtering - match profiles whose gender matches what the user is looking for
       let genderMatch = true;
       if (genderPref !== 'everyone') {
         switch (genderPref) {
           case 'women':
+            // User is looking for women, so show female profiles
             genderMatch = profile.gender === 'women';
             break;
           case 'men':
+            // User is looking for men, so show male profiles
             genderMatch = profile.gender === 'men';
             break;
           case 'non-binary':
             genderMatch = profile.gender === 'non-binary';
             break;
           case 'transgender-women':
+            // Show profiles that identify as women
+            genderMatch = profile.gender === 'women';
+            break;
           case 'transgender-men':
+            // Show profiles that identify as men
+            genderMatch = profile.gender === 'men';
+            break;
           case 'lgbtq-community':
-            // For now, include non-binary profiles for LGBTQ+ searches
-            genderMatch = profile.gender === 'non-binary' || profile.gender === 'women' || profile.gender === 'men';
+            // For LGBTQ+ searches, include all genders
+            genderMatch = true;
             break;
           case 'activity-partners':
           case 'travel-buddies':
