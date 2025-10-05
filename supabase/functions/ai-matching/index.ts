@@ -164,8 +164,14 @@ serve(async (req) => {
       }
     }
 
-    const profiles = allProfiles || [];
-    console.log(`Found ${profiles.length} potential matches`);
+    // Filter out specific profiles (Jordan and Marcus)
+    const excludedNames = ['Jordan', 'Marcus'];
+    const filteredProfiles = (allProfiles || []).filter(profile => 
+      !excludedNames.some(name => profile.name?.toLowerCase().includes(name.toLowerCase()))
+    );
+    
+    const profiles = filteredProfiles;
+    console.log(`Found ${profiles.length} potential matches (filtered out Jordan and Marcus)`);
 
     // Use OpenAI for enhanced compatibility analysis
     const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
