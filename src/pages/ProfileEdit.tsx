@@ -74,6 +74,7 @@ const ProfileEdit = () => {
         age_preference_min: profile.age_preference_min || 18,
         age_preference_max: profile.age_preference_max || 65,
         zip_code: autoZipCode,
+        cultural_identity: profile.cultural_identity || '',
       });
     }
   }, [profile]);
@@ -498,6 +499,33 @@ const ProfileEdit = () => {
                       <SelectItem value="Student">Student</SelectItem>
                       <SelectItem value="Retired">Retired</SelectItem>
                       <SelectItem value="Other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label htmlFor="cultural_identity">Cultural Identity <span className="text-muted-foreground text-sm">(Optional)</span></Label>
+                  <Select value={formData.cultural_identity || ''} onValueChange={(value) => handleInputChange('cultural_identity', value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select if you'd like" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-popover border border-border shadow-md z-50 max-h-60 overflow-y-auto">
+                      <SelectItem value="african">African</SelectItem>
+                      <SelectItem value="african-american">African American</SelectItem>
+                      <SelectItem value="asian">Asian</SelectItem>
+                      <SelectItem value="caribbean">Caribbean</SelectItem>
+                      <SelectItem value="east-asian">East Asian</SelectItem>
+                      <SelectItem value="european">European</SelectItem>
+                      <SelectItem value="hispanic-latino">Hispanic/Latino</SelectItem>
+                      <SelectItem value="indigenous">Indigenous</SelectItem>
+                      <SelectItem value="middle-eastern">Middle Eastern</SelectItem>
+                      <SelectItem value="mixed">Mixed/Multiracial</SelectItem>
+                      <SelectItem value="native-american">Native American</SelectItem>
+                      <SelectItem value="pacific-islander">Pacific Islander</SelectItem>
+                      <SelectItem value="south-asian">South Asian</SelectItem>
+                      <SelectItem value="southeast-asian">Southeast Asian</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
