@@ -99,8 +99,8 @@ export const Navbar = () => {
   const navigation = [
     { name: "Discover", href: "/quick-start" },
     { name: "Join Now", href: "/quick-start", requiresSignup: true },
-    { name: "Messages", href: "/messages" },
-    { name: "Memory Vault", href: "/memory-vault" },
+    { name: "Messages", href: user ? "/messages" : "/quick-start" },
+    { name: "Memory Vault", href: user ? "/memory-vault" : "/quick-start" },
     { name: "Dating Tips", href: "/dating-tips" },
     { name: "Pricing", href: "/pricing" },
     { name: "FAQ", href: "/faq" },
@@ -208,7 +208,7 @@ export const Navbar = () => {
                 </Link>
               )}
               <Link
-                to="/messages"
+                to={user ? "/messages" : "/quick-start"}
                 className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
                   isActive("/messages")
                     ? "bg-primary text-primary-foreground shadow-sm"
@@ -221,7 +221,7 @@ export const Navbar = () => {
 
             {/* Premium Feature */}
             <Link
-              to="/memory-vault"
+              to={user ? "/memory-vault" : "/quick-start"}
               className={`relative px-4 py-2 text-sm font-medium rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 transition-all duration-200 hover:from-purple-500/20 hover:to-pink-500/20 hover:border-purple-500/40 ${
                 isActive("/memory-vault")
                   ? "from-purple-500 to-pink-500 text-white shadow-lg"
@@ -229,7 +229,7 @@ export const Navbar = () => {
               }`}
             >
               Memory Vault
-              {newMemoriesCount > 0 && (
+              {user && newMemoriesCount > 0 && (
                 <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-red-500 text-xs text-white flex items-center justify-center text-[10px]">
                   {newMemoriesCount > 9 ? '9+' : newMemoriesCount}
                 </span>
