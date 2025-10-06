@@ -517,7 +517,7 @@ const QuickStart = () => {
                       } else if (!isProfileComplete) {
                         navigate('/profile/setup');
                       } else {
-                        navigate('/matches');
+                        navigate('/search');
                       }
                     }}
                   >

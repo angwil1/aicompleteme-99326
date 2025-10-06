@@ -88,7 +88,7 @@ const SwipeMode = () => {
       title: "All caught up! 🎉",
       description: "Check back later for new profiles to discover.",
     });
-    navigate('/matches');
+    navigate('/search');
   };
 
   if (loading) {

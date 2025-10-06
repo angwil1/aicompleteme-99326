@@ -221,7 +221,7 @@ const QuizResults = () => {
   };
 
   const handleViewMatches = () => {
-    navigate('/matches');
+    navigate('/search');
   };
 
   const handleUpgradeToPremium = () => {

@@ -208,7 +208,7 @@ const PremiumDashboard = () => {
               <CardTitle className="text-lg">Explore Matches</CardTitle>
             </CardHeader>
             <CardContent>
-              <Button onClick={() => navigate('/matches')} className="w-full" variant="outline">
+              <Button onClick={() => navigate('/search')} className="w-full" variant="outline">
                 Find Connections
               </Button>
             </CardContent>

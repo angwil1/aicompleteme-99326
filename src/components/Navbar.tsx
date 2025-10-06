@@ -148,7 +148,7 @@ export const Navbar = () => {
     }
     
     const queryString = params.toString();
-    navigate(`/matches${queryString ? `?${queryString}` : ''}`);
+    navigate(`/search${queryString ? `?${queryString}` : ''}`);
   };
 
   const handleMobileLogout = async () => {

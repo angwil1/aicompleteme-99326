@@ -68,9 +68,9 @@ const Index = () => {
     }
 
     if (searchQuery.trim()) {
-      navigate(`/matches?search=${encodeURIComponent(searchQuery.trim())}`);
+      navigate(`/search?search=${encodeURIComponent(searchQuery.trim())}`);
     } else {
-      navigate('/matches');
+      navigate('/search');
     }
   };
 
