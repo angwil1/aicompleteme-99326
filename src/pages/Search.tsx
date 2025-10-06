@@ -454,15 +454,26 @@ const Search = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <a 
-        href="#main-content" 
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-primary-foreground px-4 py-2 rounded-md z-50"
-      >
-        Skip to main content
-      </a>
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Beautiful Gradient Background */}
+      <div className="fixed inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
       
-      <Navbar />
+      {/* Animated Ambient Elements */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s', animationDelay: '2s' }} />
+      </div>
+
+      <div className="relative z-10">
+        <a 
+          href="#main-content" 
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-primary-foreground px-4 py-2 rounded-md z-50"
+        >
+          Skip to main content
+        </a>
+        
+        <Navbar />
       
       {/* Header with Back Button and Actions */}
       <header className="bg-card border-b" role="banner">
@@ -802,6 +813,7 @@ const Search = () => {
           </Button>
         </section>
       </main>
+      </div>
     </div>
   );
 };
