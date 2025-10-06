@@ -93,7 +93,11 @@ useEffect(() => {
 }, []);
 
   const handleGetStarted = () => {
-    navigate('/quick-start');
+    if (user) {
+      navigate('/search');
+    } else {
+      navigate('/quick-start');
+    }
     setTimeout(() => window.scrollTo(0, 0), 0);
   };
 
