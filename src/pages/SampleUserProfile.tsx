@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -10,32 +10,88 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { ArrowLeft, MessageCircle, Heart, Shield, MapPin, Briefcase, Eye } from 'lucide-react';
 import { founderCuratedProfiles, browseProfiles } from '@/data/sampleProfiles';
 import { stateProfiles } from '@/data/stateProfiles';
+import { supabase } from '@/integrations/supabase/client';
 
 const SampleUserProfile = () => {
   const navigate = useNavigate();
   const { profileId } = useParams();
   const location = useLocation();
   const [isLiked, setIsLiked] = useState(false);
+  const [profile, setProfile] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Check if profile data was passed via state (from QuizResults)
-  const stateProfileData = location.state?.profileData;
+  useEffect(() => {
+    const loadProfile = async () => {
+      // Check if profile data was passed via state (from QuizResults)
+      const stateProfileData = location.state?.profileData;
 
-  // Find the profile from all sample data arrays or use state data; finally, try AI matches cache
-  const profile = stateProfileData || 
-                  founderCuratedProfiles.find(p => p.id === profileId) || 
-                  browseProfiles.find(p => p.id === profileId) ||
-                  stateProfiles.find(p => p.id === profileId) ||
-                  (() => {
-                    try {
-                      if (!profileId) return undefined;
-                      const cache = sessionStorage.getItem('aiMatchProfiles');
-                      if (!cache) return undefined;
-                      const map = JSON.parse(cache) as Record<string, any>;
-                      return map[profileId];
-                    } catch {
-                      return undefined;
-                    }
-                  })();
+      // Find the profile from all sample data arrays or use state data
+      let foundProfile = stateProfileData || 
+                    founderCuratedProfiles.find(p => p.id === profileId) || 
+                    browseProfiles.find(p => p.id === profileId) ||
+                    stateProfiles.find(p => p.id === profileId) ||
+                    (() => {
+                      try {
+                        if (!profileId) return undefined;
+                        const cache = sessionStorage.getItem('aiMatchProfiles');
+                        if (!cache) return undefined;
+                        const map = JSON.parse(cache) as Record<string, any>;
+                        return map[profileId];
+                      } catch {
+                        return undefined;
+                      }
+                    })();
+
+      // If not found in sample data, try fetching from database
+      if (!foundProfile && profileId) {
+        try {
+          const { data, error } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', profileId)
+            .maybeSingle();
+
+          if (data && !error) {
+            // Transform database profile to match expected format
+            foundProfile = {
+              id: data.id,
+              name: data.name,
+              age: data.age,
+              bio: data.bio,
+              interests: data.interests || [],
+              photos: data.photos || [],
+              blurredPhoto: data.photos?.[0] || data.avatar_url,
+              location: data.location,
+              occupation: data.occupation,
+              education: data.education,
+              personalityType: data.personality_type,
+              communicationStyle: data.communication_style,
+              values: data.values || [],
+              lookingFor: data.looking_for
+            };
+          }
+        } catch (error) {
+          console.error('Error fetching profile:', error);
+        }
+      }
+
+      setProfile(foundProfile);
+      setLoading(false);
+    };
+
+    loadProfile();
+  }, [profileId, location.state]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin h-8 w-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading profile...</p>
+        </div>
+      </div>
+    );
+  }
 
   // Fallback if profile not found
   if (!profile) {
