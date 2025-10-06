@@ -250,7 +250,7 @@ const SampleUserProfile = () => {
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
-                  {profile.interests.map((interest) => (
+                  {(profile.interests ?? []).map((interest) => (
                     <Badge key={interest} variant="secondary">
                       {interest}
                     </Badge>
