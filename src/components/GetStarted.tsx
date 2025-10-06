@@ -7,7 +7,7 @@ export const GetStarted = () => {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate('/quick-start');
+    navigate('/search');
     setTimeout(() => window.scrollTo(0, 0), 0);
   };
 
