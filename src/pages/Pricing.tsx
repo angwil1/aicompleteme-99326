@@ -26,7 +26,7 @@ const Pricing = () => {
   const [showMobilePayment, setShowMobilePayment] = useState(false);
   const [mobilePaymentPlan, setMobilePaymentPlan] = useState<any>(null);
   const { deviceInfo, paymentMethods } = useMobilePayments();
-  const { isIOS, purchase, restorePurchases, purchasing, PRODUCT_IDS } = useInAppPurchases();
+  const { isIOS, isAndroid, isNative, purchase, restorePurchases, purchasing, PRODUCT_IDS } = useInAppPurchases();
 
   const plans = [
     {
@@ -125,8 +125,8 @@ const Pricing = () => {
       return;
     }
 
-    // On iOS native app, use Apple In-App Purchases
-    if (isIOS && Capacitor.isNativePlatform()) {
+    // On native mobile apps (iOS/Android), use In-App Purchases
+    if (isNative && Capacitor.isNativePlatform()) {
       const productIdMap: Record<string, string> = {
         'unlocked-plus': PRODUCT_IDS.monthly,
         'unlocked-beyond': PRODUCT_IDS.annual
@@ -439,6 +439,8 @@ const Pricing = () => {
                               </span>
                             ) : isCurrentPlan ? (
                               "Current Plan"
+                            ) : isNative && Capacitor.isNativePlatform() ? (
+                              isIOS ? 'Subscribe via App Store' : 'Subscribe via Google Play'
                             ) : (
                               plan.buttonText
                             )}
@@ -480,8 +482,8 @@ const Pricing = () => {
               })}
             </div>
 
-            {/* Restore Purchases for iOS */}
-            {isIOS && Capacitor.isNativePlatform() && (
+            {/* Restore Purchases for Native Apps */}
+            {isNative && Capacitor.isNativePlatform() && (
               <div className="text-center mt-8">
                 <Button
                   variant="outline"

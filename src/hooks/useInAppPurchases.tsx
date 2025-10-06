@@ -15,24 +15,31 @@ export const useInAppPurchases = () => {
   const [loading, setLoading] = useState(true);
   const [purchasing, setPurchasing] = useState(false);
   const { toast } = useToast();
-  const isIOS = Capacitor.getPlatform() === 'ios';
+  const platform = Capacitor.getPlatform();
+  const isIOS = platform === 'ios';
+  const isAndroid = platform === 'android';
+  const isNative = isIOS || isAndroid;
 
   useEffect(() => {
-    if (isIOS && Capacitor.isNativePlatform()) {
+    if (isNative && Capacitor.isNativePlatform()) {
       initializeIAP();
     } else {
       setLoading(false);
     }
-  }, [isIOS]);
+  }, [isNative]);
 
   const initializeIAP = async () => {
     try {
-      // Only import Purchases on iOS native
+      // Only import Purchases on native platforms
       const { Purchases } = await import('@revenuecat/purchases-capacitor');
       
-      // Configure RevenueCat
+      // Configure RevenueCat with platform-specific API key
+      const apiKey = isIOS 
+        ? 'appl_YOUR_REVENUECAT_IOS_API_KEY' 
+        : 'goog_YOUR_REVENUECAT_ANDROID_API_KEY';
+      
       await Purchases.configure({
-        apiKey: 'appl_YOUR_REVENUECAT_API_KEY', // Replace with actual key
+        apiKey,
       });
 
       // Get available offerings
@@ -102,10 +109,10 @@ export const useInAppPurchases = () => {
   };
 
   const purchase = async (productId: string) => {
-    if (!isIOS || !Capacitor.isNativePlatform()) {
+    if (!isNative || !Capacitor.isNativePlatform()) {
       toast({
         title: "Not Available",
-        description: "In-App Purchases are only available on iOS",
+        description: "In-App Purchases are only available on mobile apps",
         variant: "destructive"
       });
       return;
@@ -142,7 +149,7 @@ export const useInAppPurchases = () => {
   };
 
   const restorePurchases = async () => {
-    if (!isIOS || !Capacitor.isNativePlatform()) return;
+    if (!isNative || !Capacitor.isNativePlatform()) return;
 
     try {
       setLoading(true);
@@ -167,6 +174,8 @@ export const useInAppPurchases = () => {
 
   return {
     isIOS,
+    isAndroid,
+    isNative,
     products,
     loading,
     purchasing,
