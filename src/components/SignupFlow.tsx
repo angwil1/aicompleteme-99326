@@ -64,38 +64,52 @@ export const SignupFlow: React.FC<SignupFlowProps> = ({ onComplete }) => {
       const dateOfBirth = localStorage.getItem('userDateOfBirth');
       
       // Store date of birth in profiles table with calculated age
-      if (user && dateOfBirth && !isEmailConfirmed) {
+      if (user && dateOfBirth) {
         try {
           console.log('🔒 Storing age verification and profile data');
           
-          // First verify age in age_verifications table
-          const { error: ageError } = await supabase.rpc('verify_user_age', {
-            p_date_of_birth: dateOfBirth
-          });
-          
-          if (ageError) {
-            console.error('Age verification storage error:', ageError);
-          } else {
-            console.log('✅ Age verification stored successfully');
-          }
-
-          // Then store in profiles table with calculated age
-          const age = calculateAge(dateOfBirth);
-          const { error: profileError } = await supabase
+          // First check if age is already stored in profile
+          const { data: existingProfile } = await supabase
             .from('profiles')
-            .upsert({ 
-              id: user.id,
-              date_of_birth: dateOfBirth,
-              age: age,
-              updated_at: new Date().toISOString()
-            }, { 
-              onConflict: 'id' 
+            .select('date_of_birth, age')
+            .eq('id', user.id)
+            .maybeSingle();
+
+          // Only update if date_of_birth is not already set
+          if (!existingProfile?.date_of_birth) {
+            // First verify age in age_verifications table
+            const { error: ageError } = await supabase.rpc('verify_user_age', {
+              p_date_of_birth: dateOfBirth
             });
-          
-          if (profileError) {
-            console.error('Profile date of birth storage error:', profileError);
+            
+            if (ageError) {
+              console.error('Age verification storage error:', ageError);
+            } else {
+              console.log('✅ Age verification stored successfully');
+            }
+
+            // Then store in profiles table with calculated age
+            const age = calculateAge(dateOfBirth);
+            const { error: profileError } = await supabase
+              .from('profiles')
+              .upsert({ 
+                id: user.id,
+                date_of_birth: dateOfBirth,
+                age: age,
+                updated_at: new Date().toISOString()
+              }, { 
+                onConflict: 'id' 
+              });
+            
+            if (profileError) {
+              console.error('Profile date of birth storage error:', profileError);
+            } else {
+              console.log('✅ Date of birth and age stored in profile successfully');
+              // Clear localStorage after successful save
+              localStorage.removeItem('userDateOfBirth');
+            }
           } else {
-            console.log('✅ Date of birth and age stored in profile successfully');
+            console.log('✅ Date of birth already stored in profile');
           }
         } catch (error) {
           console.error('Age/profile storage error:', error);
