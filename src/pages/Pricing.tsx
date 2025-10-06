@@ -12,6 +12,8 @@ import { useState, useEffect } from "react";
 import { Smartphone, ArrowLeft, CreditCard } from "lucide-react";
 import { MobileOptimizedPayment } from "@/components/MobileOptimizedPayment";
 import { useMobilePayments } from "@/hooks/useMobilePayments";
+import { useInAppPurchases } from "@/hooks/useInAppPurchases";
+import { Capacitor } from '@capacitor/core';
 
 const Pricing = () => {
   const { user } = useAuth();
@@ -24,6 +26,7 @@ const Pricing = () => {
   const [showMobilePayment, setShowMobilePayment] = useState(false);
   const [mobilePaymentPlan, setMobilePaymentPlan] = useState<any>(null);
   const { deviceInfo, paymentMethods } = useMobilePayments();
+  const { isIOS, purchase, restorePurchases, purchasing, PRODUCT_IDS } = useInAppPurchases();
 
   const plans = [
     {
@@ -119,6 +122,20 @@ const Pricing = () => {
     
     if (!plan) {
       console.log('[PayPal Debug] No plan provided, returning');
+      return;
+    }
+
+    // On iOS native app, use Apple In-App Purchases
+    if (isIOS && Capacitor.isNativePlatform()) {
+      const productIdMap: Record<string, string> = {
+        'unlocked-plus': PRODUCT_IDS.monthly,
+        'unlocked-beyond': PRODUCT_IDS.annual
+      };
+      
+      const productId = productIdMap[plan];
+      if (productId) {
+        await purchase(productId);
+      }
       return;
     }
 
@@ -409,10 +426,10 @@ const Pricing = () => {
                                 ? "bg-purple-600 text-white hover:bg-purple-700 cursor-default"
                                 : "bg-purple-600 text-white hover:bg-purple-700 disabled:opacity-50"
                             }`}
-                            disabled={loading || isCurrentPlan || isFree}
+                            disabled={loading || purchasing || isCurrentPlan || isFree}
                             onClick={() => handleSubscribe(plan.plan)}
                           >
-                            {loading && loadingPlan === plan.plan ? (
+                            {(loading && loadingPlan === plan.plan) || purchasing ? (
                               <span className="flex items-center justify-center gap-2">
                                 <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
                                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
@@ -463,6 +480,21 @@ const Pricing = () => {
               })}
             </div>
 
+            {/* Restore Purchases for iOS */}
+            {isIOS && Capacitor.isNativePlatform() && (
+              <div className="text-center mt-8">
+                <Button
+                  variant="outline"
+                  onClick={restorePurchases}
+                  className="gap-2"
+                >
+                  Restore Purchases
+                </Button>
+                <p className="text-xs text-muted-foreground mt-2">
+                  Already subscribed? Restore your purchase here.
+                </p>
+              </div>
+            )}
 
             <div className="text-center mt-12">
               <p className="text-sm text-gray-600 dark:text-gray-400">
