@@ -24,7 +24,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Initialize Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const openAIApiKey = Deno.env.get('OPENAI_API_KEY')!;
+    const lovableApiKey = Deno.env.get('LOVABLE_API_KEY')!;
     
     const supabase = createClient(supabaseUrl, supabaseKey);
 
@@ -114,15 +114,15 @@ Return the response as a JSON object with this structure:
 }
 `;
 
-    console.log('Making OpenAI API call...');
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    console.log('Calling Lovable AI Gateway...');
+    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${openAIApiKey}`,
+        'Authorization': `Bearer ${lovableApiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4.1-2025-04-14',
+        model: 'google/gemini-2.5-flash',
         messages: [
           { 
             role: 'system', 
@@ -130,15 +130,14 @@ Return the response as a JSON object with this structure:
           },
           { role: 'user', content: prompt }
         ],
-        max_completion_tokens: 1000, // Use max_completion_tokens for GPT-4.1+ models
-        // Note: temperature not supported in GPT-4.1+ models
+        // streaming not required for this use case
       }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('OpenAI API error:', response.status, response.statusText, errorText);
-      throw new Error(`OpenAI API error: ${response.statusText} - ${errorText}`);
+      console.error('AI Gateway error:', response.status, response.statusText, errorText);
+      throw new Error(`AI Gateway error: ${response.statusText} - ${errorText}`);
     }
 
     const aiResponse = await response.json();
@@ -148,7 +147,7 @@ Return the response as a JSON object with this structure:
     try {
       digestContent = JSON.parse(aiResponse.choices[0].message.content);
     } catch (parseError) {
-      console.error('Failed to parse OpenAI response as JSON:', aiResponse.choices[0].message.content);
+      console.error('Failed to parse AI Gateway response as JSON:', aiResponse.choices?.[0]?.message?.content);
       // Fallback digest content
       digestContent = {
         greeting: "Welcome to your daily AI Complete Me digest!",
