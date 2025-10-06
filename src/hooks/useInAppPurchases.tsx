@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Capacitor } from '@capacitor/core';
-import { Purchases } from '@revenuecat/purchases-capacitor';
 import { useToast } from './use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -19,16 +18,19 @@ export const useInAppPurchases = () => {
   const isIOS = Capacitor.getPlatform() === 'ios';
 
   useEffect(() => {
-    if (isIOS) {
+    if (isIOS && Capacitor.isNativePlatform()) {
       initializeIAP();
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [isIOS]);
 
   const initializeIAP = async () => {
     try {
-      // Configure RevenueCat (you'll need to add your API key in App Store Connect)
+      // Only import Purchases on iOS native
+      const { Purchases } = await import('@revenuecat/purchases-capacitor');
+      
+      // Configure RevenueCat
       await Purchases.configure({
         apiKey: 'appl_YOUR_REVENUECAT_API_KEY', // Replace with actual key
       });
@@ -100,7 +102,7 @@ export const useInAppPurchases = () => {
   };
 
   const purchase = async (productId: string) => {
-    if (!isIOS) {
+    if (!isIOS || !Capacitor.isNativePlatform()) {
       toast({
         title: "Not Available",
         description: "In-App Purchases are only available on iOS",
@@ -111,6 +113,8 @@ export const useInAppPurchases = () => {
 
     setPurchasing(true);
     try {
+      const { Purchases } = await import('@revenuecat/purchases-capacitor');
+      
       const packageToPurchase = products.find((p: any) => 
         p.product.identifier === productId
       );
@@ -138,10 +142,12 @@ export const useInAppPurchases = () => {
   };
 
   const restorePurchases = async () => {
-    if (!isIOS) return;
+    if (!isIOS || !Capacitor.isNativePlatform()) return;
 
     try {
       setLoading(true);
+      const { Purchases } = await import('@revenuecat/purchases-capacitor');
+      
       const customerInfo = await Purchases.restorePurchases();
       await processPurchase({ customerInfo });
       toast({
