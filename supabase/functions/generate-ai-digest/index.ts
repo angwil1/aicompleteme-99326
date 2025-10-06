@@ -28,34 +28,10 @@ const handler = async (req: Request): Promise<Response> => {
     
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Check if user has premium subscription
-    const authHeader = req.headers.get("Authorization");
-    if (!authHeader) throw new Error("No authorization header provided");
+    // All features are free during the 60-day beta period
+    // Subscription check disabled for beta
+    console.log('Beta period active - all features unlocked');
 
-    console.log('Checking subscription status...');
-    const { data: subscriptionData, error: subscriptionError } = await supabase.functions.invoke('check-subscription', {
-      headers: {
-        Authorization: authHeader,
-      }
-    });
-
-    if (subscriptionError) {
-      console.error('Subscription check error:', subscriptionError);
-      throw new Error('Failed to check subscription status');
-    }
-
-    if (!subscriptionData?.subscribed) {
-      console.log('User does not have active subscription');
-      return new Response(JSON.stringify({
-        success: false,
-        error: 'Premium subscription required. Please upgrade to Complete+ to access AI digest summaries.'
-      }), {
-        status: 403,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
-    }
-
-    console.log('User has valid subscription, proceeding with digest generation');
 
     // Get user's profile data
     const { data: userProfile } = await supabase
