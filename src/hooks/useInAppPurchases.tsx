@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Capacitor } from '@capacitor/core';
-import Purchases from '@revenuecat/purchases-capacitor';
+import { Purchases } from '@revenuecat/purchases-capacitor';
 import { useToast } from './use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -29,12 +29,12 @@ export const useInAppPurchases = () => {
   const initializeIAP = async () => {
     try {
       // Configure RevenueCat (you'll need to add your API key in App Store Connect)
-      await Purchases.Purchases.configure({
+      await Purchases.configure({
         apiKey: 'appl_YOUR_REVENUECAT_API_KEY', // Replace with actual key
       });
 
       // Get available offerings
-      const offerings = await Purchases.Purchases.getOfferings();
+      const offerings = await Purchases.getOfferings();
       if (offerings.current) {
         setProducts(offerings.current.availablePackages);
       }
@@ -119,7 +119,7 @@ export const useInAppPurchases = () => {
         throw new Error('Product not found');
       }
 
-      const purchaseResult = await Purchases.Purchases.purchasePackage({
+      const purchaseResult = await Purchases.purchasePackage({
         aPackage: packageToPurchase
       });
 
@@ -142,7 +142,7 @@ export const useInAppPurchases = () => {
 
     try {
       setLoading(true);
-      const customerInfo = await Purchases.Purchases.restorePurchases();
+      const customerInfo = await Purchases.restorePurchases();
       await processPurchase({ customerInfo });
       toast({
         title: "Restore Complete",
