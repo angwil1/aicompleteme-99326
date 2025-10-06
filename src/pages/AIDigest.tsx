@@ -281,7 +281,8 @@ const AIDigest = () => {
     );
   }
 
-  const subscription = { subscribed: false };
+  // All features are free during beta period
+  const subscription = { subscribed: true };
   if (!subscription?.subscribed) {
     return (
       <div className="min-h-screen bg-background">
