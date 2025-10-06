@@ -302,7 +302,7 @@ const AIDigest = () => {
               <Lock className="h-16 w-16 text-primary mx-auto mb-4" />
               <CardTitle className="text-2xl">Premium Feature</CardTitle>
               <CardDescription className="text-lg">
-                AI Digest Summaries are exclusive to Unlocked+ members
+                AI Digest Summaries are exclusive to Premium members
               </CardDescription>
             </CardHeader>
             <CardContent className="text-center space-y-6">
@@ -329,14 +329,14 @@ const AIDigest = () => {
               
               <div className="space-y-4">
                 <p className="text-muted-foreground">
-                  Upgrade to Unlocked+ to unlock AI-powered insights that help you understand your dating patterns and improve your connections.
+                  Upgrade to Premium to unlock AI-powered insights that help you understand your dating patterns and improve your connections.
                 </p>
                 <Button 
                   onClick={() => navigate('/pricing')} 
                   size="lg"
                   className="min-w-[200px]"
                 >
-                  Upgrade to Unlocked+
+                  Upgrade to Premium
                 </Button>
                 <p className="text-sm text-muted-foreground">
                   Starting at just $12/month
