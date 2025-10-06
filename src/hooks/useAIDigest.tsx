@@ -98,7 +98,7 @@ export const useAIDigest = () => {
     try {
       setGenerating(true);
       
-      const { data, error } = await supabase.functions.invoke('generate-ai-digest', {
+      const { data, error } = await supabase.functions.invoke('generate-ai-digest-v2', {
         body: { userId: user.id }
       });
 
@@ -124,7 +124,7 @@ export const useAIDigest = () => {
       console.error('Error generating AI digest:', error);
       toast({
         title: "Error",
-        description: "Failed to generate AI digest. Please try again.",
+        description: error instanceof Error ? error.message : "Failed to generate AI digest. Please try again.",
         variant: "destructive"
       });
     } finally {
