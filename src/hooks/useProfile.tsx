@@ -35,6 +35,10 @@ export interface Profile {
   // Advanced features
   open_to_connection_invites?: boolean;
   echo_visibility_level?: string;
+  // Online status settings
+  show_online_status?: boolean;
+  show_last_active?: boolean;
+  hide_activity_status?: boolean;
 }
 
 export const useProfile = () => {

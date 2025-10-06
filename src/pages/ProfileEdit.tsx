@@ -15,6 +15,7 @@ import { useProfile, Profile } from '@/hooks/useProfile';
 import { CameraCapture } from '@/components/CameraCapture';
 import { PrivacyNote } from '@/components/PrivacyNote';
 import { ArrowLeft, Upload, X, Camera, MapPin, Search } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 
 // Helper functions for height conversion
 const heightToInches = (heightStr: string): number => {
@@ -76,6 +77,9 @@ const ProfileEdit = () => {
         age_preference_max: profile.age_preference_max || 65,
         zip_code: autoZipCode,
         cultural_identity: profile.cultural_identity || '',
+        show_online_status: profile.show_online_status ?? true,
+        show_last_active: profile.show_last_active ?? true,
+        hide_activity_status: profile.hide_activity_status ?? false,
       });
     }
   }, [profile]);
@@ -620,6 +624,59 @@ const ProfileEdit = () => {
                   ))}
                 </div>
               )}
+            </CardContent>
+          </Card>
+
+          {/* Online Status Settings */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Online Status Settings</CardTitle>
+              <CardDescription>Control your visibility and activity status</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="show_online">Show when I'm online</Label>
+                    <p className="text-sm text-muted-foreground">Others can see when you're actively using the app</p>
+                  </div>
+                  <input
+                    type="checkbox"
+                    id="show_online"
+                    checked={formData.show_online_status ?? true}
+                    onChange={(e) => handleInputChange('show_online_status', e.target.checked)}
+                    className="h-4 w-4 rounded border-primary"
+                  />
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="show_last_active">Show when I was last active</Label>
+                    <p className="text-sm text-muted-foreground">Display your last active timestamp</p>
+                  </div>
+                  <input
+                    type="checkbox"
+                    id="show_last_active"
+                    checked={formData.show_last_active ?? true}
+                    onChange={(e) => handleInputChange('show_last_active', e.target.checked)}
+                    className="h-4 w-4 rounded border-primary"
+                  />
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="hide_activity">Hide my activity status</Label>
+                    <p className="text-sm text-muted-foreground">Don't show any online or activity information</p>
+                  </div>
+                  <input
+                    type="checkbox"
+                    id="hide_activity"
+                    checked={formData.hide_activity_status ?? false}
+                    onChange={(e) => handleInputChange('hide_activity_status', e.target.checked)}
+                    className="h-4 w-4 rounded border-primary"
+                  />
+                </div>
+              </div>
             </CardContent>
           </Card>
 
