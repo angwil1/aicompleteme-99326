@@ -123,7 +123,9 @@ const ProfileEdit = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await updateProfile(formData);
+      // Remove cultural_identity from the update as it doesn't exist in the database
+      const { cultural_identity, ...dataToUpdate } = formData;
+      const { error } = await updateProfile(dataToUpdate);
       if (!error) {
         console.log('🔧 Profile saved successfully!');
         navigate('/profile');
