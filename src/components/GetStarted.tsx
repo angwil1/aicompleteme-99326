@@ -2,13 +2,62 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
 import { Heart, Sparkles, ArrowRight, Users } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 export const GetStarted = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { toast } = useToast();
 
-  const handleGetStarted = () => {
-    navigate('/search');
-    setTimeout(() => window.scrollTo(0, 0), 0);
+  const handleGetStarted = async () => {
+    // If not logged in, go to quick start
+    if (!user) {
+      navigate('/quick-start');
+      setTimeout(() => window.scrollTo(0, 0), 0);
+      return;
+    }
+
+    // Check if profile is complete and quiz is done
+    try {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('name, age, gender, location')
+        .eq('id', user.id)
+        .single();
+
+      const { data: quizData } = await supabase
+        .from('user_events')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('event_type', 'quiz_completed')
+        .limit(1);
+
+      const hasCompletedQuiz = quizData && quizData.length > 0;
+      const hasCompleteProfile = profile && profile.name && profile.age && profile.gender && profile.location;
+
+      if (!hasCompleteProfile) {
+        toast({
+          title: "Complete your profile first",
+          description: "Please finish setting up your profile before searching for matches",
+        });
+        navigate('/profile-setup');
+      } else if (!hasCompletedQuiz) {
+        toast({
+          title: "Take the quiz first",
+          description: "Complete the quiz to get better matches",
+        });
+        navigate('/questions');
+      } else {
+        navigate('/search');
+      }
+      
+      setTimeout(() => window.scrollTo(0, 0), 0);
+    } catch (error) {
+      console.error('Error checking profile/quiz status:', error);
+      navigate('/quick-start');
+    }
   };
 
   return (
