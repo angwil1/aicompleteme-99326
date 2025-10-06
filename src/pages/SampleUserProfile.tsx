@@ -170,7 +170,7 @@ const SampleUserProfile = () => {
                   
                   {/* Additional Photos - Smaller Grid */}
                   <div className="grid grid-cols-3 gap-1 w-32 mx-auto">
-                    {profile.photos.slice(1).map((photo, index) => (
+                    {profile.photos?.slice(1)?.map((photo, index) => (
                       <div key={index} className="aspect-square rounded-md overflow-hidden bg-muted">
                         <Dialog>
                           <DialogTrigger asChild>
