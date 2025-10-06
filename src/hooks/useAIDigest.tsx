@@ -98,7 +98,7 @@ export const useAIDigest = () => {
     try {
       setGenerating(true);
       
-      const { data, error } = await supabase.functions.invoke('generate-ai-digest-v2', {
+      const { data, error } = await supabase.functions.invoke('generate-ai-digest', {
         body: { userId: user.id }
       });
 
