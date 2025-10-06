@@ -120,9 +120,10 @@ export const ZipCodeMatcher = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-4 text-muted-foreground">
-            No matches found within your distance preference.
-            Try increasing your distance range in settings.
+          <div className="text-center py-8 text-muted-foreground">
+            <p className="text-base">
+              No one's here just yet—but connection takes time. We'll keep listening and refresh soon.
+            </p>
           </div>
         )}
       </CardContent>

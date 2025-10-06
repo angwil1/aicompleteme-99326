@@ -583,13 +583,23 @@ const Search = () => {
           >
             <div className="flex items-center justify-between">
               <div>
-                <h2 id="results-summary" className="text-lg font-semibold">
-                  Search Results ({filteredProfiles.length} matches)
-                </h2>
-                {isRegionalSearch && (
-                  <p className="text-sm text-muted-foreground">
-                    Expanded search to 200 miles to find more matches
-                  </p>
+                {filteredProfiles.length > 0 ? (
+                  <>
+                    <h2 id="results-summary" className="text-lg font-semibold">
+                      Search Results ({filteredProfiles.length} matches)
+                    </h2>
+                    {isRegionalSearch && (
+                      <p className="text-sm text-muted-foreground">
+                        Expanded search to 200 miles to find more matches
+                      </p>
+                    )}
+                  </>
+                ) : (
+                  <div className="text-center w-full py-8">
+                    <p className="text-lg text-muted-foreground">
+                      No one's here just yet—but connection takes time. We'll keep listening and refresh soon.
+                    </p>
+                  </div>
                 )}
               </div>
               {filteredProfiles.length > 0 && (
