@@ -100,6 +100,7 @@ export const Navbar = () => {
     { name: "Discover", href: "/quick-start" },
     { name: "Messages", href: user ? "/messages" : "/quick-start" },
     { name: "Memory Vault", href: user ? "/memory-vault" : "/quick-start" },
+    { name: "AI Digest", href: user ? "/ai-digest" : "/quick-start" },
     { name: "Dating Tips", href: "/dating-tips" },
     { name: "Pricing", href: "/pricing" },
     { name: "FAQ", href: "/faq" },
@@ -206,22 +207,34 @@ export const Navbar = () => {
               </Link>
             </div>
 
-            {/* Premium Feature */}
-            <Link
-              to={user ? "/memory-vault" : "/quick-start"}
-              className={`relative px-4 py-2 text-sm font-medium rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 transition-all duration-200 hover:from-purple-500/20 hover:to-pink-500/20 hover:border-purple-500/40 ${
-                isActive("/memory-vault")
-                  ? "from-purple-500 to-pink-500 text-white shadow-lg"
-                  : "text-foreground"
-              }`}
-            >
-              Memory Vault
-              {user && newMemoriesCount > 0 && (
-                <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-red-500 text-xs text-white flex items-center justify-center text-[10px]">
-                  {newMemoriesCount > 9 ? '9+' : newMemoriesCount}
-                </span>
-              )}
-            </Link>
+            {/* Premium Features */}
+            <div className="flex items-center gap-2">
+              <Link
+                to={user ? "/memory-vault" : "/quick-start"}
+                className={`relative px-4 py-2 text-sm font-medium rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 transition-all duration-200 hover:from-purple-500/20 hover:to-pink-500/20 hover:border-purple-500/40 ${
+                  isActive("/memory-vault")
+                    ? "from-purple-500 to-pink-500 text-white shadow-lg"
+                    : "text-foreground"
+                }`}
+              >
+                Memory Vault
+                {user && newMemoriesCount > 0 && (
+                  <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-red-500 text-xs text-white flex items-center justify-center text-[10px]">
+                    {newMemoriesCount > 9 ? '9+' : newMemoriesCount}
+                  </span>
+                )}
+              </Link>
+              <Link
+                to={user ? "/ai-digest" : "/quick-start"}
+                className={`relative px-4 py-2 text-sm font-medium rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 transition-all duration-200 hover:from-blue-500/20 hover:to-cyan-500/20 hover:border-blue-500/40 ${
+                  isActive("/ai-digest")
+                    ? "from-blue-500 to-cyan-500 text-white shadow-lg"
+                    : "text-foreground"
+                }`}
+              >
+                AI Digest
+              </Link>
+            </div>
 
             {/* Secondary Navigation Group */}
             <div className="flex items-center space-x-6 pl-6 border-l border-border">
