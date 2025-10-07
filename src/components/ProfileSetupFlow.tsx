@@ -90,6 +90,8 @@ export const ProfileSetupFlow: React.FC = () => {
       if (!user) return;
       
       try {
+        console.log('🔄 Initializing profile data...');
+        
         // Get user metadata from auth
         const { data: { user: authUser } } = await supabase.auth.getUser();
         
@@ -103,17 +105,13 @@ export const ProfileSetupFlow: React.FC = () => {
           }));
         }
 
-        // Fetch age from date of birth in age verification
-        const { data: ageVerification } = await supabase
-          .from('age_verifications')
-          .select('date_of_birth')
-          .eq('user_id', user.id)
-          .eq('is_verified', true)
-          .single();
-
-        if (ageVerification?.date_of_birth) {
-          // Calculate age from date of birth
-          const birthDate = new Date(ageVerification.date_of_birth);
+        // First, try to get DOB from localStorage (age gate)
+        const localDOB = localStorage.getItem('userDateOfBirth');
+        console.log('📅 DOB from localStorage:', localDOB);
+        
+        if (localDOB) {
+          // Calculate age from localStorage DOB
+          const birthDate = new Date(localDOB);
           const today = new Date();
           let age = today.getFullYear() - birthDate.getFullYear();
           const monthDiff = today.getMonth() - birthDate.getMonth();
@@ -122,11 +120,37 @@ export const ProfileSetupFlow: React.FC = () => {
             age--;
           }
 
-          // Pre-populate age
+          console.log('✅ Pre-filling age from localStorage:', age);
           setProfileData(prev => ({
             ...prev,
             age: age.toString()
           }));
+        } else {
+          // Fallback: try to fetch from database
+          const { data: ageVerification } = await supabase
+            .from('age_verifications')
+            .select('date_of_birth')
+            .eq('user_id', user.id)
+            .eq('is_verified', true)
+            .single();
+
+          if (ageVerification?.date_of_birth) {
+            // Calculate age from date of birth
+            const birthDate = new Date(ageVerification.date_of_birth);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+              age--;
+            }
+
+            console.log('✅ Pre-filling age from database:', age);
+            setProfileData(prev => ({
+              ...prev,
+              age: age.toString()
+            }));
+          }
         }
       } catch (error) {
         console.error('Error loading user data:', error);
