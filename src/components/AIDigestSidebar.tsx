@@ -60,16 +60,26 @@ export const AIDigestSidebar = ({ selectedMatch, otherUserId, otherUserName }: A
       if (!user) return;
 
       try {
+        console.log('🔍 Checking AI Digest subscription for user:', user.id);
+        
         // Check for Complete Plus or Beyond subscription
-        const { data: profileData } = await supabase
+        const { data: profileData, error } = await supabase
           .from('profiles')
           .select('unlocked_beyond_badge_enabled, is_premium')
           .eq('id', user.id)
           .single();
         
-        setIsCompletePlus(profileData?.unlocked_beyond_badge_enabled || profileData?.is_premium || false);
+        if (error) {
+          console.error('❌ Error fetching profile for AI Digest:', error);
+        } else {
+          console.log('✅ Profile data for AI Digest:', profileData);
+        }
+        
+        const hasAccess = profileData?.unlocked_beyond_badge_enabled || profileData?.is_premium || false;
+        console.log('🎯 AI Digest access:', hasAccess);
+        setIsCompletePlus(hasAccess);
       } catch (error) {
-        console.error('Error checking subscription:', error);
+        console.error('❌ Error checking subscription:', error);
         setIsCompletePlus(false);
       }
     };
@@ -85,16 +95,26 @@ export const AIDigestSidebar = ({ selectedMatch, otherUserId, otherUserName }: A
   }, [selectedMatch, otherUserId, isCompletePlus]);
 
   const loadAIDigestData = async () => {
-    if (!user || !otherUserId) return;
+    if (!user || !otherUserId) {
+      console.log('⚠️ Cannot load AI Digest: missing user or otherUserId');
+      return;
+    }
 
+    console.log('📊 Loading AI Digest data for conversation with:', otherUserId);
     setLoading(true);
     try {
       // Get compatibility analysis
-      const { data: compatibilityData } = await supabase
+      const { data: compatibilityData, error: compatError } = await supabase
         .from('connection_dna_compatibility')
         .select('*')
         .or(`and(user_id_1.eq.${user.id},user_id_2.eq.${otherUserId}),and(user_id_1.eq.${otherUserId},user_id_2.eq.${user.id})`)
         .single();
+
+      if (compatError) {
+        console.log('⚠️ No compatibility data found (this is normal for new matches):', compatError.message);
+      } else {
+        console.log('✅ Compatibility data loaded:', compatibilityData);
+      }
 
       if (compatibilityData) {
         // Helper function to safely convert JSON array to string array
