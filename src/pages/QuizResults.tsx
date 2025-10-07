@@ -221,7 +221,7 @@ const QuizResults = () => {
   };
 
   const handleViewMatches = () => {
-    navigate('/search');
+    navigate('/search', { state: { from: 'quiz-results' } });
   };
 
   const handleUpgradeToPremium = () => {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -70,6 +70,7 @@ const US_STATES = [
 
 const Search = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useAuth();
   const { profile, loading: profileLoading } = useProfile();
@@ -497,6 +498,11 @@ const Search = () => {
             <Button 
               variant="ghost" 
               onClick={() => {
+                const from = (location.state as any)?.from;
+                if (from === 'quiz-results') {
+                  navigate('/quiz-results');
+                  return;
+                }
                 if (window.history.length > 1) {
                   navigate(-1);
                 } else {
