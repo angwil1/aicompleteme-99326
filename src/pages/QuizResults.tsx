@@ -126,11 +126,11 @@ const QuizResults = () => {
             name: 'Alex',
             age: 28,
             compatibility: 87,
-            commonInterests: ['Photography', 'Hiking'],
+            commonInterests: ['Photography', 'Hiking', 'Travel', 'Coffee'],
             blurredPhoto: '/src/assets/alex-profile-realistic.jpg',
             location: currentProfile?.location || 'Hartford, CT',
             occupation: 'Photographer',
-            bio: 'Adventure seeker who loves capturing moments through photography and exploring new trails.'
+            bio: 'Adventure seeker who loves capturing moments through photography and exploring new trails. Weekend hiker and coffee enthusiast who believes the best conversations happen outdoors.'
           }
         ];
         setMatchPreviews(placeholderPreviews);
