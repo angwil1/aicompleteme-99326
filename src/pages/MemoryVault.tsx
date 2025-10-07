@@ -379,17 +379,16 @@ const MemoryVault = () => {
               <h2 id="moments-heading" className="text-xl font-semibold mb-4 flex items-center gap-2">
                 <Star className="h-5 w-5" aria-hidden="true" />
                 My Moments
-                <span className="sr-only">({moments.length} saved moments)</span>
               </h2>
               <div className="space-y-3" role="list" aria-label="Saved moments">
                 {moments.map((moment) => (
                   <Card key={moment.id} className="hover:shadow-md transition-shadow" role="listitem">
                     <CardContent className="p-4">
-                      <div className="flex justify-between items-start">
-                        <div className="flex-1">
-                          <h3 className="font-medium mb-1" id={`moment-${moment.id}`}>{moment.title}</h3>
+                      <div className="flex justify-between items-start gap-4">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-medium mb-1">{moment.title}</h3>
                           {moment.description && (
-                            <p className="text-sm text-muted-foreground" aria-describedby={`moment-${moment.id}`}>
+                            <p className="text-sm text-muted-foreground">
                               {moment.description}
                             </p>
                           )}
@@ -398,19 +397,16 @@ const MemoryVault = () => {
                           variant="ghost"
                           size="sm"
                           onClick={() => deleteItem('memory_vault_moments', moment.id)}
-                          className="ml-2 focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                          aria-label={`Delete moment "${moment.title}"`}
-                          aria-describedby="delete-help"
+                          className="text-muted-foreground hover:text-destructive shrink-0"
+                          aria-label={`Delete "${moment.title}"`}
                         >
-                          <Trash2 className="h-4 w-4" aria-hidden="true" />
+                          <Trash2 className="h-4 w-4" />
+                          <span className="ml-1 text-xs">Delete</span>
                         </Button>
                       </div>
                     </CardContent>
                   </Card>
                 ))}
-              </div>
-              <div id="delete-help" className="sr-only">
-                Clicking delete will permanently remove this item from your memory vault
               </div>
             </section>
           )}
@@ -421,19 +417,18 @@ const MemoryVault = () => {
               <h2 id="prompts-heading" className="text-xl font-semibold mb-4 flex items-center gap-2">
                 <MessageSquare className="h-5 w-5" aria-hidden="true" />
                 Conversation Starters
-                <span className="sr-only">({prompts.length} saved conversation starters)</span>
               </h2>
               <div className="space-y-3" role="list" aria-label="Saved conversation starters">
                 {prompts.map((prompt) => (
                   <Card key={prompt.id} className="hover:shadow-md transition-shadow" role="listitem">
                     <CardContent className="p-4">
-                      <div className="flex justify-between items-start">
-                        <div className="flex-1">
-                          <p className="font-medium mb-1" id={`prompt-${prompt.id}`}>
+                      <div className="flex justify-between items-start gap-4">
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium mb-1">
                             "{prompt.prompt_text}"
                           </p>
                           {prompt.response_text && (
-                            <p className="text-sm text-muted-foreground italic" aria-describedby={`prompt-${prompt.id}`}>
+                            <p className="text-sm text-muted-foreground italic">
                               Sample: {prompt.response_text}
                             </p>
                           )}
@@ -442,10 +437,11 @@ const MemoryVault = () => {
                           variant="ghost"
                           size="sm"
                           onClick={() => deleteItem('memory_vault_prompts', prompt.id)}
-                          className="ml-2 focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                          aria-label={`Delete conversation starter "${prompt.prompt_text}"`}
+                          className="text-muted-foreground hover:text-destructive shrink-0"
+                          aria-label={`Delete prompt "${prompt.prompt_text}"`}
                         >
-                          <Trash2 className="h-4 w-4" aria-hidden="true" />
+                          <Trash2 className="h-4 w-4" />
+                          <span className="ml-1 text-xs">Delete</span>
                         </Button>
                       </div>
                     </CardContent>
@@ -461,18 +457,17 @@ const MemoryVault = () => {
               <h2 id="profiles-heading" className="text-xl font-semibold mb-4 flex items-center gap-2">
                 <Heart className="h-5 w-5" aria-hidden="true" />
                 Saved Profiles
-                <span className="sr-only">({matches.length} saved profiles)</span>
               </h2>
               <div className="space-y-3" role="list" aria-label="Saved profiles">
                 {matches.map((match) => (
                   <Card key={match.id} className="hover:shadow-md transition-shadow" role="listitem">
                     <CardContent className="p-4">
-                      <div className="flex justify-between items-start">
-                        <div className="flex-1">
-                          <h3 className="font-medium mb-1" id={`profile-${match.id}`}>
+                      <div className="flex justify-between items-start gap-4">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-medium mb-1">
                             {match.notes.split(' - ')[0]}
                           </h3>
-                          <p className="text-sm text-muted-foreground" aria-describedby={`profile-${match.id}`}>
+                          <p className="text-sm text-muted-foreground">
                             {match.notes.includes(' - ') ? match.notes.split(' - ').slice(1).join(' - ') : match.notes}
                           </p>
                         </div>
@@ -480,10 +475,11 @@ const MemoryVault = () => {
                           variant="ghost"
                           size="sm"
                           onClick={() => deleteItem('memory_vault_matches', match.id)}
-                          className="ml-2 focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                          aria-label={`Delete saved profile "${match.notes.split(' - ')[0]}"`}
+                          className="text-muted-foreground hover:text-destructive shrink-0"
+                          aria-label={`Delete "${match.notes.split(' - ')[0]}"`}
                         >
-                          <Trash2 className="h-4 w-4" aria-hidden="true" />
+                          <Trash2 className="h-4 w-4" />
+                          <span className="ml-1 text-xs">Delete</span>
                         </Button>
                       </div>
                     </CardContent>
