@@ -70,31 +70,20 @@ const App = () => {
         signupSession 
       });
       
-      // Check session-based verification first (for active signup sessions)
-      if (signupSession === 'true') {
-        console.log('✅ Session verification found - user verified');
+      // If age was ever confirmed, trust it (no expiration)
+      if (ageConfirmed === 'true' || signupSession === 'true') {
+        console.log('✅ Age verification found - user verified permanently');
         setAgeVerified(true);
-        setLoading(false);
-        return;
-      }
-      
-      // Check localStorage for longer-term verification
-      if (ageConfirmed === 'true' && ageConfirmedDate) {
-        const confirmationDate = new Date(ageConfirmedDate);
-        const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-        
-        if (confirmationDate > thirtyDaysAgo) {
-          console.log('✅ Valid age verification found in localStorage');
-          setAgeVerified(true);
+        // Ensure both storage methods are set for redundancy
+        if (ageConfirmed === 'true') {
           sessionStorage.setItem('signupAgeVerified', 'true');
-        } else {
-          console.log('⚠️ Age verification expired - clearing');
-          localStorage.removeItem('ageConfirmed');
-          localStorage.removeItem('ageConfirmedDate');
-          localStorage.removeItem('userDateOfBirth');
+        }
+        if (signupSession === 'true' && !ageConfirmedDate) {
+          localStorage.setItem('ageConfirmed', 'true');
+          localStorage.setItem('ageConfirmedDate', new Date().toISOString());
         }
       } else {
-        console.log('❌ No valid age verification found - showing age gate');
+        console.log('❌ No age verification found - showing age gate');
       }
     } catch (error) {
       console.error('❌ Error checking age verification:', error);
