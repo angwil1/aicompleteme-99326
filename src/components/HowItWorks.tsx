@@ -83,24 +83,6 @@ export const HowItWorks = () => {
           ))}
         </div>
 
-        <div className="text-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
-          <Button 
-            onClick={() => {
-              navigate('/quick-start');
-              setTimeout(() => window.scrollTo(0, 0), 0);
-            }}
-            size="lg"
-            className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white font-medium px-8 py-3 rounded-xl"
-          >
-            <Heart className="h-5 w-5 mr-2" />
-            Start Your Journey
-            <ArrowRight className="h-5 w-5 ml-2" />
-          </Button>
-          
-          <p className="text-sm text-muted-foreground mt-4">
-            Join thousands ready for authentic connections
-          </p>
-        </div>
       </div>
     </section>
   );

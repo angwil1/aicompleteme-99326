@@ -75,28 +75,6 @@ export const SoulfulInvitation = () => {
               </Card>
             </div>
 
-            <div className="space-y-4">
-              <Button 
-                size="lg"
-                onClick={() => {
-                  navigate('/quick-start');
-                  setTimeout(() => window.scrollTo(0, 0), 0);
-                }}
-                className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white font-medium"
-              >
-                Begin Your Story
-                <ArrowRight className="h-5 w-5 ml-2" />
-              </Button>
-              
-              <Button 
-                variant="ghost" 
-                size="lg"
-                onClick={() => navigate('/auth')}
-                className="w-full text-muted-foreground hover:text-foreground"
-              >
-                Already have an account? Sign in
-              </Button>
-            </div>
           </div>
         </div>
       </div>
