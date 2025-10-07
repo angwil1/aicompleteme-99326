@@ -57,13 +57,22 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log('🔍 Checking age verification on app load...');
+    
     try {
       const ageConfirmed = localStorage.getItem('ageConfirmed');
       const ageConfirmedDate = localStorage.getItem('ageConfirmedDate');
       const signupSession = sessionStorage.getItem('signupAgeVerified');
       
+      console.log('📋 Age verification status:', { 
+        ageConfirmed, 
+        hasDate: !!ageConfirmedDate,
+        signupSession 
+      });
+      
       // Check session-based verification first (for active signup sessions)
       if (signupSession === 'true') {
+        console.log('✅ Session verification found - user verified');
         setAgeVerified(true);
         setLoading(false);
         return;
@@ -75,16 +84,20 @@ const App = () => {
         const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
         
         if (confirmationDate > thirtyDaysAgo) {
+          console.log('✅ Valid age verification found in localStorage');
           setAgeVerified(true);
-          // Also set session storage for this session
           sessionStorage.setItem('signupAgeVerified', 'true');
         } else {
+          console.log('⚠️ Age verification expired - clearing');
           localStorage.removeItem('ageConfirmed');
           localStorage.removeItem('ageConfirmedDate');
+          localStorage.removeItem('userDateOfBirth');
         }
+      } else {
+        console.log('❌ No valid age verification found - showing age gate');
       }
     } catch (error) {
-      // Silent fail - will show age gate
+      console.error('❌ Error checking age verification:', error);
     }
     
     setLoading(false);
@@ -113,15 +126,18 @@ const App = () => {
     );
   }
 
+  // ALWAYS show age gate if not verified (except for legal pages)
   if (!ageVerified) {
-    const isAuthRoute = typeof window !== 'undefined' && window.location.hash.includes('#/auth');
     const isLegalRoute = typeof window !== 'undefined' && (
       window.location.hash.includes('#/privacy') ||
       window.location.hash.includes('#/terms') ||
       window.location.hash.includes('#/cookie') ||
       window.location.hash.includes('#/accessibility')
     );
-    if (!isAuthRoute && !isLegalRoute) {
+    
+    // Show age gate for ALL routes except legal pages
+    if (!isLegalRoute) {
+      console.log('🚫 Age not verified - showing age gate');
       return <AgeGate onAgeConfirmed={handleAgeConfirmed} />;
     }
   }
