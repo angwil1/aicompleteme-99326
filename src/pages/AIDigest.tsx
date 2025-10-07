@@ -8,7 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { useAIDigest } from '@/hooks/useAIDigest';
 import { useAuth } from '@/hooks/useAuth';
 
-import { Clock, Sparkles, MessageCircle, TrendingUp, Calendar, Users, Crown, Lock } from 'lucide-react';
+import { Clock, Sparkles, MessageCircle, TrendingUp, Calendar, Users, Crown, Lock, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const AIDigest = () => {
@@ -41,6 +41,14 @@ const AIDigest = () => {
       <div className="min-h-screen bg-background">
         <Navbar />
         <div className="p-4 max-w-4xl mx-auto">
+          <Button
+            variant="ghost"
+            onClick={() => navigate(-1)}
+            className="mb-4"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back
+          </Button>
           <div className="mb-8">
             <h1 className="text-3xl font-bold flex items-center gap-3 mb-2">
               <Crown className="h-8 w-8 text-primary" aria-hidden="true" />
@@ -288,6 +296,14 @@ const AIDigest = () => {
       <div className="min-h-screen bg-background">
         <Navbar />
         <div className="p-4 max-w-4xl mx-auto">
+          <Button
+            variant="ghost"
+            onClick={() => navigate(-1)}
+            className="mb-4"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back
+          </Button>
           <div className="mb-8">
             <h1 className="text-3xl font-bold flex items-center gap-3 mb-2">
               <Crown className="h-8 w-8 text-primary" />
@@ -354,6 +370,14 @@ const AIDigest = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <div className="p-4 max-w-4xl mx-auto">
+        <Button
+          variant="ghost"
+          onClick={() => navigate(-1)}
+          className="mb-4"
+        >
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back
+        </Button>
         <div className="mb-8">
           <h1 className="text-3xl font-bold flex items-center gap-3 mb-2">
             <Crown className="h-8 w-8 text-primary" />
