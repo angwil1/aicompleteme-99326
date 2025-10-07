@@ -458,11 +458,26 @@ const Search = () => {
       {/* Beautiful Gradient Background */}
       <div className="fixed inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
       
-      {/* Animated Ambient Elements */}
+      {/* Animated Ambient Elements - Enhanced with more floating circles */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        {/* Large primary circles */}
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
         <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }} />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s', animationDelay: '2s' }} />
+        
+        {/* Additional floating circles - smaller and more spread out */}
+        <div className="absolute top-20 right-1/3 w-64 h-64 bg-secondary/15 rounded-full blur-2xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '0.5s' }} />
+        <div className="absolute bottom-32 left-1/3 w-80 h-80 bg-primary/8 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '7s', animationDelay: '1.5s' }} />
+        <div className="absolute top-1/3 right-1/4 w-56 h-56 bg-accent/12 rounded-full blur-2xl animate-pulse" style={{ animationDuration: '5.5s', animationDelay: '2.5s' }} />
+        <div className="absolute bottom-1/3 left-1/5 w-72 h-72 bg-secondary/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6.5s', animationDelay: '0.8s' }} />
+        
+        {/* Top corners */}
+        <div className="absolute top-10 left-10 w-48 h-48 bg-primary/12 rounded-full blur-2xl animate-pulse" style={{ animationDuration: '4.5s', animationDelay: '3s' }} />
+        <div className="absolute top-16 right-16 w-52 h-52 bg-accent/8 rounded-full blur-2xl animate-pulse" style={{ animationDuration: '5.8s', animationDelay: '1.2s' }} />
+        
+        {/* Bottom corners */}
+        <div className="absolute bottom-10 left-12 w-60 h-60 bg-secondary/12 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6.2s', animationDelay: '2.8s' }} />
+        <div className="absolute bottom-20 right-20 w-44 h-44 bg-primary/10 rounded-full blur-2xl animate-pulse" style={{ animationDuration: '4.8s', animationDelay: '1.8s' }} />
       </div>
 
       <div className="relative z-10">
