@@ -498,6 +498,15 @@ const Search = () => {
             <Button 
               variant="ghost" 
               onClick={() => {
+                try {
+                  const fromStore = sessionStorage.getItem('fromQuizResults');
+                  if (fromStore === 'true') {
+                    sessionStorage.removeItem('fromQuizResults');
+                    navigate('/quiz-results');
+                    return;
+                  }
+                } catch {}
+
                 const from = (location.state as any)?.from;
                 if (from === 'quiz-results') {
                   navigate('/quiz-results');

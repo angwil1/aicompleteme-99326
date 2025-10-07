@@ -221,6 +221,9 @@ const QuizResults = () => {
   };
 
   const handleViewMatches = () => {
+    try {
+      sessionStorage.setItem('fromQuizResults', 'true');
+    } catch {}
     navigate('/search', { state: { from: 'quiz-results' } });
   };
 
