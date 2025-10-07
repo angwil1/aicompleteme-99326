@@ -121,6 +121,13 @@ const SampleUserProfile = () => {
     navigate('/search');
   };
 
+  // Interests fallback: support placeholder profiles (e.g., from QuizResults)
+  const interestsToShow: string[] = Array.isArray(profile?.interests) && profile.interests.length > 0
+    ? profile.interests
+    : Array.isArray(profile?.commonInterests)
+      ? profile.commonInterests
+      : [];
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -244,20 +251,22 @@ const SampleUserProfile = () => {
             </Card>
 
             {/* Interests */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Interests</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {(profile.interests ?? []).map((interest) => (
-                    <Badge key={interest} variant="secondary">
-                      {interest}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            {interestsToShow.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Interests</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {interestsToShow.map((interest) => (
+                      <Badge key={interest} variant="secondary">
+                        {interest}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Action Buttons */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
