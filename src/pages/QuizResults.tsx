@@ -474,10 +474,7 @@ const QuizResults = () => {
 
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-8 max-w-2xl mx-auto">
-          <Button onClick={handleViewProfile} variant="outline" size="lg" className="w-full sm:flex-1">
-            Edit Profile
-          </Button>
+        <div className="flex justify-center items-center mb-8">
           <Button
             onClick={async () => {
               await signOut();
