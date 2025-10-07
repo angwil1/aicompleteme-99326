@@ -61,14 +61,6 @@ const AppContent = () => {
   useEffect(() => {
     console.log('🔍 Checking age verification on app load...');
     
-    // If user is signed in, they've already been verified during signup
-    if (user) {
-      console.log('✅ User is signed in - skipping age gate');
-      setAgeVerified(true);
-      setLoading(false);
-      return;
-    }
-    
     try {
       const ageConfirmed = localStorage.getItem('ageConfirmed');
       const signupSession = sessionStorage.getItem('signupAgeVerified');
@@ -79,8 +71,24 @@ const AppContent = () => {
         isSignedIn: !!user
       });
       
-      // If age was ever confirmed, trust it (no expiration)
-      if (ageConfirmed === 'true' || signupSession === 'true') {
+      // If user is signed in AND has previously verified age, skip gate
+      if (user && (ageConfirmed === 'true' || signupSession === 'true')) {
+        console.log('✅ User is signed in and previously verified - skipping age gate');
+        setAgeVerified(true);
+        setLoading(false);
+        return;
+      }
+      
+      // If user is signed in but no age verification found, still verify
+      if (user && !ageConfirmed && !signupSession) {
+        console.log('⚠️ User is signed in but no age verification found - showing age gate');
+        setAgeVerified(false);
+        setLoading(false);
+        return;
+      }
+      
+      // For non-signed-in users, check if age was previously confirmed
+      if (!user && (ageConfirmed === 'true' || signupSession === 'true')) {
         console.log('✅ Age verification found - user verified permanently');
         setAgeVerified(true);
         // Ensure both storage methods are set for redundancy
@@ -91,7 +99,7 @@ const AppContent = () => {
           localStorage.setItem('ageConfirmed', 'true');
           localStorage.setItem('ageConfirmedDate', new Date().toISOString());
         }
-      } else {
+      } else if (!user) {
         console.log('❌ No age verification found - showing age gate');
       }
     } catch (error) {
