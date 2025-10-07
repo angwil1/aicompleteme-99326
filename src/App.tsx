@@ -22,7 +22,7 @@ import ProfileEdit from "./pages/ProfileEdit";
 import ProfileSetup from "./pages/ProfileSetup";
 import Search from "./pages/Search";
 import Messages from "./pages/Messages";
-import SwipeMode from "./pages/SwipeMode";
+
 import Questions from "./pages/Questions";
 import QuizResults from "./pages/QuizResults";
 import Pricing from "./pages/Pricing";
@@ -185,11 +185,6 @@ const App = () => {
                 </ProtectedRoute>
               } />
               <Route path="/browse" element={<Navigate to="/auth" replace />} />
-              <Route path="/swipe" element={
-                <ProtectedRoute>
-                  <SwipeMode />
-                </ProtectedRoute>
-              } />
               <Route path="/questions" element={
                 <ProtectedRoute>
                   <Questions />
