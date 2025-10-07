@@ -176,35 +176,66 @@ const ConnectionDNA = () => {
     if (!user) return;
 
     setAnalyzing(true);
+    console.log('🧬 Starting Connection DNA analysis...');
+    
     try {
       // Run profile analysis
-      const { error } = await supabase.functions.invoke('analyze-connection-dna', {
+      console.log('📊 Running profile analysis...');
+      const { data: profileData, error: profileError } = await supabase.functions.invoke('analyze-connection-dna', {
         body: {
           analysisType: 'profile_analysis'
         }
       });
 
-      if (error) throw error;
+      if (profileError) {
+        console.error('❌ Profile analysis error:', profileError);
+        throw profileError;
+      }
+
+      console.log('✅ Profile analysis complete:', profileData);
 
       // Generate new insights
-      await supabase.functions.invoke('analyze-connection-dna', {
+      console.log('💡 Generating insights...');
+      const { data: insightsData, error: insightsError } = await supabase.functions.invoke('analyze-connection-dna', {
         body: {
           analysisType: 'generate_insights'
         }
       });
+
+      if (insightsError) {
+        console.error('❌ Insights generation error:', insightsError);
+        throw insightsError;
+      }
+
+      console.log('✅ Insights generated:', insightsData);
 
       toast({
         title: "Analysis Complete!",
         description: "Your Connection DNA has been updated with new insights."
       });
 
-      // Refresh data
+      // Refresh data from database
+      console.log('🔄 Refreshing DNA data...');
       await fetchDNAData();
-    } catch (error) {
-      console.error('Error running analysis:', error);
+      console.log('✅ Connection DNA update complete!');
+      
+    } catch (error: any) {
+      console.error('❌ Error running analysis:', error);
+      
+      let errorMessage = "Failed to update your Connection DNA. Please try again.";
+      
+      // Handle specific error types
+      if (error?.message?.includes('Rate limit')) {
+        errorMessage = "Rate limit exceeded. Please wait a moment and try again.";
+      } else if (error?.message?.includes('Payment required')) {
+        errorMessage = "AI credits needed. Please add credits to continue using this feature.";
+      } else if (error?.message?.includes('not authenticated')) {
+        errorMessage = "Session expired. Please refresh the page and try again.";
+      }
+      
       toast({
         title: "Analysis Error",
-        description: "Failed to update your Connection DNA. Please try again.",
+        description: errorMessage,
         variant: "destructive"
       });
     } finally {
