@@ -496,12 +496,12 @@ const Search = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <Button 
               variant="ghost" 
-              onClick={() => navigate('/')}
+              onClick={() => navigate(-1)}
               className="focus:ring-2 focus:ring-primary focus:ring-offset-2 self-start"
-              aria-label="Go back to homepage"
+              aria-label="Go back to previous page"
             >
               <ArrowLeft className="h-4 w-4 mr-2" aria-hidden="true" />
-              Back to Home
+              Back
             </Button>
             
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 w-full sm:w-auto">
