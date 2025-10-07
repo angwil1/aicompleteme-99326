@@ -19,8 +19,8 @@ export const InviteKindredSoul = () => {
   
   // Generate referral link with user ID if available
   const shareLink = user 
-    ? `${window.location.origin}?ref=${user.id}`
-    : window.location.origin;
+    ? `https://aicompleteme.com?ref=${user.id}`
+    : 'https://aicompleteme.com';
 
   const handleCopyLink = async () => {
     try {
