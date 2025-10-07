@@ -1,3 +1,37 @@
+// Import all profile images
+import jordanRealistic from '@/assets/jordan-realistic-updated.jpg';
+import caseyNatural from '@/assets/casey-natural-background.jpg';
+import riverNatural from '@/assets/river-natural-background.jpg';
+import sageNatural from '@/assets/sage-natural-background.jpg';
+import phoenixRealistic from '@/assets/phoenix-realistic-new.jpg';
+import devRealistic from '@/assets/dev-realistic-new.jpg';
+import profileSilhouette from '@/assets/profile-silhouette.jpg';
+import indieRealistic from '@/assets/indie-realistic-new.jpg';
+import zaraRealistic from '@/assets/zara-realistic-new.jpg';
+import marcusProfile from '@/assets/marcus-profile-main.jpg';
+import sageProfile1 from '@/assets/sage-profile-1.jpg';
+import alexHiking from '@/assets/alex-profile-hiking.jpg';
+import ariaRealistic from '@/assets/aria-realistic-new.jpg';
+import atlasProfile1 from '@/assets/atlas-profile-1.jpg';
+import emberProfile1 from '@/assets/ember-profile-1.jpg';
+import nonBinaryPortrait from '@/assets/non-binary-portrait-realistic.jpg';
+import phoenixProfile1 from '@/assets/phoenix-profile-1.jpg';
+import lunaRealistic from '@/assets/luna-realistic-new.jpg';
+import kaiRealistic from '@/assets/kai-realistic-new.jpg';
+import marcusRealistic from '@/assets/marcus-realistic-new.jpg';
+import mayaRealistic from '@/assets/maya-realistic-new.jpg';
+import atlasRealistic from '@/assets/atlas-realistic-new.jpg';
+import riverRealistic from '@/assets/river-realistic-new.jpg';
+import lunaNatural from '@/assets/luna-natural-background.jpg';
+import techRealistic from '@/assets/tech-realistic-new.jpg';
+import atlasProfile from '@/assets/atlas-profile-1.jpg';
+import sageProfile2 from '@/assets/sage-profile-2.jpg';
+import phoenixProfile2 from '@/assets/phoenix-profile-2.jpg';
+import lunaProfile2 from '@/assets/luna-profile-2.jpg';
+import riverProfile2 from '@/assets/river-profile-2.jpg';
+import irisProfile1 from '@/assets/iris-profile-1.jpg';
+import irisProfile2 from '@/assets/iris-profile-2.jpg';
+
 export interface SampleProfile {
   id: string;
   name: string;
@@ -39,7 +73,7 @@ export const founderCuratedProfiles: SampleProfile[] = [
     occupation: "Graphic Designer",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/jordan-realistic-updated.jpg"],
+    photos: [jordanRealistic],
     interests: ["Art", "Coffee", "Music"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -61,7 +95,7 @@ export const founderCuratedProfiles: SampleProfile[] = [
     occupation: "Marine Biologist",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/casey-natural-background.jpg"],
+    photos: [caseyNatural],
     interests: ["Ocean Conservation", "Diving", "Yoga"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -83,7 +117,7 @@ export const founderCuratedProfiles: SampleProfile[] = [
     occupation: "Yoga Instructor",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/river-natural-background.jpg"],
+    photos: [riverNatural],
     interests: ["Yoga", "Meditation", "Hiking"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -105,7 +139,7 @@ export const founderCuratedProfiles: SampleProfile[] = [
     occupation: "Filmmaker",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/sage-natural-background.jpg"],
+    photos: [sageNatural],
     interests: ["Film", "Travel", "Photography"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -127,7 +161,7 @@ export const founderCuratedProfiles: SampleProfile[] = [
     occupation: "Therapist",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/phoenix-realistic-new.jpg"],
+    photos: [phoenixRealistic],
     interests: ["Psychology", "Reading", "Hiking"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -149,7 +183,7 @@ export const founderCuratedProfiles: SampleProfile[] = [
     occupation: "Software Engineer",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/dev-realistic-new.jpg"],
+    photos: [devRealistic],
     interests: ["Cricket", "Cooking", "Philosophy", "Travel"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -171,7 +205,7 @@ export const founderCuratedProfiles: SampleProfile[] = [
     occupation: "Personal Trainer",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/profile-silhouette.jpg"],
+    photos: [profileSilhouette],
     interests: ["Fitness", "Wellness", "Beach Sports"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -193,7 +227,7 @@ export const founderCuratedProfiles: SampleProfile[] = [
     occupation: "Librarian",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/indie-realistic-new.jpg"],
+    photos: [indieRealistic],
     interests: ["Literature", "Philosophy", "Coffee Culture"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -215,7 +249,7 @@ export const founderCuratedProfiles: SampleProfile[] = [
     occupation: "Architect",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/zara-realistic-new.jpg"],
+    photos: [zaraRealistic],
     interests: ["Architecture", "Sustainability", "Cultural Heritage"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -242,7 +276,7 @@ export const stateProfiles: SampleProfile[] = [
     occupation: "Software Engineer",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/marcus-profile-main.jpg"],
+    photos: [marcusProfile],
     interests: ["Football", "BBQ", "Music"],
     conversationStarters: ["What's your favorite SEC team?", "Best BBQ spot in your city?"],
     poeticMicrocopy: "",
@@ -264,7 +298,7 @@ export const stateProfiles: SampleProfile[] = [
     occupation: "Elementary Teacher",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/sage-profile-1.jpg"],
+    photos: [sageProfile1],
     interests: ["Teaching", "Gardening", "Reading"],
     conversationStarters: ["What's your favorite book?", "Do you have a green thumb?"],
     poeticMicrocopy: "",
@@ -287,7 +321,7 @@ export const stateProfiles: SampleProfile[] = [
     occupation: "Outdoor Guide",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/alex-profile-hiking.jpg"],
+    photos: [alexHiking],
     interests: ["Hiking", "Fishing", "Photography"],
     conversationStarters: ["What's your biggest adventure?", "Ever seen the Northern Lights?"],
     poeticMicrocopy: "",
@@ -309,7 +343,7 @@ export const stateProfiles: SampleProfile[] = [
     occupation: "Wildlife Photographer",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/aria-realistic-new.jpg"],
+    photos: [ariaRealistic],
     interests: ["Photography", "Wildlife", "Astronomy"],
     conversationStarters: ["What's your favorite photo you've taken?", "Best wildlife encounter?"],
     poeticMicrocopy: "",
@@ -332,7 +366,7 @@ export const stateProfiles: SampleProfile[] = [
     occupation: "Climbing Instructor",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/atlas-profile-1.jpg"],
+    photos: [atlasProfile1],
     interests: ["Rock Climbing", "Desert Hiking", "Stargazing"],
     conversationStarters: ["Ever been to the Grand Canyon?", "Favorite climbing spot?"],
     poeticMicrocopy: "",
@@ -354,7 +388,7 @@ export const stateProfiles: SampleProfile[] = [
     occupation: "Art Therapist",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/ember-profile-1.jpg"],
+    photos: [emberProfile1],
     interests: ["Art", "Therapy", "Desert Photography"],
     conversationStarters: ["What inspires your creativity?", "Favorite art medium?"],
     poeticMicrocopy: "",
@@ -379,7 +413,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Elementary Teacher",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/aria-realistic-new.jpg"],
+    photos: [ariaRealistic],
     interests: ["Teaching", "Social Justice", "Crafting"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -401,7 +435,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Architect",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/zara-realistic-new.jpg"],
+    photos: [zaraRealistic],
     interests: ["Architecture", "Sustainability", "Cultural Heritage"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -423,7 +457,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Digital Artist",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/non-binary-portrait-realistic.jpg"],
+    photos: [nonBinaryPortrait],
     interests: ["Digital Art", "Community Organizing", "LGBTQ+ Advocacy"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -446,7 +480,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Teacher",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/phoenix-profile-1.jpg"],
+    photos: [phoenixProfile1],
     interests: ["History", "Pottery", "Music"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -471,7 +505,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Pre-Med Student",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/luna-realistic-new.jpg"],
+    photos: [lunaRealistic],
     interests: ["Salsa Dancing", "Medicine", "Colombian Culture", "Family"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -493,7 +527,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Sushi Chef",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/kai-realistic-new.jpg"],
+    photos: [kaiRealistic],
     interests: ["Sushi Making", "Martial Arts", "Japanese Culture", "Teaching"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -515,7 +549,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Community Organizer",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/aria-realistic-new.jpg"],
+    photos: [ariaRealistic],
     interests: ["Poetry", "Community Building", "Social Justice", "Detroit Culture"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -537,7 +571,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "History Teacher",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/marcus-realistic-new.jpg"],
+    photos: [marcusRealistic],
     interests: ["History", "Parenting", "Hiking", "Reading"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -559,7 +593,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Tech Consultant",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/zara-realistic-new.jpg"],
+    photos: [zaraRealistic],
     interests: ["Bollywood Dance", "Technology", "Indian Culture", "Philosophy"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -581,7 +615,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Engineering Student",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/dev-realistic-new.jpg"],
+    photos: [devRealistic],
     interests: ["Engineering", "Soccer", "Sustainability", "Family"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -603,7 +637,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Pediatric Nurse",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/maya-realistic-new.jpg"],
+    photos: [mayaRealistic],
     interests: ["Nursing", "Cooking", "Taiwanese Culture", "Children"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -625,7 +659,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Immigration Lawyer",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/atlas-realistic-new.jpg"],
+    photos: [atlasRealistic],
     interests: ["Law", "Calligraphy", "Arabic Literature", "Human Rights"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -647,7 +681,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Environmental Scientist",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/river-realistic-new.jpg"],
+    photos: [riverRealistic],
     interests: ["Environmental Science", "Indigenous Rights", "Traditional Crafts", "Ceremony"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -669,7 +703,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Yoga Instructor",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/luna-natural-background.jpg"],
+    photos: [lunaNatural],
     interests: ["Yoga", "Meditation", "Personal Growth", "Adventure"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -692,7 +726,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Software Developer",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/tech-realistic-new.jpg"],
+    photos: [techRealistic],
     interests: ["Rock Climbing", "Coding", "Food Tours"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -714,7 +748,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Museum Curator",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/ember-profile-1.jpg"],
+    photos: [emberProfile1],
     interests: ["Art History", "Museums", "Cultural Events"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -737,7 +771,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Outdoor Educator",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/atlas-profile-1.jpg"],
+    photos: [atlasProfile],
     interests: ["Hiking", "Wilderness", "Environmental Education"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -759,7 +793,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Organic Farmer",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/sage-profile-2.jpg"],
+    photos: [sageProfile2],
     interests: ["Sustainable Farming", "Community Building", "Cooking"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -782,7 +816,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Marine Biologist",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/phoenix-profile-2.jpg"],
+    photos: [phoenixProfile2],
     interests: ["Marine Conservation", "Scuba Diving", "Photography"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -804,7 +838,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Dance Instructor",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/luna-profile-2.jpg"],
+    photos: [lunaProfile2],
     interests: ["Dance", "Wellness", "Body Positivity"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -826,7 +860,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Brewery Owner",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/river-profile-2.jpg"],
+    photos: [riverProfile2],
     interests: ["Craft Beer", "Entrepreneurship", "Food Pairing"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -849,7 +883,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Cheesemaker",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/iris-profile-1.jpg"],
+    photos: [irisProfile1],
     interests: ["Artisan Cheese", "Farm-to-Table", "Sustainable Agriculture"],
     conversationStarters: [],
     poeticMicrocopy: "",
@@ -871,7 +905,7 @@ export const browseProfiles: SampleProfile[] = [
     occupation: "Musician & Woodworker",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/iris-profile-2.jpg"],
+    photos: [irisProfile2],
     interests: ["Folk Music", "Woodworking", "Seasonal Living"],
     conversationStarters: [],
     poeticMicrocopy: "",
