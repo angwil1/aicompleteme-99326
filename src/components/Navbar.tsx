@@ -174,7 +174,7 @@ export const Navbar = () => {
                 className="h-8 w-8 lg:h-10 lg:w-10 transition-all duration-300 group-hover:scale-105"
               />
               <div className="flex items-center">
-                <span className="text-xs lg:text-sm font-medium bg-gradient-to-r from-gold via-gold-light to-gold-dark bg-clip-text text-transparent group-hover:from-gold/80 group-hover:via-gold-light/80 group-hover:to-gold-dark/80 transition-all duration-300">
+                <span className="text-xs lg:text-sm font-semibold text-foreground group-hover:text-primary transition-all duration-300">
                   AI Complete Me
                 </span>
               </div>
