@@ -496,7 +496,13 @@ const Search = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <Button 
               variant="ghost" 
-              onClick={() => navigate(-1)}
+              onClick={() => {
+                if (window.history.length > 1) {
+                  navigate(-1);
+                } else {
+                  navigate('/');
+                }
+              }}
               className="focus:ring-2 focus:ring-primary focus:ring-offset-2 self-start"
               aria-label="Go back to previous page"
             >
