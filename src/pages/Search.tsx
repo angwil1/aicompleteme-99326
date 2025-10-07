@@ -209,6 +209,7 @@ const Search = () => {
     
     // Combine all available profiles
     const allProfiles = [...founderCuratedProfiles, ...stateProfiles];
+    console.log('📊 Total profiles available:', allProfiles.length);
 
     // Normalize gender preference to avoid mismatches
     const normalizeGenderPref = (pref: string) => {
