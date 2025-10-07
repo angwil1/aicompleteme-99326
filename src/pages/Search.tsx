@@ -502,14 +502,6 @@ const Search = () => {
                   Join & Discover
                 </Button>
               )}
-              <Button 
-                onClick={() => navigate('/profile/edit')}
-                className="focus:ring-2 focus:ring-primary focus:ring-offset-2 w-full sm:w-auto justify-center"
-                aria-label="Open profile settings to edit your information"
-              >
-                <Settings className="h-4 w-4 mr-2" aria-hidden="true" />
-                Profile Settings
-              </Button>
             </div>
           </div>
         </div>

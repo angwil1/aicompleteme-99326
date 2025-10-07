@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Search, Filter, LogOut, User, Archive, Dna, ChevronDown } from "lucide-react";
+import { Menu, X, Search, Filter, LogOut, User, Archive, Dna, ChevronDown, Settings } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -316,6 +316,12 @@ export const Navbar = () => {
                       <Link to="/profile" className="flex items-center">
                         <User className="h-4 w-4 mr-2" />
                         View Profile
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/profile/edit" className="flex items-center">
+                        <Settings className="h-4 w-4 mr-2" />
+                        Profile Settings
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem 
