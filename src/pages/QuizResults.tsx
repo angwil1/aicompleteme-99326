@@ -473,20 +473,6 @@ const QuizResults = () => {
         </Card>
 
 
-        {/* Action Buttons */}
-        <div className="flex justify-center items-center mb-8">
-          <Button
-            onClick={async () => {
-              await signOut();
-              navigate('/auth');
-            }}
-            variant="ghost"
-            size="sm"
-            className="text-muted-foreground hover:text-foreground text-sm"
-          >
-            Log Out
-          </Button>
-        </div>
 
         {/* Invite Kindred Soul Section - Perfect emotional moment after seeing matches */}
         <div className="mb-8">
