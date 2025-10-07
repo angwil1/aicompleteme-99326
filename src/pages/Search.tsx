@@ -705,23 +705,6 @@ const Search = () => {
                             {matchScore}%
                           </Badge>
                           
-                          {/* Looking For Section */}
-                          <div className="absolute bottom-2 left-2 right-2">
-                            <div className="bg-background/90 backdrop-blur-sm rounded-md px-2 py-1">
-                              <p className="text-xs text-muted-foreground text-center">
-                                Looking for: <span className="font-medium text-foreground">
-                                  {profile.lookingFor === 'men' ? 'Men' : 
-                                   profile.lookingFor === 'women' ? 'Women' :
-                                   profile.lookingFor === 'anyone' ? 'Anyone' :
-                                   profile.lookingFor === 'non-binary' ? 'Non-binary' :
-                                   profile.lookingFor === 'casual-friends' ? 'Friends' :
-                                   profile.lookingFor === 'activity-partners' ? 'Activity Partners' :
-                                   profile.lookingFor === 'travel-buddies' ? 'Travel Buddies' :
-                                   'Connection'}
-                                </span>
-                              </p>
-                            </div>
-                          </div>
                         </div>
                         
                         <CardHeader className="pb-2 px-3 pt-3">
