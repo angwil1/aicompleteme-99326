@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 export const InviteKindredSoul = () => {
   const [email, setEmail] = useState("");
@@ -25,9 +26,14 @@ export const InviteKindredSoul = () => {
     setIsLoading(true);
     
     try {
-      // TODO: Implement actual email sending via Supabase Edge Function
-      // For now, we'll simulate the API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const { error } = await supabase.functions.invoke('send-invite-email', {
+        body: {
+          recipientEmail: email.trim(),
+          personalMessage: message.trim() || undefined,
+        }
+      });
+
+      if (error) throw error;
       
       toast({
         title: "Quiet invite sent",
@@ -37,6 +43,7 @@ export const InviteKindredSoul = () => {
       setEmail("");
       setMessage("");
     } catch (error) {
+      console.error("Error sending invite:", error);
       toast({
         title: "Failed to send quiet invite",
         description: "Please try again later.",
