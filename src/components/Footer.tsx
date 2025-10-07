@@ -8,7 +8,7 @@ export const Footer = () => {
   const { toast } = useToast();
   
   const shareWebpage = (platform: string) => {
-    const currentUrl = window.location.href;
+    const currentUrl = "https://aicompleteme.com";
     const shareText = "Check out AI Complete Me - Revolutionary dating with emotional intelligence! Find your soulmate through AI-powered deep compatibility matching. 💕";
     const shareTitle = "AI Complete Me - Find Your Perfect Match";
     
