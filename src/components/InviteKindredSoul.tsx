@@ -4,14 +4,42 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { Copy, Check } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 
 export const InviteKindredSoul = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
 
   const defaultMessage = "I found this quiet space for meaningful connections. Thought you might appreciate it too.";
+  
+  // Generate referral link with user ID if available
+  const shareLink = user 
+    ? `${window.location.origin}?ref=${user.id}`
+    : window.location.origin;
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareLink);
+      setCopied(true);
+      toast({
+        title: "Link copied!",
+        description: "Share this link via text, social media, or anywhere you like",
+      });
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.error("Error copying link:", error);
+      toast({
+        title: "Failed to copy",
+        description: "Please try again",
+        variant: "destructive"
+      });
+    }
+  };
 
   const handleInvite = async () => {
     if (!email.trim()) {
@@ -73,11 +101,45 @@ export const InviteKindredSoul = () => {
       </CardHeader>
       
       <CardContent className="space-y-4 relative z-10">
-        <div className="space-y-3">
+        {/* Share Link Section */}
+        <div className="space-y-3 pb-4 border-b border-border/50">
           <div className="space-y-2">
-            <label htmlFor="invite-email" className="text-sm font-medium text-foreground">
-              Their Email Address
+            <label className="text-sm font-medium text-foreground">
+              Quick Share
             </label>
+            <p className="text-xs text-muted-foreground">
+              Copy and share this link via text, social media, or anywhere
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <Input
+              readOnly
+              value={shareLink}
+              className="bg-background/80 backdrop-blur-sm text-sm"
+            />
+            <Button
+              onClick={handleCopyLink}
+              variant="outline"
+              className="shrink-0"
+            >
+              {copied ? (
+                <Check className="h-4 w-4" />
+              ) : (
+                <Copy className="h-4 w-4" />
+              )}
+            </Button>
+          </div>
+        </div>
+
+        {/* Email Invite Section */}
+        <div className="space-y-3 pt-2">
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">
+              Or Send via Email
+            </label>
+          </div>
+          
+          <div className="space-y-2">
             <Input
               id="invite-email"
               type="email"
@@ -89,9 +151,6 @@ export const InviteKindredSoul = () => {
           </div>
           
           <div className="space-y-2">
-            <label htmlFor="invite-message" className="text-sm font-medium text-foreground">
-              Personal Message (Optional)
-            </label>
             <textarea
               id="invite-message"
               placeholder={defaultMessage}
@@ -114,7 +173,7 @@ export const InviteKindredSoul = () => {
             ) : (
               <span className="flex items-center gap-2">
                 <span>✨</span>
-                Send Quiet Invite
+                Send Email Invite
               </span>
             )}
           </Button>
