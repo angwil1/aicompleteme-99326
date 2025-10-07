@@ -13,6 +13,7 @@ import { VersionTracker } from "@/components/VersionTracker";
 import { BetaProtection } from "@/components/BetaProtection";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { BETA_CONFIG } from "@/config/betaConfig";
+import { useAuth } from "@/hooks/useAuth";
 
 // Page imports
 import Index from "./pages/Index";
@@ -52,22 +53,30 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 
 const queryClient = new QueryClient();
 
-const App = () => {
+const AppContent = () => {
+  const { user } = useAuth();
   const [ageVerified, setAgeVerified] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     console.log('🔍 Checking age verification on app load...');
     
+    // If user is signed in, they've already been verified during signup
+    if (user) {
+      console.log('✅ User is signed in - skipping age gate');
+      setAgeVerified(true);
+      setLoading(false);
+      return;
+    }
+    
     try {
       const ageConfirmed = localStorage.getItem('ageConfirmed');
-      const ageConfirmedDate = localStorage.getItem('ageConfirmedDate');
       const signupSession = sessionStorage.getItem('signupAgeVerified');
       
       console.log('📋 Age verification status:', { 
         ageConfirmed, 
-        hasDate: !!ageConfirmedDate,
-        signupSession 
+        signupSession,
+        isSignedIn: !!user
       });
       
       // If age was ever confirmed, trust it (no expiration)
@@ -78,7 +87,7 @@ const App = () => {
         if (ageConfirmed === 'true') {
           sessionStorage.setItem('signupAgeVerified', 'true');
         }
-        if (signupSession === 'true' && !ageConfirmedDate) {
+        if (signupSession === 'true') {
           localStorage.setItem('ageConfirmed', 'true');
           localStorage.setItem('ageConfirmedDate', new Date().toISOString());
         }
@@ -90,7 +99,7 @@ const App = () => {
     }
     
     setLoading(false);
-  }, []);
+  }, [user]);
 
   const handleAgeConfirmed = () => {
     try {
@@ -115,8 +124,8 @@ const App = () => {
     );
   }
 
-  // ALWAYS show age gate if not verified (except for legal pages)
-  if (!ageVerified) {
+  // ALWAYS show age gate if not verified (except for signed-in users and legal pages)
+  if (!ageVerified && !user) {
     const isLegalRoute = typeof window !== 'undefined' && (
       window.location.hash.includes('#/privacy') ||
       window.location.hash.includes('#/terms') ||
@@ -126,10 +135,121 @@ const App = () => {
     
     // Show age gate for ALL routes except legal pages
     if (!isLegalRoute) {
-      console.log('🚫 Age not verified - showing age gate');
+      console.log('🚫 Age not verified and user not signed in - showing age gate');
       return <AgeGate onAgeConfirmed={handleAgeConfirmed} />;
     }
   }
+
+  return (
+    <>
+      <AppWrapper>
+        <ScrollToTop />
+        {/* Beta Testing Components */}
+        {BETA_CONFIG.isTestBuild && (
+          <>
+            <BetaProtection />
+            {BETA_CONFIG.showBetaWatermark && (
+              <BetaWatermark 
+                testerId={BETA_CONFIG.testerId}
+                buildVersion={BETA_CONFIG.getBuildId()}
+                businessName={BETA_CONFIG.businessName}
+              />
+            )}
+            {BETA_CONFIG.trackUsage && (
+              <VersionTracker 
+                testerId={BETA_CONFIG.testerId}
+                buildVersion={BETA_CONFIG.getBuildId()}
+                businessName={BETA_CONFIG.businessName}
+              />
+            )}
+          </>
+        )}
+        <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
+        <Route path="/profile/edit" element={
+          <ProtectedRoute>
+            <ProfileEdit />
+          </ProtectedRoute>
+        } />
+        <Route path="/profile/setup" element={
+          <ProtectedRoute>
+            <ProfileSetup />
+          </ProtectedRoute>
+        } />
+        <Route path="/matches" element={<Navigate to="/search" replace />} />
+        <Route path="/search" element={
+          <ProtectedRoute>
+            <Search />
+          </ProtectedRoute>
+        } />
+        <Route path="/messages" element={
+          <ProtectedRoute>
+            <Messages />
+          </ProtectedRoute>
+        } />
+        <Route path="/browse" element={<Navigate to="/auth" replace />} />
+        <Route path="/questions" element={
+          <ProtectedRoute>
+            <Questions />
+          </ProtectedRoute>
+        } />
+        <Route path="/quiz-results" element={
+          <ProtectedRoute>
+            <QuizResults />
+          </ProtectedRoute>
+        } />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/premium-dashboard" element={
+          <ProtectedRoute>
+            <PremiumDashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/connection-dna" element={
+          <ProtectedRoute>
+            <ConnectionDNA />
+          </ProtectedRoute>
+        } />
+        <Route path="/memory-vault" element={
+          <ProtectedRoute>
+            <MemoryVault />
+          </ProtectedRoute>
+        } />
+        <Route path="/ai-digest" element={
+          <ProtectedRoute>
+            <AIDigest />
+          </ProtectedRoute>
+        } />
+        <Route path="/mission" element={<Mission />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/quick-start" element={<QuickStart />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<TermsOfService />} />
+        <Route path="/cookies" element={<CookieStatement />} />
+        <Route path="/accessibility" element={<AccessibilityStatement />} />
+        <Route path="/feature-test" element={<FeatureTest />} />
+        <Route path="/test-quiet-start" element={<TestQuietStart />} />
+        <Route path="/test-subscription-features" element={<TestSubscriptionFeatures />} />
+        <Route path="/dating-tips" element={<DatingTips />} />
+        <Route path="/safety" element={<SafetyCenter />} />
+        <Route path="/delete-account" element={<DeleteAccount />} />
+        <Route path="/sample-user-profile/:profileId" element={<SampleUserProfile />} />
+        <Route path="/." element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AppWrapper>
+    </>
+  );
+};
+
+const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -137,109 +257,7 @@ const App = () => {
         <Toaster />
         <ErrorBoundary>
           <HashRouter>
-            <AppWrapper>
-              <ScrollToTop />
-              {/* Beta Testing Components */}
-              {BETA_CONFIG.isTestBuild && (
-                <>
-                  <BetaProtection />
-                  {BETA_CONFIG.showBetaWatermark && (
-                    <BetaWatermark 
-                      testerId={BETA_CONFIG.testerId}
-                      buildVersion={BETA_CONFIG.getBuildId()}
-                      businessName={BETA_CONFIG.businessName}
-                    />
-                  )}
-                  {BETA_CONFIG.trackUsage && (
-                    <VersionTracker 
-                      testerId={BETA_CONFIG.testerId}
-                      buildVersion={BETA_CONFIG.getBuildId()}
-                      businessName={BETA_CONFIG.businessName}
-                    />
-                  )}
-                </>
-              )}
-              <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/profile" element={
-                <ProtectedRoute>
-                  <Profile />
-                </ProtectedRoute>
-              } />
-              <Route path="/profile/edit" element={
-                <ProtectedRoute>
-                  <ProfileEdit />
-                </ProtectedRoute>
-              } />
-              <Route path="/profile/setup" element={
-                <ProtectedRoute>
-                  <ProfileSetup />
-                </ProtectedRoute>
-              } />
-              <Route path="/matches" element={<Navigate to="/search" replace />} />
-              <Route path="/search" element={
-                <ProtectedRoute>
-                  <Search />
-                </ProtectedRoute>
-              } />
-              <Route path="/messages" element={
-                <ProtectedRoute>
-                  <Messages />
-                </ProtectedRoute>
-              } />
-              <Route path="/browse" element={<Navigate to="/auth" replace />} />
-              <Route path="/questions" element={
-                <ProtectedRoute>
-                  <Questions />
-                </ProtectedRoute>
-              } />
-              <Route path="/quiz-results" element={
-                <ProtectedRoute>
-                  <QuizResults />
-                </ProtectedRoute>
-              } />
-              <Route path="/pricing" element={<Pricing />} />
-              <Route path="/payment-success" element={<PaymentSuccess />} />
-              <Route path="/premium-dashboard" element={
-                <ProtectedRoute>
-                  <PremiumDashboard />
-                </ProtectedRoute>
-              } />
-              <Route path="/connection-dna" element={
-                <ProtectedRoute>
-                  <ConnectionDNA />
-                </ProtectedRoute>
-              } />
-              <Route path="/memory-vault" element={
-                <ProtectedRoute>
-                  <MemoryVault />
-                </ProtectedRoute>
-              } />
-              <Route path="/ai-digest" element={
-                <ProtectedRoute>
-                  <AIDigest />
-                </ProtectedRoute>
-              } />
-              <Route path="/mission" element={<Mission />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/quick-start" element={<QuickStart />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/terms" element={<TermsOfService />} />
-              <Route path="/cookies" element={<CookieStatement />} />
-              <Route path="/accessibility" element={<AccessibilityStatement />} />
-              <Route path="/feature-test" element={<FeatureTest />} />
-              <Route path="/test-quiet-start" element={<TestQuietStart />} />
-              <Route path="/test-subscription-features" element={<TestSubscriptionFeatures />} />
-              <Route path="/dating-tips" element={<DatingTips />} />
-              <Route path="/safety" element={<SafetyCenter />} />
-              <Route path="/delete-account" element={<DeleteAccount />} />
-              <Route path="/sample-user-profile/:profileId" element={<SampleUserProfile />} />
-              <Route path="/." element={<Navigate to="/" replace />} />
-              <Route path="*" element={<NotFound />} />
-              </Routes>
-            </AppWrapper>
+            <AppContent />
           </HashRouter>
         </ErrorBoundary>
       </TooltipProvider>
