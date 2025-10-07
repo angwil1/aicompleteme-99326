@@ -65,7 +65,7 @@ export const AIDigestSidebar = ({ selectedMatch, otherUserId, otherUserName }: A
         // Check for Complete Plus or Beyond subscription
         const { data: profileData, error } = await supabase
           .from('profiles')
-          .select('unlocked_beyond_badge_enabled, is_premium')
+          .select('unlocked_beyond_badge_enabled, is_premium, created_at')
           .eq('id', user.id)
           .single();
         
@@ -75,8 +75,13 @@ export const AIDigestSidebar = ({ selectedMatch, otherUserId, otherUserName }: A
           console.log('✅ Profile data for AI Digest:', profileData);
         }
         
-        const hasAccess = profileData?.unlocked_beyond_badge_enabled || profileData?.is_premium || false;
-        console.log('🎯 AI Digest access:', hasAccess);
+        // Check if user is within 60-day free trial period
+        const isInTrialPeriod = profileData?.created_at 
+          ? new Date(profileData.created_at).getTime() > Date.now() - (60 * 24 * 60 * 60 * 1000)
+          : false;
+        
+        const hasAccess = profileData?.unlocked_beyond_badge_enabled || profileData?.is_premium || isInTrialPeriod;
+        console.log('🎯 AI Digest access:', hasAccess, 'Trial period:', isInTrialPeriod);
         setIsCompletePlus(hasAccess);
       } catch (error) {
         console.error('❌ Error checking subscription:', error);
@@ -218,7 +223,7 @@ export const AIDigestSidebar = ({ selectedMatch, otherUserId, otherUserName }: A
           <Lock className="h-8 w-8 text-primary mx-auto mb-2" />
           <CardTitle className="text-lg">AI Digest</CardTitle>
           <CardDescription className="text-sm">
-            AI Digest is part of Complete Plus. Upgrade to unlock emotional summaries and compatibility insights.
+            AI Digest requires Complete Plus subscription after your 60-day trial ends.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
