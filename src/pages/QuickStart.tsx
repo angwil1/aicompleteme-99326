@@ -6,6 +6,7 @@ import { CheckCircle, ArrowRight, Heart, Zap, Brain, User, UserCheck, Lock, Arro
 import { useAuth } from "@/hooks/useAuth";
 import { useProfile } from "@/hooks/useProfile";
 import { useToast } from "@/hooks/use-toast";
+import { InviteKindredSoul } from "@/components/InviteKindredSoul";
 
 const QuickStart = () => {
   const { user } = useAuth();
@@ -480,6 +481,13 @@ const QuickStart = () => {
               </div>
             </CardContent>
           </Card>
+
+          {/* Invite/Share Section */}
+          {user && (
+            <div className="mb-8">
+              <InviteKindredSoul />
+            </div>
+          )}
 
           <div className="text-center">
               <div className="bg-gradient-to-r from-primary/5 to-purple-500/5 border border-primary/20 rounded-2xl p-6 md:p-8 mb-6 md:mb-8">
