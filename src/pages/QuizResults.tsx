@@ -283,12 +283,16 @@ const QuizResults = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-background relative overflow-hidden">
-      {/* Modern Geometric Underlay */}
-      <div className="absolute inset-0 opacity-40 pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-gradient-to-br from-primary/60 via-primary/40 to-transparent rotate-45 blur-2xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] bg-gradient-to-tr from-secondary/60 via-secondary/40 to-transparent -rotate-45 blur-2xl"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-primary/10 via-transparent to-secondary/10"></div>
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Sophisticated Underlay */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Subtle gradient mesh */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5"></div>
+        {/* Corner accents */}
+        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-bl from-primary/10 to-transparent blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-secondary/10 to-transparent blur-3xl"></div>
+        {/* Center glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2/3 h-2/3 bg-gradient-radial from-primary/5 via-transparent to-transparent blur-2xl opacity-50"></div>
       </div>
       
       <Navbar />
