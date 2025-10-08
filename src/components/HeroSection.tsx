@@ -23,11 +23,10 @@ import coupleYoungParkMobile from '@/assets/couple-young-park-mobile.jpg';
 import coupleCollegeCampusStudy from '@/assets/couple-college-campus-study.jpg';
 import coupleCollegeCampusWalk from '@/assets/couple-college-campus-walk.jpg';
 import coupleCollegeMusicBench from '@/assets/couple-college-music-bench.jpg';
-import coupleYoungSunsetBeach from '@/assets/couple-young-sunset-beach.jpg';
-import coupleYoungCoffeeShop from '@/assets/couple-young-coffee-shop.jpg';
-import coupleYoungParkPicnic from '@/assets/couple-young-park-picnic.jpg';
-import coupleYoungLgbtqFestival from '@/assets/couple-young-lgbtq-festival.jpg';
-import coupleYoungUrbanRooftop from '@/assets/couple-young-urban-rooftop.jpg';
+import coupleYoungSunsetMobile from '@/assets/couple-young-sunset-mobile.jpg';
+import coupleYoungLgbtqMobile from '@/assets/couple-young-lgbtq-mobile.jpg';
+import coupleYoungUrbanMobile from '@/assets/couple-young-urban-mobile.jpg';
+import coupleYoungCookingMobile from '@/assets/couple-young-cooking-mobile.jpg';
 
 // Original rotating background images
 const heroImages = [
@@ -43,11 +42,10 @@ const heroImages = [
   coupleYoungBlackBeach,
   coupleHeroMobileLgbtq1,
   coupleLgbtqHispanicRomantic,
-  coupleYoungSunsetBeach,
-  coupleYoungCoffeeShop,
-  coupleYoungParkPicnic,
-  coupleYoungLgbtqFestival,
-  coupleYoungUrbanRooftop
+  coupleYoungSunsetMobile,
+  coupleYoungLgbtqMobile,
+  coupleYoungUrbanMobile,
+  coupleYoungCookingMobile
 ];
 
 // Per-image focal points optimized for both desktop and mobile
@@ -55,40 +53,38 @@ const heroPositionsDesktop = [
   'center center', // college campus study
   'center center', // college campus walk
   'center center', // college music bench
-  'center center', // young coffee mobile - new image
-  'center center', // young park mobile - new image
+  'center center', // young coffee mobile
+  'center center', // young park mobile
   'center 35%', // young romantic 1
   'center 40%', // young romantic 2
   'center 35%', // young romantic 3
   'center 35%', // young romantic 4
-  'center 25%', // young black beach couple - optimized for desktop
-  'center 6%',  // hero mobile lgbtq 1 - optimal head visibility
-  'center 10%',  // hispanic romantic - adjusted for composition
-  'center 30%', // young sunset beach
-  'center center', // young coffee shop
-  'center 40%', // young park picnic
-  'center 30%', // young lgbtq festival
-  'center 35%', // young urban rooftop
+  'center 25%', // young black beach couple
+  'center 6%',  // hero mobile lgbtq 1
+  'center 10%',  // hispanic romantic
+  'center 35%', // young sunset mobile - mobile optimized
+  'center 35%', // young lgbtq mobile - mobile optimized
+  'center 40%', // young urban mobile - mobile optimized
+  'center center', // young cooking mobile - mobile optimized
 ];
 
 const heroPositionsMobile = [
   'center center', // college campus study
   'center center', // college campus walk
   'center center', // college music bench
-  'center center', // young coffee mobile - new image
-  'center center', // young park mobile - new image
+  'center center', // young coffee mobile
+  'center center', // young park mobile
   'center 35%', // young romantic 1
   'center 40%', // young romantic 2
   'center 35%', // young romantic 3
   'center 35%', // young romantic 4
-  'center 28%', // young black beach couple - optimized for mobile
-  'center 12%', // hero mobile lgbtq 1 - mobile optimized
-  'center 18%', // hispanic romantic - mobile adjusted
-  'center 35%', // young sunset beach
-  'center center', // young coffee shop
-  'center 45%', // young park picnic
-  'center 35%', // young lgbtq festival
-  'center 40%', // young urban rooftop
+  'center 28%', // young black beach couple
+  'center 12%', // hero mobile lgbtq 1
+  'center 18%', // hispanic romantic
+  'center center', // young sunset mobile - portrait optimized
+  'center center', // young lgbtq mobile - portrait optimized
+  'center center', // young urban mobile - portrait optimized
+  'center center', // young cooking mobile - portrait optimized
 ];
 
 const HeroSection = () => {
