@@ -18,7 +18,6 @@ import coupleYoungRomantic2 from '@/assets/couple-young-romantic-2.jpg';
 import coupleYoungRomantic3 from '@/assets/couple-young-romantic-3.jpg';
 import coupleYoungRomantic4 from '@/assets/couple-young-romantic-4.jpg';
 import coupleYoungBlackBeach from '@/assets/couple-young-black-beach.jpg';
-import coupleYoungCoffeeMobile from '@/assets/couple-young-coffee-mobile.jpg';
 import coupleYoungParkMobile from '@/assets/couple-young-park-mobile.jpg';
 import coupleCollegeCampusWalk from '@/assets/couple-college-campus-walk.jpg';
 import coupleCollegeMusicBench from '@/assets/couple-college-music-bench.jpg';
@@ -30,7 +29,6 @@ import coupleYoungUrbanMobile from '@/assets/couple-young-urban-mobile.jpg';
 const heroImages = [
   coupleCollegeCampusWalk,
   coupleCollegeMusicBench,
-  coupleYoungCoffeeMobile,
   coupleYoungParkMobile,
   coupleYoungRomantic1,
   coupleYoungRomantic2,
@@ -48,7 +46,6 @@ const heroImages = [
 const heroPositionsDesktop = [
   'center center', // college campus walk
   'center center', // college music bench
-  'center center', // young coffee mobile
   'center center', // young park mobile
   'center 35%', // young romantic 1
   'center 40%', // young romantic 2
@@ -65,7 +62,6 @@ const heroPositionsDesktop = [
 const heroPositionsMobile = [
   'center center', // college campus walk
   'center center', // college music bench
-  'center center', // young coffee mobile
   'center center', // young park mobile
   'center 35%', // young romantic 1
   'center 40%', // young romantic 2
