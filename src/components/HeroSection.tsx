@@ -5,7 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import { Heart, Users, ArrowRight, ChevronDown } from 'lucide-react';
 import { useQuietStartProgress } from '@/hooks/useQuietStartProgress';
 import { useAuth } from '@/hooks/useAuth';
-import logoImage from "@/assets/logo-transparent-new.png";
+
 
 // Import diverse couple images
 import coupleHeroCoolTones from '@/assets/couple-hero-cool-tones.jpg';
@@ -153,13 +153,6 @@ useEffect(() => {
             
             {/* Logo and branding */}
             <div className="text-center space-y-3 lg:space-y-4">
-              <div className="flex justify-center">
-                <img 
-                  src={logoImage} 
-                  alt="AI Complete Me" 
-                  className="h-12 w-12 sm:h-14 sm:w-14 lg:h-16 lg:w-16 opacity-90"
-                />
-              </div>
               <div className="space-y-1 lg:space-y-2">
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl font-light text-white font-serif tracking-wide drop-shadow-lg">
                   Begin quietly. Explore freely for 60 days.
