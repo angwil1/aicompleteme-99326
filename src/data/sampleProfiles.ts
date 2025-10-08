@@ -53,6 +53,8 @@ export interface SampleProfile {
   gender: 'men' | 'women' | 'non-binary';
   lookingFor: 'men' | 'women' | 'non-binary' | 'casual-friends' | 'anyone';
   distance?: number; // Optional distance in miles
+  foundingCircle?: boolean; // Flag for Founding Circle Ambassadors
+  foundingCircleState?: string; // State they represent
   vibeGallery: {
     mood: string;
     description: string;

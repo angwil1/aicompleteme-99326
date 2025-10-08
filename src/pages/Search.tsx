@@ -715,13 +715,22 @@ const Search = () => {
                             >
                               {profile.name?.split(' ')[0]}, {profile.age}
                             </CardTitle>
-                            <Badge 
-                              variant="outline"
-                              className="text-xs px-1.5 py-0.5"
-                              aria-label={`${profile.vibeTag} personality vibe`}
-                            >
-                              {profile.vibeTag}
-                            </Badge>
+                            {profile.foundingCircle ? (
+                              <Badge 
+                                className="bg-gradient-to-r from-primary to-purple-600 text-white text-xs px-1.5 py-0.5"
+                                aria-label="Founding Circle Ambassador"
+                              >
+                                Founding Circle
+                              </Badge>
+                            ) : (
+                              <Badge 
+                                variant="outline"
+                                className="text-xs px-1.5 py-0.5"
+                                aria-label={`${profile.vibeTag} personality vibe`}
+                              >
+                                {profile.vibeTag}
+                              </Badge>
+                            )}
                           </div>
                           <div 
                             id={`profile-info-${profile.id}`}
@@ -777,25 +786,27 @@ const Search = () => {
                             <Button
                               variant="outline"
                               size="sm"
-                              className="flex-1 text-xs px-2 py-1 h-7"
+                              className={profile.foundingCircle ? "flex-1 text-xs px-2 py-1 h-7" : "flex-1 text-xs px-2 py-1 h-7"}
                               onClick={() => navigate(`/sample-user-profile/${profile.id}`)}
                               aria-label={`View full profile for ${profile.name}`}
                             >
-                              View
+                              {profile.foundingCircle ? 'Learn More' : 'View'}
                             </Button>
-                            <Button
-                              size="sm"
-                              className="flex-1 text-xs px-2 py-1 h-7"
-                              onClick={() => handleLike(profile.id)}
-                              disabled={isLiked}
-                              aria-label={isLiked ? `Already liked ${profile.name}` : `Like ${profile.name}'s profile`}
-                            >
-                              <Heart 
-                                className={`h-3 w-3 mr-1 ${isLiked ? 'fill-current' : ''}`} 
-                                aria-hidden="true"
-                              />
-                              {isLiked ? 'Liked' : 'Like'}
-                            </Button>
+                            {!profile.foundingCircle && (
+                              <Button
+                                size="sm"
+                                className="flex-1 text-xs px-2 py-1 h-7"
+                                onClick={() => handleLike(profile.id)}
+                                disabled={isLiked}
+                                aria-label={isLiked ? `Already liked ${profile.name}` : `Like ${profile.name}'s profile`}
+                              >
+                                <Heart 
+                                  className={`h-3 w-3 mr-1 ${isLiked ? 'fill-current' : ''}`} 
+                                  aria-hidden="true"
+                                />
+                                {isLiked ? 'Liked' : 'Like'}
+                              </Button>
+                            )}
                           </div>
                         </CardContent>
                       </Card>

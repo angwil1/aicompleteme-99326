@@ -217,7 +217,14 @@ const SampleUserProfile = () => {
               <CardHeader>
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                   <div className="flex-1">
-                    <CardTitle className="text-2xl">{profile.name?.split(' ')[0]}, {profile.age}</CardTitle>
+                    <div className="flex items-center gap-2 mb-2">
+                      <CardTitle className="text-2xl">{profile.name?.split(' ')[0]}, {profile.age}</CardTitle>
+                      {profile.foundingCircle && (
+                        <Badge className="bg-gradient-to-r from-primary to-purple-600 text-white">
+                          Founding Circle
+                        </Badge>
+                      )}
+                    </div>
                     <div className="flex flex-wrap items-center gap-4 text-muted-foreground mt-2">
                       <div className="flex items-center gap-1">
                         <MapPin className="h-4 w-4" />
@@ -243,7 +250,17 @@ const SampleUserProfile = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-4">
+                {profile.foundingCircle && (
+                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                    <p className="text-sm text-primary font-medium">
+                      ✨ Founding Circle – Here to build the vibe in {profile.foundingCircleState}
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      This profile is part of our launch team. Real matches are joining every day.
+                    </p>
+                  </div>
+                )}
                 <p className="text-muted-foreground leading-relaxed">
                   {profile.bio}
                 </p>
@@ -269,24 +286,26 @@ const SampleUserProfile = () => {
             )}
 
             {/* Action Buttons */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Button 
-                onClick={handleLike}
-                className={`flex-1 ${isLiked ? 'bg-pink-500 hover:bg-pink-600' : ''}`}
-              >
-                <Heart className={`h-4 w-4 mr-2 ${isLiked ? 'fill-current' : ''}`} />
-                {isLiked ? 'Liked!' : 'Like'}
-              </Button>
-              
-              <Button 
-                onClick={handleMessage}
-                variant="outline"
-                className="flex-1"
-              >
-                <MessageCircle className="h-4 w-4 mr-2" />
-                Message
-              </Button>
-            </div>
+            {!profile.foundingCircle && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Button 
+                  onClick={handleLike}
+                  className={`flex-1 ${isLiked ? 'bg-pink-500 hover:bg-pink-600' : ''}`}
+                >
+                  <Heart className={`h-4 w-4 mr-2 ${isLiked ? 'fill-current' : ''}`} />
+                  {isLiked ? 'Liked!' : 'Like'}
+                </Button>
+                
+                <Button 
+                  onClick={handleMessage}
+                  variant="outline"
+                  className="flex-1"
+                >
+                  <MessageCircle className="h-4 w-4 mr-2" />
+                  Message
+                </Button>
+              </div>
+            )}
 
             {/* Safety Actions */}
             <Card className="border-orange-200 bg-orange-50 dark:bg-orange-950">
