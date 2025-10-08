@@ -143,11 +143,11 @@ const QuickStart = () => {
             <CardContent className="p-4 md:p-8">
               <div className="space-y-6">
                  {/* Step 1: Verify Age */}
-                 <div className="bg-gradient-to-r from-blue-500/5 to-primary/5 border-2 border-blue-500/20 rounded-xl p-4 md:p-6 hover:shadow-lg transition-all duration-300">
+                 <div className="bg-gradient-to-r from-primary/5 to-purple-600/5 border-2 border-primary/20 rounded-xl p-4 md:p-6 hover:shadow-lg transition-all duration-300">
                    <div className="flex flex-col sm:flex-row items-start gap-4 md:gap-6">
                      <div className="flex-shrink-0 self-center sm:self-start">
                        <div className="relative">
-                         <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-r from-blue-500 to-primary text-white flex items-center justify-center text-lg md:text-2xl font-bold shadow-lg">
+                         <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-r from-primary to-purple-600 text-white flex items-center justify-center text-lg md:text-2xl font-bold shadow-lg">
                            {ageVerified ? <CheckCircle className="h-6 w-6 md:h-8 md:w-8" /> : "1"}
                          </div>
                          {ageVerified && (
@@ -168,24 +168,24 @@ const QuickStart = () => {
                              <CheckCircle className="h-4 w-4 text-green-500" />
                              <span className="text-sm text-green-600 font-medium">✓ Age Verified</span>
                            </div>
-                         ) : (
-                           <div className="flex items-center gap-2">
-                             <ShieldCheck className="h-4 w-4 text-blue-500" />
-                             <span className="text-sm text-blue-500 font-medium">Ready to verify</span>
-                           </div>
-                         )}
+                          ) : (
+                            <div className="flex items-center gap-2">
+                              <ShieldCheck className="h-4 w-4 text-primary" />
+                              <span className="text-sm text-primary font-medium">Ready to verify</span>
+                            </div>
+                          )}
                        </div>
-                       <Button 
-                         onClick={() => handleStepClick(1)}
-                         className={`w-full sm:w-auto min-w-0 ${
-                           ageVerified 
-                             ? "bg-green-500 hover:bg-green-600 text-white" 
-                             : "bg-gradient-to-r from-blue-500 to-primary hover:from-blue-600 hover:to-primary/90 text-white"
-                         }`}
-                         disabled={ageVerified}
-                       >
-                         {ageVerified ? "✓ Age Verified" : "Verify Age"}
-                       </Button>
+                        <Button 
+                          onClick={() => handleStepClick(1)}
+                          className={`w-full sm:w-auto min-w-0 ${
+                            ageVerified 
+                              ? "bg-green-500 hover:bg-green-600 text-white" 
+                              : "bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white"
+                          }`}
+                          disabled={ageVerified}
+                        >
+                          {ageVerified ? "✓ Age Verified" : "Verify Age"}
+                        </Button>
                      </div>
                    </div>
                  </div>
