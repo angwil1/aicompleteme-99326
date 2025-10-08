@@ -153,55 +153,46 @@ const DatingTips = () => {
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-pink-50 via-rose-50 to-purple-50 dark:from-pink-950/20 dark:via-rose-950/20 dark:to-purple-950/20">
-      {/* Romantic background elements */}
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-background via-muted/30 to-background">
+      {/* Elegant background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-pink-200/20 dark:bg-pink-800/20 rounded-full blur-xl"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 bg-rose-200/20 dark:bg-rose-800/20 rounded-full blur-lg"></div>
-        <div className="absolute bottom-32 left-20 w-40 h-40 bg-purple-200/20 dark:bg-purple-800/20 rounded-full blur-2xl"></div>
-        <div className="absolute bottom-20 right-32 w-28 h-28 bg-pink-300/20 dark:bg-pink-700/20 rounded-full blur-xl"></div>
-        
-        {/* Subtle heart pattern */}
-        <div className="absolute inset-0 opacity-5 dark:opacity-10">
-          <div className="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
-            <Heart className="w-8 h-8 text-pink-400 fill-current" />
-          </div>
-          <div className="absolute top-1/3 right-1/4 transform translate-x-1/2 -translate-y-1/2">
-            <Heart className="w-6 h-6 text-rose-400 fill-current" />
-          </div>
-          <div className="absolute bottom-1/4 left-1/3 transform -translate-x-1/2 translate-y-1/2">
-            <Heart className="w-7 h-7 text-purple-400 fill-current" />
-          </div>
-          <div className="absolute bottom-1/3 right-1/3 transform translate-x-1/2 translate-y-1/2">
-            <Heart className="w-5 h-5 text-pink-400 fill-current" />
-          </div>
-        </div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-40 right-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-32 left-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-32 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
       </div>
       
       <div className="relative z-10">
         <Navbar />
-        <div className="container mx-auto px-4 pt-20 pb-8 max-w-6xl">
-          <header className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4">Dating Tips That Actually Work</h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 max-w-7xl">
+          <header className="text-center mb-16 animate-fade-in">
+            <div className="inline-flex items-center justify-center mb-6">
+              <Heart className="h-12 w-12 text-primary fill-primary/20" />
+            </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+              Dating Tips That Actually Work
+            </h1>
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Real advice from real experiences. No fairy tale promises, just practical tips to help you have better dates and find genuine connections.
             </p>
           </header>
 
           {/* App-specific tips banner */}
-          <Card className="mb-8 border-primary/20 bg-primary/5">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Heart className="h-5 w-5 text-primary" />
+          <Card className="mb-12 border-primary/20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5 shadow-lg animate-fade-in">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3 text-xl">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <Heart className="h-6 w-6 text-primary" />
+                </div>
                 Make the Most of Your Memory Vault
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2">
+              <ul className="grid sm:grid-cols-2 gap-3">
                 {appSpecificTips.map((tip, index) => (
-                  <li key={index} className="flex items-start gap-2">
-                    <CheckCircle className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
-                    <span className="text-sm">{tip}</span>
+                  <li key={index} className="flex items-start gap-3 p-3 rounded-lg bg-background/50 hover:bg-background/80 transition-colors">
+                    <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-sm leading-relaxed">{tip}</span>
                   </li>
                 ))}
               </ul>
@@ -209,26 +200,30 @@ const DatingTips = () => {
           </Card>
 
           {/* Tips grid */}
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {tipCategories.map((category) => {
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 animate-fade-in">
+            {tipCategories.map((category, idx) => {
               const IconComponent = category.icon;
               return (
-                <Card key={category.id} className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-3">
-                      <div className={`p-2 rounded-lg ${category.color}`}>
-                        <IconComponent className="h-5 w-5 text-white" />
+                <Card 
+                  key={category.id} 
+                  className="group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border-muted/40 bg-card/50 backdrop-blur-sm"
+                  style={{ animationDelay: `${idx * 0.1}s` }}
+                >
+                  <CardHeader className="pb-4">
+                    <CardTitle className="flex items-center gap-3 text-lg">
+                      <div className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 group-hover:from-primary/20 group-hover:to-accent/20 transition-colors">
+                        <IconComponent className="h-6 w-6 text-primary" />
                       </div>
                       {category.title}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-4">
+                  <CardContent className="space-y-5">
                     {category.tips.map((tip, index) => (
-                      <div key={index} className="space-y-2">
-                        <div className="flex items-start gap-2">
-                          <h4 className="font-medium text-sm flex-1">{tip.title}</h4>
+                      <div key={index} className="space-y-2 pb-5 border-b border-border/50 last:border-0 last:pb-0">
+                        <div className="flex items-start justify-between gap-2">
+                          <h4 className="font-semibold text-sm flex-1 text-foreground">{tip.title}</h4>
                           {tip.practical && (
-                            <Badge variant="secondary" className="text-xs">
+                            <Badge variant="secondary" className="text-xs bg-primary/10 text-primary border-primary/20">
                               Practical
                             </Badge>
                           )}
@@ -245,15 +240,17 @@ const DatingTips = () => {
           </div>
 
           {/* Bottom note */}
-          <div className="mt-12 text-center">
-            <Card className="max-w-2xl mx-auto">
-              <CardContent className="pt-6">
-                <Users className="h-8 w-8 text-muted-foreground mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">Remember</h3>
-                <p className="text-sm text-muted-foreground">
+          <div className="mt-16 text-center animate-fade-in">
+            <Card className="max-w-3xl mx-auto border-primary/20 bg-gradient-to-br from-primary/5 via-background to-accent/5 shadow-lg">
+              <CardContent className="pt-8 pb-8 px-6 sm:px-8">
+                <div className="p-4 bg-primary/10 rounded-full w-fit mx-auto mb-6">
+                  <Users className="h-10 w-10 text-primary" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4">Remember</h3>
+                <p className="text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">
                   Dating is about finding someone who appreciates you for who you are. 
                   These tips can help you present your best self, but the right person 
-                  will like you even on your awkward days.
+                  will like you even on your awkward days. Stay authentic, stay safe, and enjoy the journey.
                 </p>
               </CardContent>
             </Card>
