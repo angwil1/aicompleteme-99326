@@ -20,15 +20,15 @@ import coupleYoungRomantic4 from '@/assets/couple-young-romantic-4.jpg';
 import coupleYoungBlackBeach from '@/assets/couple-young-black-beach.jpg';
 import coupleYoungCoffeeMobile from '@/assets/couple-young-coffee-mobile.jpg';
 import coupleYoungParkMobile from '@/assets/couple-young-park-mobile.jpg';
+import coupleCollegeCampusStudy from '@/assets/couple-college-campus-study.jpg';
 import coupleCollegeCampusWalk from '@/assets/couple-college-campus-walk.jpg';
 import coupleCollegeMusicBench from '@/assets/couple-college-music-bench.jpg';
-import coupleCollegeLibrary from '@/assets/couple-college-library.jpg';
 
 // Original rotating background images
 const heroImages = [
+  coupleCollegeCampusStudy,
   coupleCollegeCampusWalk,
   coupleCollegeMusicBench,
-  coupleCollegeLibrary,
   coupleYoungCoffeeMobile,
   coupleYoungParkMobile,
   coupleYoungRomantic1,
@@ -42,9 +42,9 @@ const heroImages = [
 
 // Per-image focal points optimized for both desktop and mobile
 const heroPositionsDesktop = [
+  'center center', // college campus study
   'center center', // college campus walk
   'center center', // college music bench
-  'center center', // college library
   'center center', // young coffee mobile - new image
   'center center', // young park mobile - new image
   'center 35%', // young romantic 1
@@ -57,9 +57,9 @@ const heroPositionsDesktop = [
 ];
 
 const heroPositionsMobile = [
+  'center center', // college campus study
   'center center', // college campus walk
   'center center', // college music bench
-  'center center', // college library
   'center center', // young coffee mobile - new image
   'center center', // young park mobile - new image
   'center 35%', // young romantic 1
