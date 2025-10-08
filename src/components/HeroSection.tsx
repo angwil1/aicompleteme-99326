@@ -28,7 +28,6 @@ import coupleYoungCoffeeShop from '@/assets/couple-young-coffee-shop.jpg';
 import coupleYoungParkPicnic from '@/assets/couple-young-park-picnic.jpg';
 import coupleYoungLgbtqFestival from '@/assets/couple-young-lgbtq-festival.jpg';
 import coupleYoungUrbanRooftop from '@/assets/couple-young-urban-rooftop.jpg';
-import coupleYoungCookingTogether from '@/assets/couple-young-cooking-together.jpg';
 
 // Original rotating background images
 const heroImages = [
@@ -48,8 +47,7 @@ const heroImages = [
   coupleYoungCoffeeShop,
   coupleYoungParkPicnic,
   coupleYoungLgbtqFestival,
-  coupleYoungUrbanRooftop,
-  coupleYoungCookingTogether
+  coupleYoungUrbanRooftop
 ];
 
 // Per-image focal points optimized for both desktop and mobile
@@ -71,7 +69,6 @@ const heroPositionsDesktop = [
   'center 40%', // young park picnic
   'center 30%', // young lgbtq festival
   'center 35%', // young urban rooftop
-  'center center', // young cooking together
 ];
 
 const heroPositionsMobile = [
@@ -92,7 +89,6 @@ const heroPositionsMobile = [
   'center 45%', // young park picnic
   'center 35%', // young lgbtq festival
   'center 40%', // young urban rooftop
-  'center center', // young cooking together
 ];
 
 const HeroSection = () => {
