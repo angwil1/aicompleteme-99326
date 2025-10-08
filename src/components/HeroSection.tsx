@@ -25,7 +25,6 @@ import coupleCollegeMusicBench from '@/assets/couple-college-music-bench.jpg';
 import coupleYoungSunsetMobile from '@/assets/couple-young-sunset-mobile.jpg';
 import coupleYoungLgbtqMobile from '@/assets/couple-young-lgbtq-mobile.jpg';
 import coupleYoungUrbanMobile from '@/assets/couple-young-urban-mobile.jpg';
-import coupleYoungCookingMobile from '@/assets/couple-young-cooking-mobile.jpg';
 
 // Original rotating background images
 const heroImages = [
@@ -42,8 +41,7 @@ const heroImages = [
   coupleLgbtqHispanicRomantic,
   coupleYoungSunsetMobile,
   coupleYoungLgbtqMobile,
-  coupleYoungUrbanMobile,
-  coupleYoungCookingMobile
+  coupleYoungUrbanMobile
 ];
 
 // Per-image focal points optimized for both desktop and mobile
@@ -62,7 +60,6 @@ const heroPositionsDesktop = [
   'center 35%', // young sunset mobile - mobile optimized
   'center 35%', // young lgbtq mobile - mobile optimized
   'center 40%', // young urban mobile - mobile optimized
-  'center center', // young cooking mobile - mobile optimized
 ];
 
 const heroPositionsMobile = [
@@ -80,7 +77,6 @@ const heroPositionsMobile = [
   'center center', // young sunset mobile - portrait optimized
   'center center', // young lgbtq mobile - portrait optimized
   'center center', // young urban mobile - portrait optimized
-  'center center', // young cooking mobile - portrait optimized
 ];
 
 const HeroSection = () => {
