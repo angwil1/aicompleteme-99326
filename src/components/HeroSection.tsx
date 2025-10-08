@@ -22,7 +22,6 @@ import coupleYoungParkMobile from '@/assets/couple-young-park-mobile.jpg';
 import coupleCollegeCampusWalk from '@/assets/couple-college-campus-walk.jpg';
 import coupleCollegeMusicBench from '@/assets/couple-college-music-bench.jpg';
 import coupleYoungSunsetMobile from '@/assets/couple-young-sunset-mobile.jpg';
-import coupleYoungLgbtqMobile from '@/assets/couple-young-lgbtq-mobile.jpg';
 import coupleYoungUrbanMobile from '@/assets/couple-young-urban-mobile.jpg';
 
 // Original rotating background images
@@ -38,7 +37,6 @@ const heroImages = [
   coupleHeroMobileLgbtq1,
   coupleLgbtqHispanicRomantic,
   coupleYoungSunsetMobile,
-  coupleYoungLgbtqMobile,
   coupleYoungUrbanMobile
 ];
 
@@ -55,7 +53,6 @@ const heroPositionsDesktop = [
   'center 6%',  // hero mobile lgbtq 1
   'center 10%',  // hispanic romantic
   'center 35%', // young sunset mobile - mobile optimized
-  'center 35%', // young lgbtq mobile - mobile optimized
   'center 40%', // young urban mobile - mobile optimized
 ];
 
@@ -71,7 +68,6 @@ const heroPositionsMobile = [
   'center 12%', // hero mobile lgbtq 1
   'center 18%', // hispanic romantic
   'center center', // young sunset mobile - portrait optimized
-  'center center', // young lgbtq mobile - portrait optimized
   'center center', // young urban mobile - portrait optimized
 ];
 
