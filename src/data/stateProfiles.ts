@@ -309,28 +309,6 @@ export const stateProfiles: SampleProfile[] = [
     foundingCircleState: "Connecticut",
     vibeGallery: []
   },
-  {
-    id: "ct-female-1",
-    name: "Ivy",
-    age: 28,
-    bio: "Museum curator with a passion for American history and antique finds. Seeking someone who loves stories from the past.",
-    vibeTag: "Intellectual",
-    location: "New Haven, CT",
-    zipCode: "06510",
-    occupation: "Museum Curator",
-    emotionalSoundtrack: "",
-    tiktokUrl: "",
-    photos: ["/src/assets/story-profile-1.jpg"],
-    interests: ["History", "Antiques", "Museums"],
-    conversationStarters: ["Most fascinating historical discovery?", "Favorite antique find?"],
-    poeticMicrocopy: "",
-    aestheticPreference: "",
-    personalityType: "",
-    loveLanguage: "",
-    gender: "women",
-    lookingFor: "men",
-    vibeGallery: []
-  },
   // Delaware
   {
     id: "de-male-1",
