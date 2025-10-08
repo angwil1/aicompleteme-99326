@@ -23,6 +23,12 @@ import coupleYoungParkMobile from '@/assets/couple-young-park-mobile.jpg';
 import coupleCollegeCampusStudy from '@/assets/couple-college-campus-study.jpg';
 import coupleCollegeCampusWalk from '@/assets/couple-college-campus-walk.jpg';
 import coupleCollegeMusicBench from '@/assets/couple-college-music-bench.jpg';
+import coupleYoungSunsetBeach from '@/assets/couple-young-sunset-beach.jpg';
+import coupleYoungCoffeeShop from '@/assets/couple-young-coffee-shop.jpg';
+import coupleYoungParkPicnic from '@/assets/couple-young-park-picnic.jpg';
+import coupleYoungLgbtqFestival from '@/assets/couple-young-lgbtq-festival.jpg';
+import coupleYoungUrbanRooftop from '@/assets/couple-young-urban-rooftop.jpg';
+import coupleYoungCookingTogether from '@/assets/couple-young-cooking-together.jpg';
 
 // Original rotating background images
 const heroImages = [
@@ -37,7 +43,13 @@ const heroImages = [
   coupleYoungRomantic4,
   coupleYoungBlackBeach,
   coupleHeroMobileLgbtq1,
-  coupleLgbtqHispanicRomantic
+  coupleLgbtqHispanicRomantic,
+  coupleYoungSunsetBeach,
+  coupleYoungCoffeeShop,
+  coupleYoungParkPicnic,
+  coupleYoungLgbtqFestival,
+  coupleYoungUrbanRooftop,
+  coupleYoungCookingTogether
 ];
 
 // Per-image focal points optimized for both desktop and mobile
@@ -54,6 +66,12 @@ const heroPositionsDesktop = [
   'center 25%', // young black beach couple - optimized for desktop
   'center 6%',  // hero mobile lgbtq 1 - optimal head visibility
   'center 10%',  // hispanic romantic - adjusted for composition
+  'center 30%', // young sunset beach
+  'center center', // young coffee shop
+  'center 40%', // young park picnic
+  'center 30%', // young lgbtq festival
+  'center 35%', // young urban rooftop
+  'center center', // young cooking together
 ];
 
 const heroPositionsMobile = [
@@ -69,6 +87,12 @@ const heroPositionsMobile = [
   'center 28%', // young black beach couple - optimized for mobile
   'center 12%', // hero mobile lgbtq 1 - mobile optimized
   'center 18%', // hispanic romantic - mobile adjusted
+  'center 35%', // young sunset beach
+  'center center', // young coffee shop
+  'center 45%', // young park picnic
+  'center 35%', // young lgbtq festival
+  'center 40%', // young urban rooftop
+  'center center', // young cooking together
 ];
 
 const HeroSection = () => {
