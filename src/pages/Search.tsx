@@ -207,8 +207,8 @@ const Search = () => {
   const filterProfiles = async (zipCode: string, distance: string, ageRange: string, genderPref: string, selectedState?: string) => {
     console.log('🔍 SEARCH STARTED - Looking for:', genderPref);
     
-    // Combine all available profiles
-    const allProfiles = [...founderCuratedProfiles, ...stateProfiles];
+    // Use only Founding Circle Ambassadors (one per state)
+    const allProfiles = [...stateProfiles];
     console.log('📊 Total profiles available:', allProfiles.length);
 
     // Normalize gender preference to avoid mismatches
