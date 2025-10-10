@@ -167,18 +167,6 @@ export const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex justify-between items-center h-16 w-full">
           <div className="flex items-center">
-            <Link to="/" className="flex flex-col items-center gap-1 group">
-              <img 
-                src={logoImage} 
-                alt="AI Complete Me Logo" 
-                className="h-8 w-8 lg:h-10 lg:w-10 transition-all duration-300 group-hover:scale-105"
-              />
-              <div className="flex items-center">
-                <span className="text-xs lg:text-sm font-serif font-semibold text-foreground group-hover:text-primary transition-all duration-300">
-                  AI Complete Me
-                </span>
-              </div>
-            </Link>
           </div>
 
           {/* Desktop Navigation */}
