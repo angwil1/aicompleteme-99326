@@ -253,11 +253,11 @@ const SampleUserProfile = () => {
               <CardContent className="space-y-4">
                 {profile.foundingCircle && (
                   <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                    <p className="text-sm text-primary font-medium">
-                      ✨ Founding Circle – Here to build the vibe in {profile.foundingCircleState}
+                    <p className="text-sm text-primary font-medium mb-2">
+                      ✨ You're early—and that's a good thing.
                     </p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      This profile is part of our launch team. Real matches are joining every day.
+                    <p className="text-xs text-muted-foreground">
+                      Our Founding Circle is here to greet you while the real matches roll in.
                     </p>
                   </div>
                 )}
