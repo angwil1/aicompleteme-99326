@@ -439,7 +439,7 @@ export const stateProfiles: SampleProfile[] = [
     occupation: "Community Ambassador",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/remy-profile.jpg"],
+    photos: ["/src/assets/remy-profile-realistic.jpg"],
     interests: ["Community Building", "Vibrant Culture", "Welcoming New Members"],
     conversationStarters: [],
     poeticMicrocopy: "",
