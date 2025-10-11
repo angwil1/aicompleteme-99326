@@ -13,9 +13,9 @@ interface CoupleImage {
   alt: string;
   srcDesktop?: string;
   srcMobile?: string;
-  focus?: string;
-  focusDesktop?: string;
   focusMobile?: string;
+  focusTablet?: string;
+  focusDesktop?: string;
 }
 
 const ambientCoupleImages: CoupleImage[] = [
@@ -23,42 +23,55 @@ const ambientCoupleImages: CoupleImage[] = [
     src: coupleYoungSunsetBeach,
     caption: "Golden hour smiles, effortless chemistry",
     alt: "Young interracial couple laughing together at sunset on a beach",
-    focusDesktop: 'center center',
-    focusMobile: 'center center'
+    focusMobile: 'center 40%',
+    focusTablet: 'center 35%',
+    focusDesktop: 'center center'
   },
   {
     src: coupleBlackRomantic,
     caption: "Pure connection, beautiful souls",
     alt: "Beautiful Black couple sharing a romantic moment",
-    focusDesktop: 'center 0%',
-    focusMobile: 'center 0%'
+    focusMobile: 'center 30%',
+    focusTablet: 'center 25%',
+    focusDesktop: 'center 20%'
   },
   {
     src: coupleWhiteNatural,
     caption: "Natural love, timeless moments",
     alt: "Beautiful white couple in natural romantic moment",
-    focusDesktop: 'center 0%',
-    focusMobile: 'center 0%'
+    focusMobile: 'center 35%',
+    focusTablet: 'center 30%',
+    focusDesktop: 'center 25%'
   },
   {
     src: coupleIndianRomantic,
     caption: "Love transcends all boundaries",
     alt: "Beautiful Indian couple sharing a romantic moment",
-    focusDesktop: 'center 0%',
-    focusMobile: 'center 0%'
+    focusMobile: 'center 30%',
+    focusTablet: 'center 25%',
+    focusDesktop: 'center 20%'
   }
 ];
 
 export const AmbientCoupleCarousel = () => {
   const [api, setApi] = useState<any>();
   const [current, setCurrent] = useState(0);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [deviceSize, setDeviceSize] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
 
   useEffect(() => {
-    const update = () => setIsDesktop(window.innerWidth >= 1024);
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
+    const updateDeviceSize = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setDeviceSize('mobile');
+      } else if (width < 1024) {
+        setDeviceSize('tablet');
+      } else {
+        setDeviceSize('desktop');
+      }
+    };
+    updateDeviceSize();
+    window.addEventListener('resize', updateDeviceSize);
+    return () => window.removeEventListener('resize', updateDeviceSize);
   }, []);
 
   useEffect(() => {
@@ -101,19 +114,21 @@ export const AmbientCoupleCarousel = () => {
             {ambientCoupleImages.map((image, index) => (
               <CarouselItem key={index} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
                 <Card className="border-0 bg-transparent group cursor-pointer">
-                  <div className="relative overflow-hidden rounded-2xl bg-muted/20">
+                   <div className="relative overflow-hidden rounded-2xl bg-muted/20">
                      <img
                        src={image.src}
                        alt={image.alt}
-                       className="w-full h-64 sm:h-72 md:h-80 lg:h-96 xl:h-[28rem] object-cover transition-transform duration-500 group-hover:scale-105"
+                       className="w-full h-72 sm:h-80 md:h-[22rem] lg:h-[26rem] xl:h-[30rem] object-cover transition-transform duration-500 group-hover:scale-105"
                        loading="lazy"
                        style={{ 
-                         objectPosition: isDesktop 
-                           ? (image.focusDesktop ?? 'center center') 
-                           : (image.focusMobile ?? 'center center')
+                         objectPosition: deviceSize === 'mobile' 
+                           ? (image.focusMobile ?? 'center center')
+                           : deviceSize === 'tablet'
+                           ? (image.focusTablet ?? 'center center')
+                           : (image.focusDesktop ?? 'center center')
                        }}
                      />
-                  </div>
+                   </div>
                 </Card>
               </CarouselItem>
             ))}
