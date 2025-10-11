@@ -405,7 +405,7 @@ export const stateProfiles: SampleProfile[] = [
   // Kentucky
   {
     id: "ky-male-1",
-    name: "Beau",
+    name: "Belle",
     age: 31,
     bio: "Community Ambassador ✨ Here to build the vibe in Kentucky\n\nNot here to match—just here to welcome you. Real connections are joining every day.",
     vibeTag: "Welcoming Guide",
@@ -414,15 +414,15 @@ export const stateProfiles: SampleProfile[] = [
     occupation: "Community Ambassador",
     emotionalSoundtrack: "",
     tiktokUrl: "",
-    photos: ["/src/assets/beau-profile-realistic.jpg"],
+    photos: ["/src/assets/belle-profile-realistic.jpg"],
     interests: ["Community Building", "Southern Charm", "Welcoming New Members"],
     conversationStarters: [],
     poeticMicrocopy: "",
     aestheticPreference: "",
     personalityType: "",
     loveLanguage: "",
-    gender: "men",
-    lookingFor: "women",
+    gender: "women",
+    lookingFor: "men",
     foundingCircle: true,
     foundingCircleState: "Kentucky",
     vibeGallery: []
