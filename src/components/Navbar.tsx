@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { useMemoryVault } from "@/hooks/useMemoryVault";
-import logoImage from "@/assets/logo-transparent-new.png";
+// Logo is now referenced as /logo.svg
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -167,6 +167,9 @@ export const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex justify-between items-center h-16 w-full">
           <div className="flex items-center">
+            <Link to="/" className="flex items-center">
+              <img src="/logo.svg" alt="AI Complete Me logo" className="h-10 w-10" />
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
