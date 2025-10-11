@@ -53,13 +53,17 @@ export const Footer = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <img src="/logo.svg" alt="AI Complete Me logo" className="h-8 w-8" />
-              <h3 className="text-lg font-semibold">AI Complete Me</h3>
+            <div className="flex flex-col items-start mb-4">
+              <div className="flex flex-col items-center gap-2 mb-3">
+                <img src="/logo.svg" alt="AI Complete Me logo" className="h-12 w-12" />
+                <h3 className="text-lg font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'hsl(240 12% 20%)' }}>
+                  AI Complete Me
+                </h3>
+              </div>
+              <p className="text-foreground/80 text-sm leading-relaxed">
+                Dating with depth, powered by trust. Because real connection isn't rare—it's just waiting for the right space.
+              </p>
             </div>
-            <p className="text-foreground/80 text-sm leading-relaxed">
-              Dating with depth, powered by trust. Because real connection isn't rare—it's just waiting for the right space.
-            </p>
           </div>
           
           <div>

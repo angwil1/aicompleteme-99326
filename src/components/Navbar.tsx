@@ -167,8 +167,11 @@ export const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex justify-between items-center h-16 w-full">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center">
-              <img src="/logo.svg" alt="AI Complete Me logo" className="h-10 w-10" />
+            <Link to="/" className="flex flex-col items-center gap-1">
+              <img src="/logo.svg" alt="AI Complete Me logo" className="h-9 w-9" />
+              <span className="text-xs font-medium tracking-wide" style={{ fontFamily: 'Inter, sans-serif', color: 'hsl(240 12% 20%)' }}>
+                AI Complete Me
+              </span>
             </Link>
           </div>
 
